@@ -9,7 +9,7 @@ namespace JohnyStoreData.Models
     /// <summary>
     /// Статус наличия
     /// </summary>
-    internal class AvailabilityStatus
+    public class AvailabilityStatus
     {
         public int Id { get; set; }
         public string Name { get; set; }

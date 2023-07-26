@@ -9,9 +9,9 @@ namespace JohnyStoreData.Models
     /// <summary>
     /// Стиль кроссовок
     /// </summary>
-    internal class Style
+    public class Style
     {
-        int Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public bool Visible { get; set; }
     }

@@ -9,7 +9,7 @@ namespace JohnyStoreData.Models
     /// <summary>
     /// Заказ
     /// </summary>
-    internal class Order
+    public class Order
     {
         public int Id { get; set; }
         public int IdModel { get; set; }

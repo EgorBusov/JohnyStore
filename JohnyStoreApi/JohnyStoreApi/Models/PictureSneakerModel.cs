@@ -9,6 +9,5 @@
         /// </summary>
         public bool Main { get; set; }
         public string Href { get; set; }
-        public bool Visible { get; set; }
     }
 }

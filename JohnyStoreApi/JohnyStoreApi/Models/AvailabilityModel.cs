@@ -16,6 +16,5 @@
         public AvailabilityStatusModel Status44 { get; set; }
         public AvailabilityStatusModel Status45 { get; set; }
         public AvailabilityStatusModel Status46 { get; set; }
-        public bool Visible { get; set; }
     }
 }

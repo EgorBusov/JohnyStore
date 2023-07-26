@@ -9,7 +9,7 @@ namespace JohnyStoreData.Models
     /// <summary>
     /// Картинка к модели кроссовок
     /// </summary>
-    internal class PictureSneaker
+    public class PictureSneaker
     {
         public int Id { get; set; }
         public int IdModel { get; set; }

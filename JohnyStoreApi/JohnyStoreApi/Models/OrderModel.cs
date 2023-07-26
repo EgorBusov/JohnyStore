@@ -8,6 +8,5 @@
         public string Email { get; set; }
         public string Phone { get; set; }
         public OrderStatusModel Status { get; set; }
-        public bool Visible { get; set; }
     }
 }

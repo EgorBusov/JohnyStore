@@ -11,7 +11,7 @@ namespace JohnyStoreData.Models
     /// <summary>
     /// Наличие
     /// </summary>
-    internal class Availability
+    public class Availability
     {
         public int Id { get; set; }
         public int IdModel { get; set; }

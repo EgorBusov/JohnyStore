@@ -27,6 +27,5 @@
         public bool Sale { get; set; }
         public bool New { get; set; }
         public string Color { get; set; }
-        public bool Visible { get; set; }
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace JohnyStoreData.EF
 {
-    internal class JohnyStoreContext : DbContext
+    public class JohnyStoreContext : DbContext
     {
         public JohnyStoreContext(DbContextOptions<JohnyStoreContext> options)
         : base(options)
