@@ -1,3 +1,5 @@
+using JohnyStoreApi.Logging;
+using JohnyStoreApi.Logging.Interfaces;
 using JohnyStoreData.EF;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 string connection = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new Exception("Строка подключения не найдена");
 builder.Services.AddDbContext<JohnyStoreContext>(options => options.UseSqlServer(connection));
+builder.Services.AddSingleton<IJohnyStoreLogger, JohnyStoreLogger>(); //логгер
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

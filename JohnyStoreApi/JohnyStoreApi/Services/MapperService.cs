@@ -1,6 +1,8 @@
 ﻿using JohnyStoreApi.Models;
+using JohnyStoreApi.Models.Brand;
 using JohnyStoreApi.Models.Picture;
 using JohnyStoreApi.Models.Sneaker;
+using JohnyStoreApi.Models.Style;
 using JohnyStoreData.EF;
 using JohnyStoreData.Models;
 using Microsoft.EntityFrameworkCore;
@@ -96,16 +98,31 @@ namespace JohnyStoreApi.Services
             return sneakerModel;
         }
 
-
-        public static Sneaker MapToSneaker(this SneakerModel sneakerModel)
+        /// <summary>
+        /// Приводит AddSneakerModel к Sneaker
+        /// </summary>
+        /// <param name="addSneakerModel"></param>
+        /// <returns></returns>
+        public static Sneaker MapToSneaker(this AddSneakerModel addSneakerModel)
         {
             Sneaker sneaker = new Sneaker()
             {
-                Id = sneakerModel.Id,
-                IdBrand = 
-                Name = sneakerModel.Name,
+                Id = addSneakerModel.Id,
+                IdBrand = addSneakerModel.Brand,
+                Name = addSneakerModel.Name,
+                Price = addSneakerModel.Price,
+                Description = addSneakerModel.Description,
+                Gender = addSneakerModel.Gender,
+                WinterOrSummer = addSneakerModel.WinterOrSummer,
+                IdStyle = addSneakerModel.Style,
+                Article = addSneakerModel.Article,
+                Sale = addSneakerModel.Sale,
+                New = addSneakerModel.New,
+                Color = addSneakerModel.Color,
+                Visible = true
+            };
 
-            }
+            return sneaker;
         }
         #endregion
 

@@ -9,85 +9,85 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = JohnyStoreWeb
 build_property.RootNamespace = JohnyStoreWeb
-build_property.ProjectDir = C:\Users\goldb\OneDrive\Рабочий стол\GitHub\JohnyStore\JohnyStoreApi\JohnyStoreWeb\
+build_property.ProjectDir = C:\Users\pilla\Desktop\JohnyStore\JohnyStoreApi\JohnyStoreWeb\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\goldb\OneDrive\Рабочий стол\GitHub\JohnyStore\JohnyStoreApi\JohnyStoreWeb
+build_property.MSBuildProjectDirectory = C:\Users\pilla\Desktop\JohnyStore\JohnyStoreApi\JohnyStoreWeb
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/goldb/OneDrive/Рабочий стол/GitHub/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Home/about-us.cshtml]
+[C:/Users/pilla/Desktop/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Home/about-us.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxhYm91dC11cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/goldb/OneDrive/Рабочий стол/GitHub/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Home/blog-no-sidebar.cshtml]
+[C:/Users/pilla/Desktop/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Home/blog-no-sidebar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxibG9nLW5vLXNpZGViYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/goldb/OneDrive/Рабочий стол/GitHub/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Home/cart.cshtml]
+[C:/Users/pilla/Desktop/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Home/cart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxjYXJ0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/goldb/OneDrive/Рабочий стол/GitHub/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Home/checkout.cshtml]
+[C:/Users/pilla/Desktop/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Home/checkout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxjaGVja291dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/goldb/OneDrive/Рабочий стол/GitHub/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Home/compare.cshtml]
+[C:/Users/pilla/Desktop/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Home/compare.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxjb21wYXJlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/goldb/OneDrive/Рабочий стол/GitHub/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Home/contact.cshtml]
+[C:/Users/pilla/Desktop/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Home/contact.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxjb250YWN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/goldb/OneDrive/Рабочий стол/GitHub/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Home/Index.cshtml]
+[C:/Users/pilla/Desktop/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/goldb/OneDrive/Рабочий стол/GitHub/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Home/login-register.cshtml]
+[C:/Users/pilla/Desktop/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Home/login-register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxsb2dpbi1yZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/goldb/OneDrive/Рабочий стол/GitHub/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Home/my-account.cshtml]
+[C:/Users/pilla/Desktop/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Home/my-account.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxteS1hY2NvdW50LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/goldb/OneDrive/Рабочий стол/GitHub/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Home/order-tracking.cshtml]
+[C:/Users/pilla/Desktop/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Home/order-tracking.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxvcmRlci10cmFja2luZy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/goldb/OneDrive/Рабочий стол/GitHub/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Home/product-details-2.cshtml]
+[C:/Users/pilla/Desktop/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Home/product-details-2.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxwcm9kdWN0LWRldGFpbHMtMi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/goldb/OneDrive/Рабочий стол/GitHub/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Home/shop.cshtml]
+[C:/Users/pilla/Desktop/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Home/shop.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxzaG9wLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/goldb/OneDrive/Рабочий стол/GitHub/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Home/store-location.cshtml]
+[C:/Users/pilla/Desktop/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Home/store-location.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxzdG9yZS1sb2NhdGlvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/goldb/OneDrive/Рабочий стол/GitHub/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Home/wishlist.cshtml]
+[C:/Users/pilla/Desktop/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Home/wishlist.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVx3aXNobGlzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/goldb/OneDrive/Рабочий стол/GitHub/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Shared/Error.cshtml]
+[C:/Users/pilla/Desktop/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/goldb/OneDrive/Рабочий стол/GitHub/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/pilla/Desktop/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/goldb/OneDrive/Рабочий стол/GitHub/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/_ViewImports.cshtml]
+[C:/Users/pilla/Desktop/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/goldb/OneDrive/Рабочий стол/GitHub/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/_ViewStart.cshtml]
+[C:/Users/pilla/Desktop/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/goldb/OneDrive/Рабочий стол/GitHub/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Shared/_Layout.cshtml]
+[C:/Users/pilla/Desktop/JohnyStore/JohnyStoreApi/JohnyStoreWeb/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-n32cy8rvl7
