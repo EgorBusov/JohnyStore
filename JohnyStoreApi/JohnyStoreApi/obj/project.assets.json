@@ -3728,11 +3728,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pilla\\Desktop\\JohnyStore\\JohnyStoreApi\\JohnyStoreApi\\JohnyStoreApi.csproj",
+      "projectUniqueName": "C:\\Users\\pilla\\Desktop\\JohnyStoreOrig\\JohnyStoreApi\\JohnyStoreApi\\JohnyStoreApi.csproj",
       "projectName": "JohnyStoreApi",
-      "projectPath": "C:\\Users\\pilla\\Desktop\\JohnyStore\\JohnyStoreApi\\JohnyStoreApi\\JohnyStoreApi.csproj",
+      "projectPath": "C:\\Users\\pilla\\Desktop\\JohnyStoreOrig\\JohnyStoreApi\\JohnyStoreApi\\JohnyStoreApi.csproj",
       "packagesPath": "C:\\Users\\pilla\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pilla\\Desktop\\JohnyStore\\JohnyStoreApi\\JohnyStoreApi\\obj\\",
+      "outputPath": "C:\\Users\\pilla\\Desktop\\JohnyStoreOrig\\JohnyStoreApi\\JohnyStoreApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

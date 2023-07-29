@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ciDsSnKtnEtqX8TAIphwK0fNIzCmLwtHmh1xaV0L3Rfa2H4je4INwzcp+Wu5StezB7/XTmSHfvB7p4UMHGWBBg==",
+  "dgSpecHash": "3o9NeuYgT1+BAy/4fPOOjZK/czlcwR1KtRE7F+IuuYmCJMMPJoYvOJm3X19IagyXSDIRpEu8RxhQoidigVuCew==",
   "success": true,
-  "projectFilePath": "C:\\Users\\pilla\\Desktop\\JohnyStore\\JohnyStoreApi\\JohnyStoreWeb\\JohnyStoreWeb.csproj",
+  "projectFilePath": "C:\\Users\\pilla\\Desktop\\JohnyStoreOrig\\JohnyStoreApi\\JohnyStoreWeb\\JohnyStoreWeb.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
