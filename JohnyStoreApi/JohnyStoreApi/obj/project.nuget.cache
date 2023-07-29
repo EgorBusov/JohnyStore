@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LegScbtgomvw7L7FDriGFd4GWZeqYx72Prel3gOL/O8uli4TX2G8QPpSYh+DIlt71tMb8i8cJUGxh01uLYVGTA==",
+  "dgSpecHash": "xl7sXPIEW1Mbksw8ZU3Tzx1rKlrchnyTPSeItuzeE7ORUCmCpgGU36Aa5CS0Fiod8heloXEHJGrhKmSCyWNkNQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\pilla\\Desktop\\JohnyStore\\JohnyStoreApi\\JohnyStoreApi\\JohnyStoreApi.csproj",
+  "projectFilePath": "C:\\Users\\pilla\\Desktop\\JohnyStoreOrig\\JohnyStoreApi\\JohnyStoreApi\\JohnyStoreApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pilla\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\pilla\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
