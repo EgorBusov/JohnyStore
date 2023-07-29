@@ -1,6 +1,6 @@
-﻿namespace JohnyStoreApi.Models
+﻿namespace JohnyStoreApi.Models.Style
 {
-    public class AvailabilityStatusModel
+    public class StyleModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

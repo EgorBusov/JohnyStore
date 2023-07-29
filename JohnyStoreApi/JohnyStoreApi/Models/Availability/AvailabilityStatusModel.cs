@@ -1,6 +1,6 @@
-﻿namespace JohnyStoreApi.Models
+﻿namespace JohnyStoreApi.Models.Availability
 {
-    public class BrandModel
+    public class AvailabilityStatusModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

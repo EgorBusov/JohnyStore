@@ -1,4 +1,6 @@
-﻿namespace JohnyStoreApi.Models
+﻿using JohnyStoreApi.Models.Sneaker;
+
+namespace JohnyStoreApi.Models.Availability
 {
     public class AvailabilityModel
     {

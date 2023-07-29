@@ -1,4 +1,4 @@
-﻿namespace JohnyStoreApi.Models
+﻿namespace JohnyStoreApi.Models.Order
 {
     public class OrderStatusModel
     {

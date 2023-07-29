@@ -1,9 +1,13 @@
 ﻿using JohnyStoreApi.Models;
+using JohnyStoreApi.Models.Sneaker;
 using JohnyStoreData.EF;
 using JohnyStoreData.Models;
 
 namespace JohnyStoreApi.Services
 {
+    /// <summary>
+    /// Сервис для работы с данными
+    /// </summary>
     public class DataService
     {
         private readonly JohnyStoreContext _context;
@@ -12,68 +16,49 @@ namespace JohnyStoreApi.Services
             _context = context;
         }
 
-        public List<SneakerModel> GetSneakers(SearchModel search = null)
+        /// <summary>
+        /// Получение коллекции кроссовок с учетом фильтра
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public List<SneakerModel> GetSneakers(SearchModel? search = null)
         {
-            var query = Search(search).ToList();
-            return MapToSneakerModels(query) ?? new List<SneakerModel>();
-            
+            var list = Search(search).ToList().MapToSneakerModels(_context) ?? new List<SneakerModel>();
+            return list;          
         }
 
-        private List<SneakerModel> MapToSneakerModels(List<ModelSneaker> modelSneakers)
+        /// <summary>
+        /// Получение кроссовок по id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public SneakerModel GetSneakerByid(int id)
         {
-            List<SneakerModel> sneakerModels = new List<SneakerModel>();
+            Sneaker modelSneaker = _context.ModelsSneakers.FirstOrDefault(x => x.Id == id) ?? new Sneaker();
+            return modelSneaker.MapToSneakerModel(_context);
+        }
 
-            foreach(var model in modelSneakers)
+        public bool AddSneaker(SneakerModel model)
+        {
+            try
             {
-                Brand brand = _context.Brands.First(x => x.Id == model.IdBrand);
-                List<PictureSneaker> pictures = _context.PictureSneakers.Where(x => x.IdModel == model.Id).ToList();
-                Style style = _context.Styles.First(x => x.Id == model.IdStyle);
-
-                SneakerModel sneakerModel = new SneakerModel()
+                using(var transaction = _context.Database.BeginTransaction())
                 {
-                    Id = model.Id,
-                    Brand = new BrandModel()
-                    {
-                        Id = brand.Id,
-                        Name = brand.Name
-                    },
-                    Name = model.Name,
-                    Pictures = new List<PictureSneakerModel>(),
-                    Price = model.Price,
-                    Description = model.Description,
-                    Gender = model.Gender,
-                    WinterOrSummer = model.WinterOrSummer,
-                    Style = new StyleModel()
-                    {
-                        Id = style.Id,
-                        Name = style.Name
-                    },
-                    Article = model.Article,
-                    Sale = model.Sale,
-                    New = model.New,
-                    Color = model.Color
-                };
 
-                foreach (var picture in pictures)
-                {
-                    var pictureModel = new PictureSneakerModel()
-                    {
-                        Id = picture.Id,
-                        IdModel = picture.IdModel,
-                        Main = picture.Main,
-                        Href = picture.Href
-                    };
 
-                    sneakerModel.Pictures.Add(pictureModel);
+                    _context.PictureSneakers.AddRange(model.Pictures.MapToPictureSneakers());
+
+                    transaction.Commit();
                 }
 
-                sneakerModels.Add(sneakerModel);
             }
-
-            return sneakerModels;
+            catch 
+            {
+                return false
+            }
         }
 
-        private IQueryable<ModelSneaker> Search(SearchModel search)
+        private IQueryable<Sneaker> Search(SearchModel search)
         {
             
             var query = _context.ModelsSneakers.AsQueryable().Where(x => x.Visible == true);

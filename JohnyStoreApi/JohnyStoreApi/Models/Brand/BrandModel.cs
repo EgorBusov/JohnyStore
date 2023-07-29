@@ -1,6 +1,6 @@
-﻿namespace JohnyStoreApi.Models
+﻿namespace JohnyStoreApi.Models.Brand
 {
-    public class StyleModel
+    public class BrandModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

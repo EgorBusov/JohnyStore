@@ -1,4 +1,8 @@
-﻿namespace JohnyStoreApi.Models
+﻿using JohnyStoreApi.Models.Brand;
+using JohnyStoreApi.Models.Picture;
+using JohnyStoreApi.Models.Style;
+
+namespace JohnyStoreApi.Models.Sneaker
 {
     public class SneakerModel
     {

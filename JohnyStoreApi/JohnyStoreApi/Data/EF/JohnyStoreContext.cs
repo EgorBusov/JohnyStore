@@ -19,7 +19,7 @@ namespace JohnyStoreData.EF
         public DbSet<Availability> Availability { get; set; }
         public DbSet<AvailabilityStatus> AvailabilityStatuses { get; set; }
         public DbSet<Brand> Brands { get; set; }
-        public DbSet<ModelSneaker> ModelsSneakers { get; set;}
+        public DbSet<Sneaker> ModelsSneakers { get; set;}
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderStatus> OrderStatuses { get; set; }
         public DbSet<PictureSneaker> PictureSneakers { get;set; }
