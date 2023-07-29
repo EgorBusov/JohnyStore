@@ -23,11 +23,11 @@
         }
 
         /// <summary>
-        /// Созранение файла, возврат имя файла
+        /// Соxранение файла, возврат имя файла
         /// </summary>
         /// <param name="stream"></param>
         /// <returns></returns>
-        public static string SaveFile(Stream stream)
+        public static string SaveFile(Stream stream, string pathDirectory)
         {
             try
             {
@@ -45,7 +45,7 @@
         /// <param name="stream"></param>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static string UpdateFile(Stream stream, string path)
+        public static string UpdateFile(Stream stream, string pathDirectory, string fileName)
         {
             try
             {

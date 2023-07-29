@@ -1,4 +1,5 @@
-﻿using JohnyStoreData.Models;
+﻿using JohnyStoreApi.Data.Models;
+using JohnyStoreData.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -24,5 +25,6 @@ namespace JohnyStoreData.EF
         public DbSet<OrderStatus> OrderStatuses { get; set; }
         public DbSet<PictureSneaker> PictureSneakers { get;set; }
         public DbSet<Style> Styles { get; set; }
+        public DbSet<Log> Logs { get; set; }
     }
 }
