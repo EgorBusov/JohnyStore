@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ilGy9E3wFiXRHl8186ERIzoW2Mw2+U2xsNdBSeLFMvA=",
+  "Hash": "b1D1VvrkzQS43of8E7FfBpHWwO+Q4AeyBl3MhUFy1DM=",
   "Source": "JohnyStoreWeb",
   "BasePath": "_content/JohnyStoreWeb",
   "Mode": "Default",
@@ -1802,23 +1802,6 @@
       "OriginalItemSpec": "wwwroot\\images\\cart\\cart-2.jpg"
     },
     {
-      "Identity": "C:\\Users\\goldb\\OneDrive\\Рабочий стол\\GitHub\\JohnyStore\\JohnyStoreApi\\JohnyStoreWeb\\wwwroot\\images\\favicon.png",
-      "SourceId": "JohnyStoreWeb",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\goldb\\OneDrive\\Рабочий стол\\GitHub\\JohnyStore\\JohnyStoreApi\\JohnyStoreWeb\\wwwroot\\",
-      "BasePath": "_content/JohnyStoreWeb",
-      "RelativePath": "images/favicon.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\favicon.png"
-    },
-    {
       "Identity": "C:\\Users\\goldb\\OneDrive\\Рабочий стол\\GitHub\\JohnyStore\\JohnyStoreApi\\JohnyStoreWeb\\wwwroot\\images\\icon-img\\app-1.png",
       "SourceId": "JohnyStoreWeb",
       "SourceType": "Discovered",
@@ -1972,12 +1955,12 @@
       "OriginalItemSpec": "wwwroot\\images\\logo\\logo.png"
     },
     {
-      "Identity": "C:\\Users\\goldb\\OneDrive\\Рабочий стол\\GitHub\\JohnyStore\\JohnyStoreApi\\JohnyStoreWeb\\wwwroot\\images\\logo\\logo-2.png",
+      "Identity": "C:\\Users\\goldb\\OneDrive\\Рабочий стол\\GitHub\\JohnyStore\\JohnyStoreApi\\JohnyStoreWeb\\wwwroot\\images\\logo\\logo-text-black.png",
       "SourceId": "JohnyStoreWeb",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\goldb\\OneDrive\\Рабочий стол\\GitHub\\JohnyStore\\JohnyStoreApi\\JohnyStoreWeb\\wwwroot\\",
       "BasePath": "_content/JohnyStoreWeb",
-      "RelativePath": "images/logo/logo-2.png",
+      "RelativePath": "images/logo/logo-text-black.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1986,15 +1969,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\logo\\logo-2.png"
+      "OriginalItemSpec": "wwwroot\\images\\logo\\logo-text-black.png"
     },
     {
-      "Identity": "C:\\Users\\goldb\\OneDrive\\Рабочий стол\\GitHub\\JohnyStore\\JohnyStoreApi\\JohnyStoreWeb\\wwwroot\\images\\logo\\logo-3.png",
+      "Identity": "C:\\Users\\goldb\\OneDrive\\Рабочий стол\\GitHub\\JohnyStore\\JohnyStoreApi\\JohnyStoreWeb\\wwwroot\\images\\logo\\logo-text-transparent.png",
       "SourceId": "JohnyStoreWeb",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\goldb\\OneDrive\\Рабочий стол\\GitHub\\JohnyStore\\JohnyStoreApi\\JohnyStoreWeb\\wwwroot\\",
       "BasePath": "_content/JohnyStoreWeb",
-      "RelativePath": "images/logo/logo-3.png",
+      "RelativePath": "images/logo/logo-text-transparent.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -2003,7 +1986,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\logo\\logo-3.png"
+      "OriginalItemSpec": "wwwroot\\images\\logo\\logo-text-transparent.png"
     },
     {
       "Identity": "C:\\Users\\goldb\\OneDrive\\Рабочий стол\\GitHub\\JohnyStore\\JohnyStoreApi\\JohnyStoreWeb\\wwwroot\\images\\menu\\menu-categori-1.png",
