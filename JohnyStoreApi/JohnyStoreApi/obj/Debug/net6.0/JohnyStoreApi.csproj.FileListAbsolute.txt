@@ -85,3 +85,13 @@ C:\Users\pilla\Desktop\JohnyStore\JohnyStoreApi\JohnyStoreApi\obj\Debug\net6.0\r
 C:\Users\pilla\Desktop\JohnyStore\JohnyStoreApi\JohnyStoreApi\obj\Debug\net6.0\JohnyStoreApi.pdb
 C:\Users\pilla\Desktop\JohnyStore\JohnyStoreApi\JohnyStoreApi\obj\Debug\net6.0\JohnyStoreApi.genruntimeconfig.cache
 C:\Users\pilla\Desktop\JohnyStore\JohnyStoreApi\JohnyStoreApi\obj\Debug\net6.0\ref\JohnyStoreApi.dll
+C:\Users\goldb\OneDrive\Рабочий стол\GitHub\JohnyStore\JohnyStoreApi\JohnyStoreApi\obj\Debug\net6.0\JohnyStoreApi.csproj.AssemblyReference.cache
+C:\Users\goldb\OneDrive\Рабочий стол\GitHub\JohnyStore\JohnyStoreApi\JohnyStoreApi\obj\Debug\net6.0\JohnyStoreApi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\goldb\OneDrive\Рабочий стол\GitHub\JohnyStore\JohnyStoreApi\JohnyStoreApi\obj\Debug\net6.0\JohnyStoreApi.AssemblyInfoInputs.cache
+C:\Users\goldb\OneDrive\Рабочий стол\GitHub\JohnyStore\JohnyStoreApi\JohnyStoreApi\obj\Debug\net6.0\JohnyStoreApi.AssemblyInfo.cs
+C:\Users\goldb\OneDrive\Рабочий стол\GitHub\JohnyStore\JohnyStoreApi\JohnyStoreApi\obj\Debug\net6.0\JohnyStoreApi.csproj.CoreCompileInputs.cache
+C:\Users\goldb\OneDrive\Рабочий стол\GitHub\JohnyStore\JohnyStoreApi\JohnyStoreApi\obj\Debug\net6.0\JohnyStoreApi.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\goldb\OneDrive\Рабочий стол\GitHub\JohnyStore\JohnyStoreApi\JohnyStoreApi\obj\Debug\net6.0\JohnyStoreApi.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\goldb\OneDrive\Рабочий стол\GitHub\JohnyStore\JohnyStoreApi\JohnyStoreApi\obj\Debug\net6.0\JohnyStoreApi.dll
+C:\Users\goldb\OneDrive\Рабочий стол\GitHub\JohnyStore\JohnyStoreApi\JohnyStoreApi\obj\Debug\net6.0\refint\JohnyStoreApi.dll
+C:\Users\goldb\OneDrive\Рабочий стол\GitHub\JohnyStore\JohnyStoreApi\JohnyStoreApi\obj\Debug\net6.0\JohnyStoreApi.pdb
