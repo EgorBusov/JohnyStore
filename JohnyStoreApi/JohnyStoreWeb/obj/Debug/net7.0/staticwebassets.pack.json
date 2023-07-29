@@ -417,10 +417,6 @@
       "PackagePath": "staticwebassets\\images\\cart\\cart-2.jpg"
     },
     {
-      "Id": "C:\\Users\\goldb\\OneDrive\\Рабочий стол\\GitHub\\JohnyStore\\JohnyStoreApi\\JohnyStoreWeb\\wwwroot\\images\\favicon.png",
-      "PackagePath": "staticwebassets\\images\\favicon.png"
-    },
-    {
       "Id": "C:\\Users\\goldb\\OneDrive\\Рабочий стол\\GitHub\\JohnyStore\\JohnyStoreApi\\JohnyStoreWeb\\wwwroot\\images\\icon-img\\app-1.png",
       "PackagePath": "staticwebassets\\images\\icon-img\\app-1.png"
     },
@@ -453,12 +449,12 @@
       "PackagePath": "staticwebassets\\images\\icon-img\\shop.png"
     },
     {
-      "Id": "C:\\Users\\goldb\\OneDrive\\Рабочий стол\\GitHub\\JohnyStore\\JohnyStoreApi\\JohnyStoreWeb\\wwwroot\\images\\logo\\logo-2.png",
-      "PackagePath": "staticwebassets\\images\\logo\\logo-2.png"
+      "Id": "C:\\Users\\goldb\\OneDrive\\Рабочий стол\\GitHub\\JohnyStore\\JohnyStoreApi\\JohnyStoreWeb\\wwwroot\\images\\logo\\logo-text-black.png",
+      "PackagePath": "staticwebassets\\images\\logo\\logo-text-black.png"
     },
     {
-      "Id": "C:\\Users\\goldb\\OneDrive\\Рабочий стол\\GitHub\\JohnyStore\\JohnyStoreApi\\JohnyStoreWeb\\wwwroot\\images\\logo\\logo-3.png",
-      "PackagePath": "staticwebassets\\images\\logo\\logo-3.png"
+      "Id": "C:\\Users\\goldb\\OneDrive\\Рабочий стол\\GitHub\\JohnyStore\\JohnyStoreApi\\JohnyStoreWeb\\wwwroot\\images\\logo\\logo-text-transparent.png",
+      "PackagePath": "staticwebassets\\images\\logo\\logo-text-transparent.png"
     },
     {
       "Id": "C:\\Users\\goldb\\OneDrive\\Рабочий стол\\GitHub\\JohnyStore\\JohnyStoreApi\\JohnyStoreWeb\\wwwroot\\images\\logo\\logo.png",
