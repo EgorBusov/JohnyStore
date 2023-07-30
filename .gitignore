@@ -361,3 +361,12 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Directories #
+###############
+JohnyStoreApi/.vs/
+JohnyStoreApi/JohnyStoreApi/.vs/
+JohnyStoreApi/JohnyStoreWeb/obj/
+JohnyStoreApi/JohnyStoreWeb/bin/
+JohnyStoreApi/JohnyStoreApi/obj/
+JohnyStoreApi/JohnyStoreApi/bin/
