@@ -76,6 +76,35 @@ namespace JohnyStoreApi.Services
             }
         }
 
+        /// <summary>
+        /// Удаление модели кроссовок
+        /// </summary>
+        /// <param name="idModel"></param>
+        /// <returns></returns>
+        public bool DeleteSneaker(int idModel)
+        {
+            using(var transaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    Sneaker sneaker = _context.ModelsSneakers.First(x => x.Id == idModel) ?? throw new NullReferenceException();
+
+                    _context.ModelsSneakers.Remove(sneaker);
+                    DeletePictures(sneaker.Id);
+
+                    _context.SaveChanges();
+                    transaction.Commit();
+
+                    return true;
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    return false;
+                }
+            }
+        }
+
         private IQueryable<Sneaker> Search(SearchModel search)
         {
 
@@ -131,7 +160,7 @@ namespace JohnyStoreApi.Services
                 {
                     IdModel = idModel,
                     Main = picture.Main,
-                    Href = FileManager.SaveFile(picture.File.OpenReadStream(), pathDirectory),
+                    Href = FileManager.SaveFile(picture.File.OpenReadStream(), pathDirectory, Path.GetExtension(picture.File.FileName)),
                     Visible = true
                 };
 
@@ -139,6 +168,27 @@ namespace JohnyStoreApi.Services
             }
 
             _context.PictureSneakers.AddRange(pictures);
+            _context.SaveChanges();
+
+            return true;
+        }
+
+        /// <summary>
+        /// Удаления картинок относящихся к определенной модели кроссовок
+        /// </summary>
+        /// <param name="idModel"></param>
+        /// <returns></returns>
+        public bool DeletePictures(int idModel)
+        {
+            var pathDirectory = _configuration.GetValue<string>("Paths:PathDirectoryPictureForSneaker");
+            var pictures = _context.PictureSneakers.Where(x => x.IdModel == idModel).ToList();
+
+            foreach(var picture in pictures)
+            {
+                FileManager.DeleteFile(pathDirectory + picture.Href);
+            }
+
+            _context.PictureSneakers.RemoveRange(pictures);
             _context.SaveChanges();
 
             return true;
