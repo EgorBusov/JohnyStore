@@ -5,6 +5,8 @@ using JohnyStoreApi.Models.Sneaker;
 using JohnyStoreData.EF;
 using JohnyStoreData.Models;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Drawing;
+using System.Reflection;
 using System.Threading.Channels;
 
 namespace JohnyStoreApi.Services
@@ -74,6 +76,51 @@ namespace JohnyStoreApi.Services
                     return false;
                 }
             }
+        }
+
+        /// <summary>
+        /// Редактирование кроссовок
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public bool EditSneaker(AddSneakerModel model)
+        {
+            if(model.Id == 0) 
+                return false;
+
+            using(var transaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    Sneaker sneaker = _context.ModelsSneakers.First(x => x.Id == model.Id) ?? throw new Exception("Модель не найдена");
+                    sneaker.IdBrand = model.Brand;
+                    sneaker.Name = model.Name;
+                    sneaker.Price = model.Price;
+                    sneaker.Description = model.Description;
+                    sneaker.Gender = model.Gender;
+                    sneaker.WinterOrSummer = model.WinterOrSummer;
+                    sneaker.IdStyle = model.Style;
+                    sneaker.Article = model.Article;
+                    sneaker.Sale = model.Sale;
+                    sneaker.New = model.New;
+                    sneaker.Color = model.Color;
+                    sneaker.Visible = true;
+
+                    bool checkDel = DeletePictures(sneaker.Id);
+                    bool checkSave = AddPictures(model.Pictures, sneaker.Id);
+
+                    int changes = _context.SaveChanges();
+                    transaction.Commit();
+                    return changes > 0;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    _logger.ErrorLog(ex.Message);
+                    return false;
+                }
+            }
+
         }
 
         /// <summary>
