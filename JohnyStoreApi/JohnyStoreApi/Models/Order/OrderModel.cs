@@ -2,6 +2,9 @@
 
 namespace JohnyStoreApi.Models.Order
 {
+    /// <summary>
+    /// Модель заказа
+    /// </summary>
     public class OrderModel
     {
         public int Id { get; set; }

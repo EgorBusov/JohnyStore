@@ -1,5 +1,8 @@
 ﻿namespace JohnyStoreApi.Models.Picture
 {
+    /// <summary>
+    /// Модель кроссовок
+    /// </summary>
     public class PictureSneakerModel
     {
         public int Id { get; set; }

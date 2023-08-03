@@ -1,6 +1,6 @@
 ﻿namespace JohnyStoreApi.Services.Interfaces
 {
-    public interface IDataService
+    public interface ISneakerDataService
     {
     }
 }

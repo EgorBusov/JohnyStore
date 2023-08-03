@@ -1,16 +1,18 @@
-﻿namespace JohnyStoreApi.Services
+﻿using JohnyStoreApi.Services.Interfaces;
+
+namespace JohnyStoreApi.Services
 {
     /// <summary>
     /// Класс для работы с файлами
     /// </summary>
-    public static class FileManager
+    public class FileManager : IFileManager
     {
         /// <summary>
         /// Получение потока файла по пути
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static Stream GetFile(string path)
+        public Stream GetFile(string path)
         {
             try
             {
@@ -27,7 +29,7 @@
         /// </summary>
         /// <param name="stream"></param>
         /// <returns></returns>
-        public static string SaveFile(Stream streamFile, string pathDirectory, string extentionSavedFile)
+        public string SaveFile(Stream streamFile, string fullPathDirectory, string extentionSavedFile)
         {
             if(!ValidateFile(streamFile))
                 return String.Empty;
@@ -35,7 +37,7 @@
             try
             {
                 var newFileName = Guid.NewGuid().ToString() + extentionSavedFile;
-                using(var stream = File.OpenWrite(pathDirectory + newFileName))
+                using(var stream = File.OpenWrite(fullPathDirectory + newFileName))
                 {
                     stream.CopyTo(streamFile);
                 }
@@ -54,14 +56,14 @@
         /// <param name="stream"></param>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static string UpdateFile(Stream streamFile, string pathOldFile, string extentionNewFile)
+        public string UpdateFile(Stream streamFile, string pathOldFile, string extentionNewFile)
         {
             if (!ValidateFile(streamFile))
                 return String.Empty;
 
             try
             {
-                string fileName = SaveFile(streamFile, pathOldFile, Path.GetExtension(pathOldFile));
+                string fileName = SaveFile(streamFile, pathOldFile, extentionNewFile);
                 DeleteFile(pathOldFile);
 
                 return fileName;
@@ -77,7 +79,7 @@
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static bool DeleteFile(string path)
+        public bool DeleteFile(string path)
         {
             try
             {
@@ -95,7 +97,7 @@
         /// </summary>
         /// <param name="stream"></param>
         /// <returns></returns>
-        private static bool ValidateFile(Stream stream)
+        private bool ValidateFile(Stream stream)
         {
             if (stream == null || stream.Length == 0)
             {

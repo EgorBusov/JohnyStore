@@ -2,6 +2,7 @@
 using JohnyStoreApi.Models;
 using JohnyStoreApi.Models.Picture;
 using JohnyStoreApi.Models.Sneaker;
+using JohnyStoreApi.Services.Interfaces;
 using JohnyStoreData.EF;
 using JohnyStoreData.Models;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -14,26 +15,35 @@ namespace JohnyStoreApi.Services
     /// <summary>
     /// Сервис для работы с данными
     /// </summary>
-    public class DataService
+    public class SneakerDataSevice : ISneakerDataService
     {
         private readonly JohnyStoreContext _context;
         private readonly IConfiguration _configuration;
         private readonly IJohnyStoreLogger _logger;
-        public DataService(JohnyStoreContext context, IConfiguration configuration, IJohnyStoreLogger logger) 
+        private readonly IFileManager _fileManager;
+        private readonly IPictureDataService _pictureDataService;
+
+        public SneakerDataSevice(
+            JohnyStoreContext context, 
+            IConfiguration configuration, 
+            IJohnyStoreLogger logger, 
+            IFileManager fileManager,
+            IPictureDataService pictureDataService) 
         {
             _context = context;
             _configuration = configuration;
             _logger = logger;
+            _fileManager = fileManager;
+            _pictureDataService = pictureDataService;
         }
 
-        #region Sneaker
 
         /// <summary>
         /// Получение коллекции кроссовок с учетом фильтра
         /// </summary>
         /// <param name="search"></param>
         /// <returns></returns>
-        public List<SneakerModel> GetSneakers(SearchModel? search = null)
+        public List<SneakerModel> GetSneakers(SearchModel? search)
         {
             var list = Search(search).ToList().MapToSneakerModels(_context) ?? new List<SneakerModel>();
             return list;
@@ -63,7 +73,7 @@ namespace JohnyStoreApi.Services
                 {
                     Sneaker sneaker = model.MapToSneaker();
                     _context.ModelsSneakers.Add(sneaker);
-                    bool check = AddPictures(model.Pictures, sneaker.Id);
+                    bool check = _pictureDataService.AddPictures(model.Pictures, sneaker.Id);
 
                     int changes = _context.SaveChanges();
                     transaction.Commit();
@@ -106,8 +116,8 @@ namespace JohnyStoreApi.Services
                     sneaker.Color = model.Color;
                     sneaker.Visible = true;
 
-                    bool checkDel = DeletePictures(sneaker.Id);
-                    bool checkSave = AddPictures(model.Pictures, sneaker.Id);
+                    bool checkDel = _pictureDataService.DeletePictures(sneaker.Id);
+                    bool checkSave = _pictureDataService.AddPictures(model.Pictures, sneaker.Id);
 
                     int changes = _context.SaveChanges();
                     transaction.Commit();
@@ -137,7 +147,7 @@ namespace JohnyStoreApi.Services
                     Sneaker sneaker = _context.ModelsSneakers.First(x => x.Id == idModel) ?? throw new NullReferenceException();
 
                     _context.ModelsSneakers.Remove(sneaker);
-                    DeletePictures(sneaker.Id);
+                    _pictureDataService.DeletePictures(sneaker.Id);
 
                     _context.SaveChanges();
                     transaction.Commit();
@@ -183,64 +193,5 @@ namespace JohnyStoreApi.Services
 
             return query;
         }
-
-        #endregion
-
-        #region Picture
-
-        /// <summary>
-        /// Добавление картинок для кроссовок
-        /// </summary>
-        /// <param name="modelPictures"></param>
-        /// <param name="idModel"></param>
-        /// <returns></returns>
-        public bool AddPictures(List<AddPictureSneakerModel> modelPictures, int idModel)
-        {
-            var baseUrl = _configuration.GetValue<string>("BaseUrl:Url");
-            var pathDirectory = _configuration.GetValue<string>("Paths:PathDirectoryPictureForSneaker");
-
-            List<PictureSneaker> pictures = new List<PictureSneaker>();
-
-            foreach (var picture in modelPictures)
-            {
-                PictureSneaker pictureSneaker = new PictureSneaker()
-                {
-                    IdModel = idModel,
-                    Main = picture.Main,
-                    Href = FileManager.SaveFile(picture.File.OpenReadStream(), pathDirectory, Path.GetExtension(picture.File.FileName)),
-                    Visible = true
-                };
-
-                pictures.Add(pictureSneaker);
-            }
-
-            _context.PictureSneakers.AddRange(pictures);
-            _context.SaveChanges();
-
-            return true;
-        }
-
-        /// <summary>
-        /// Удаления картинок относящихся к определенной модели кроссовок
-        /// </summary>
-        /// <param name="idModel"></param>
-        /// <returns></returns>
-        public bool DeletePictures(int idModel)
-        {
-            var pathDirectory = _configuration.GetValue<string>("Paths:PathDirectoryPictureForSneaker");
-            var pictures = _context.PictureSneakers.Where(x => x.IdModel == idModel).ToList();
-
-            foreach(var picture in pictures)
-            {
-                FileManager.DeleteFile(pathDirectory + picture.Href);
-            }
-
-            _context.PictureSneakers.RemoveRange(pictures);
-            _context.SaveChanges();
-
-            return true;
-        }
-
-        #endregion
     }
 }
