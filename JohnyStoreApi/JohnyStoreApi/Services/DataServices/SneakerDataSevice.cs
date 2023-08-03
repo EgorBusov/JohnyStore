@@ -3,6 +3,7 @@ using JohnyStoreApi.Models;
 using JohnyStoreApi.Models.Picture;
 using JohnyStoreApi.Models.Sneaker;
 using JohnyStoreApi.Services.Interfaces;
+using JohnyStoreApi.Services.Interfaces.DataInterfaces;
 using JohnyStoreData.EF;
 using JohnyStoreData.Models;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -10,30 +11,26 @@ using System.Drawing;
 using System.Reflection;
 using System.Threading.Channels;
 
-namespace JohnyStoreApi.Services
+namespace JohnyStoreApi.Services.Data
 {
     /// <summary>
-    /// Сервис для работы с данными
+    /// CRUD для кроссовок
     /// </summary>
     public class SneakerDataSevice : ISneakerDataService
     {
         private readonly JohnyStoreContext _context;
-        private readonly IConfiguration _configuration;
         private readonly IJohnyStoreLogger _logger;
-        private readonly IFileManager _fileManager;
         private readonly IPictureDataService _pictureDataService;
 
         public SneakerDataSevice(
-            JohnyStoreContext context, 
-            IConfiguration configuration, 
-            IJohnyStoreLogger logger, 
+            JohnyStoreContext context,
+            IConfiguration configuration,
+            IJohnyStoreLogger logger,
             IFileManager fileManager,
-            IPictureDataService pictureDataService) 
+            IPictureDataService pictureDataService)
         {
             _context = context;
-            _configuration = configuration;
             _logger = logger;
-            _fileManager = fileManager;
             _pictureDataService = pictureDataService;
         }
 
@@ -79,7 +76,7 @@ namespace JohnyStoreApi.Services
                     transaction.Commit();
                     return changes > 0;
                 }
-                catch(Exception ex) 
+                catch (Exception ex)
                 {
                     transaction.Rollback();
                     _logger.ErrorLog(ex.Message);
@@ -95,10 +92,10 @@ namespace JohnyStoreApi.Services
         /// <returns></returns>
         public bool EditSneaker(AddSneakerModel model)
         {
-            if(model.Id == 0) 
+            if (model.Id == 0)
                 return false;
 
-            using(var transaction = _context.Database.BeginTransaction())
+            using (var transaction = _context.Database.BeginTransaction())
             {
                 try
                 {
@@ -140,7 +137,7 @@ namespace JohnyStoreApi.Services
         /// <returns></returns>
         public bool DeleteSneaker(int idModel)
         {
-            using(var transaction = _context.Database.BeginTransaction())
+            using (var transaction = _context.Database.BeginTransaction())
             {
                 try
                 {

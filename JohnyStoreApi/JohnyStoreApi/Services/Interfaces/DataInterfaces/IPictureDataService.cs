@@ -1,6 +1,6 @@
 ﻿using JohnyStoreApi.Models.Picture;
 
-namespace JohnyStoreApi.Services.Interfaces
+namespace JohnyStoreApi.Services.Interfaces.DataInterfaces
 {
     public interface IPictureDataService
     {

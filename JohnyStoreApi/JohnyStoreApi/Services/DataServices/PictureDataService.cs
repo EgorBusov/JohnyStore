@@ -6,7 +6,7 @@ using JohnyStoreData.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace JohnyStoreApi.Services
+namespace JohnyStoreApi.Services.Data
 {
     public class PictureDataService
     {
