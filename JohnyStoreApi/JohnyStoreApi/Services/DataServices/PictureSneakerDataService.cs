@@ -3,18 +3,19 @@ using JohnyStoreApi.Models.Picture;
 using JohnyStoreApi.Services.Interfaces;
 using JohnyStoreData.EF;
 using JohnyStoreData.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace JohnyStoreApi.Services.Data
 {
-    public class PictureDataService
+    public class PictureSneakerDataService
     {
         private readonly JohnyStoreContext _context;
         private readonly IConfiguration _configuration;
         private readonly IFileManager _fileManager;
 
-        public PictureDataService(
+        public PictureSneakerDataService(
             JohnyStoreContext context,
             IConfiguration configuration,
             IFileManager fileManager)
@@ -22,6 +23,19 @@ namespace JohnyStoreApi.Services.Data
             _context = context;
             _configuration = configuration;
             _fileManager = fileManager;
+        }
+
+        /// <summary>
+        /// Получение картинки
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public Stream GetPicture(string path)
+        {
+            var pathDirectory = _configuration.GetValue<string>("Paths:PathDirectoryPictureForSneaker");
+            var fullPathDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, pathDirectory, path);
+
+            return _fileManager.GetFile(fullPathDirectory);
         }
 
         /// <summary>

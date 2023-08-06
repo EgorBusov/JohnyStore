@@ -55,7 +55,9 @@ namespace JohnyStoreApi.Services
                 };
 
             Brand brand = context.Brands.First(x => x.Id == modelSneaker.IdBrand);
-            List<PictureSneaker> pictures = context.PictureSneakers.Where(x => x.IdModel == modelSneaker.Id).ToList();
+            List<PictureSneakerModel> pictures = context.PictureSneakers
+                .Where(x => x.IdModel == modelSneaker.Id && x.Visible == true)
+                .ToList().MapToPictureSneakerModels();
             Style style = context.Styles.First(x => x.Id == modelSneaker.IdStyle);
 
             SneakerModel sneakerModel = new SneakerModel()
@@ -67,7 +69,7 @@ namespace JohnyStoreApi.Services
                     Name = brand.Name
                 },
                 Name = modelSneaker.Name,
-                Pictures = new List<PictureSneakerModel>(),
+                Pictures = pictures,
                 Price = modelSneaker.Price,
                 Description = modelSneaker.Description,
                 Gender = modelSneaker.Gender,
@@ -81,20 +83,7 @@ namespace JohnyStoreApi.Services
                 Sale = modelSneaker.Sale,
                 New = modelSneaker.New,
                 Color = modelSneaker.Color
-            };
-
-            foreach (var picture in pictures)
-            {
-                var pictureModel = new PictureSneakerModel()
-                {
-                    Id = picture.Id,
-                    IdModel = picture.IdModel,
-                    Main = picture.Main,
-                    Href = picture.Href
-                };
-
-                sneakerModel.Pictures.Add(pictureModel);
-            }
+            };           
 
             return sneakerModel;
         }
@@ -170,6 +159,40 @@ namespace JohnyStoreApi.Services
             }
 
             return pictures;
+        }
+
+        /// <summary>
+        /// Приводит PictureSneaker к PictureSneakerModel
+        /// </summary>
+        /// <param name="picture"></param>
+        /// <returns></returns>
+        public static PictureSneakerModel MapToPictureSneakerModel(this PictureSneaker picture)
+        {
+            return new PictureSneakerModel()
+            {
+                Id = picture.Id,
+                IdModel = picture.IdModel,
+                Href = picture.Href,
+                Main = picture.Main
+            };
+        }
+
+        /// <summary>
+        /// Приводит коллекцию PictureSneaker к коллекции PictureSneakerModel
+        /// </summary>
+        /// <param name="pictures"></param>
+        /// <returns></returns>
+        public static List<PictureSneakerModel> MapToPictureSneakerModels(this List<PictureSneaker> pictures)
+        {
+            var models = new List<PictureSneakerModel>();
+
+            foreach (var picture in pictures)
+            {
+                var model = picture.MapToPictureSneakerModel();
+                models.Add(model);
+            }
+
+            return models;
         }
 
         #endregion
@@ -251,6 +274,37 @@ namespace JohnyStoreApi.Services
             return model;
         }
 
+        /// <summary>
+        /// Приводит колекцию AvailabilityStatus к коллекции AvailabilityStatusModel
+        /// </summary>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public static List<AvailabilityStatusModel> MapToAvailabilityStatusModel(this List<AvailabilityStatus> status) 
+        {
+            var models = new List<AvailabilityStatusModel>();
+            foreach (var item in status)
+            {
+                var model = item.MapToAvailabiltyStatusModel();
+                models.Add(model);
+            }
+            return models;
+        }
+
+        /// <summary>
+        /// Приводит AvailabilityStatusModel к AvailabilityStatus
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static AvailabilityStatus MapToAvailabilityStatus(this AvailabilityStatusModel model)
+        {
+            return new AvailabilityStatus()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Visible = true
+            };
+        }
+
         #endregion
 
         #region Brand
@@ -299,6 +353,8 @@ namespace JohnyStoreApi.Services
                 Name = model.Name,
                 Visible = true
             };
+
+            return brand;
         }
 
         #endregion

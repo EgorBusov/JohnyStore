@@ -93,7 +93,7 @@ namespace JohnyStoreApi.Services.DataServices
             {
                 var sneakers = _context.ModelsSneakers.Where(x => x.IdBrand == idBrand).ToList();
                 if (sneakers.Count > 0)
-                    throw new Exception("В коллекции еще присутсвубт кроссовки данного бренда");
+                    throw new Exception("В коллекции еще присутсвуют кроссовки данного бренда");
 
                 Brand brand = _context.Brands.First(x => x.Id == idBrand) ?? throw new Exception("Бренд не найден");
                 brand.Visible = false;

@@ -19,6 +19,8 @@ namespace JohnyStoreApi.Services.DataServices
             _logger = logger;
         }
 
+        #region Availability CRUD
+
         /// <summary>
         /// Возращает запись о наличии определенной модели кроссовок
         /// </summary>
@@ -48,7 +50,7 @@ namespace JohnyStoreApi.Services.DataServices
 
                 return _context.SaveChanges() > 0;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.ErrorLog(ex.Message);
                 return false;
@@ -68,7 +70,7 @@ namespace JohnyStoreApi.Services.DataServices
                     throw new Exception("При редактировании не указана модель");
 
                 Availability availability = model.MapToAvailability();
-                Availability editAvailability = _context.Availability.First(x => x.Id == availability.Id && x.Visible == true) 
+                Availability editAvailability = _context.Availability.First(x => x.Id == availability.Id && x.Visible == true)
                     ?? throw new Exception("Запись о наличии не найдена");
 
                 editAvailability.IdModel = availability.Id;
@@ -105,9 +107,58 @@ namespace JohnyStoreApi.Services.DataServices
         {
             try
             {
-                Availability availability = _context.Availability.First(x => x.Id == availabilityId) 
+                Availability availability = _context.Availability.First(x => x.Id == availabilityId)
                     ?? throw new Exception("запись о наличии не найдена");
                 availability.Visible = false;
+
+                return _context.SaveChanges() > 0;
+            }
+            catch (Exception ex)
+            {
+                _logger.ErrorLog(ex.Message);
+                return false;
+            }
+        }
+
+        #endregion
+
+        #region Availability status CRD
+
+        /// <summary>
+        /// Получение всех возможных статусов наличия
+        /// </summary>
+        /// <returns></returns>
+        public List<AvailabilityStatusModel> GetAvailabilityStatuses()
+        {
+            return _context.AvailabilityStatuses.Where(x => x.Visible == true).ToList().MapToAvailabilityStatusModel()
+                ?? new List<AvailabilityStatusModel>();
+        }
+
+        /// <summary>
+        /// Добавление статуса наличия
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public bool AddAvailabilityStatus(AvailabilityStatusModel model)
+        {
+            AvailabilityStatus status = model.MapToAvailabilityStatus();
+
+            _context.AvailabilityStatuses.Add(status);
+            return _context.SaveChanges() > 0;
+        }
+
+        /// <summary>
+        /// Удаление статуса наличия
+        /// </summary>
+        /// <param name="availabilityId"></param>
+        /// <returns></returns>
+        public bool RemoveAvailabilityStatus(int availabilityId)
+        {
+            try
+            {
+                AvailabilityStatus status = _context.AvailabilityStatuses.First(x => x.Id == availabilityId)
+                    ?? throw new Exception("запись о статусе не найдена");
+                status.Visible = false;
 
                 return _context.SaveChanges() > 0;
             }
@@ -117,5 +168,7 @@ namespace JohnyStoreApi.Services.DataServices
                 return false;
             }
         }
+
+        #endregion
     }
 }

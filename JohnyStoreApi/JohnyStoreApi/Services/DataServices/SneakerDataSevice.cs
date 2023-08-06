@@ -51,7 +51,7 @@ namespace JohnyStoreApi.Services.Data
         /// <returns></returns>
         public SneakerModel GetSneakerByid(int id)
         {
-            Sneaker modelSneaker = _context.ModelsSneakers.FirstOrDefault(x => x.Id == id) ?? new Sneaker();
+            Sneaker modelSneaker = _context.ModelsSneakers.FirstOrDefault(x => x.Id == id && x.Visible == true) ?? new Sneaker();
             return modelSneaker.MapToSneakerModel(_context);
         }
 
@@ -97,7 +97,8 @@ namespace JohnyStoreApi.Services.Data
             {
                 try
                 {
-                    Sneaker sneaker = _context.ModelsSneakers.First(x => x.Id == model.Id) ?? throw new Exception("Модель не найдена");
+                    Sneaker sneaker = _context.ModelsSneakers.First(x => x.Id == model.Id && x.Visible == true) 
+                        ?? throw new Exception("Модель не найдена");
                     sneaker.IdBrand = model.Brand;
                     sneaker.Name = model.Name;
                     sneaker.Price = model.Price;
@@ -158,6 +159,11 @@ namespace JohnyStoreApi.Services.Data
             }
         }
 
+        /// <summary>
+        /// Метод составления запроса из параметров поиска
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
         private IQueryable<Sneaker> Search(SearchModel search)
         {
 
