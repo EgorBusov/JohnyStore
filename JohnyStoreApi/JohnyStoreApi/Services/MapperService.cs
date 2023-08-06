@@ -252,5 +252,55 @@ namespace JohnyStoreApi.Services
         }
 
         #endregion
+
+        #region Brand
+
+        /// <summary>
+        /// Приводит коллекцию Brand к коллекции BrandModel
+        /// </summary>
+        /// <param name="brands"></param>
+        /// <returns></returns>
+        public static List<BrandModel> MapToBrandModels(this List<Brand> brands)
+        {
+            List<BrandModel> brandModels = new List<BrandModel>();
+
+            foreach (Brand brand in brands)
+            {
+                BrandModel brandModel = brand.MapToBrandModel();
+                brandModels.Add(brandModel);
+            }
+            return brandModels;
+        }
+
+        /// <summary>
+        /// Приводит Brand к BrandModel
+        /// </summary>
+        /// <param name="brand"></param>
+        /// <returns></returns>
+        public static BrandModel MapToBrandModel(this Brand brand)
+        {
+            return new BrandModel()
+            {
+                Id = brand.Id,
+                Name = brand.Name
+            };
+        }
+
+        /// <summary>
+        /// Приводит BrandModel к Brand
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static Brand MapToBrand(this BrandModel model)
+        {
+            Brand brand = new Brand()
+            {
+                Id= model.Id,
+                Name = model.Name,
+                Visible = true
+            };
+        }
+
+        #endregion
     }
 }
