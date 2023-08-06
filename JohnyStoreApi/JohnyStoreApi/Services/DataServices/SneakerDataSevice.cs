@@ -24,9 +24,7 @@ namespace JohnyStoreApi.Services.Data
 
         public SneakerDataSevice(
             JohnyStoreContext context,
-            IConfiguration configuration,
             IJohnyStoreLogger logger,
-            IFileManager fileManager,
             IPictureDataService pictureDataService)
         {
             _context = context;
@@ -141,9 +139,9 @@ namespace JohnyStoreApi.Services.Data
             {
                 try
                 {
-                    Sneaker sneaker = _context.ModelsSneakers.First(x => x.Id == idModel) ?? throw new NullReferenceException();
+                    Sneaker sneaker = _context.ModelsSneakers.First(x => x.Id == idModel) ?? throw new Exception("Модель не найдена");
 
-                    _context.ModelsSneakers.Remove(sneaker);
+                    sneaker.Visible = false;
                     _pictureDataService.DeletePictures(sneaker.Id);
 
                     _context.SaveChanges();
@@ -151,9 +149,10 @@ namespace JohnyStoreApi.Services.Data
 
                     return true;
                 }
-                catch
+                catch(Exception ex)
                 {
                     transaction.Rollback();
+                    _logger.ErrorLog(ex.Message);
                     return false;
                 }
             }

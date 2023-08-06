@@ -1,4 +1,5 @@
 ﻿using JohnyStoreApi.Models;
+using JohnyStoreApi.Models.Availability;
 using JohnyStoreApi.Models.Brand;
 using JohnyStoreApi.Models.Picture;
 using JohnyStoreApi.Models.Sneaker;
@@ -169,6 +170,85 @@ namespace JohnyStoreApi.Services
             }
 
             return pictures;
+        }
+
+        #endregion
+
+        #region Availability
+
+        /// <summary>
+        /// Приводит AvailabilityModel к Availablity
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static Availability MapToAvailability(this AvailabilityModel model) 
+        {
+            Availability availability = new Availability()
+            {
+                Id = model.Id,
+                IdModel = model.Model.Id,
+                Status35 = model.Status35.Id,
+                Status36 = model.Status36.Id,
+                Status37 = model.Status37.Id,
+                Status38 = model.Status38.Id,
+                Status39 = model.Status39.Id,
+                Status40 = model.Status40.Id,
+                Status41 = model.Status41.Id,
+                Status42 = model.Status42.Id,
+                Status43 = model.Status43.Id,
+                Status44 = model.Status44.Id,
+                Status45 = model.Status45.Id,
+                Status46 = model.Status46.Id,
+                Visible = true
+
+            };
+
+            return availability;
+        }
+
+        /// <summary>
+        /// Приводит Availabilty к AvailabilityModel
+        /// </summary>
+        /// <param name="availability"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static AvailabilityModel MapToAvailabilityModel(this Availability availability, JohnyStoreContext context)
+        {
+            AvailabilityModel model = new AvailabilityModel()
+            {
+                Id = availability.Id,
+                Model = context.ModelsSneakers.First(x => x.Id == availability.IdModel).MapToSneakerModel(context),
+                Status35 = context.AvailabilityStatuses.First(x => x.Id == availability.Status35).MapToAvailabiltyStatusModel(),
+                Status36 = context.AvailabilityStatuses.First(x => x.Id == availability.Status36).MapToAvailabiltyStatusModel(),
+                Status37 = context.AvailabilityStatuses.First(x => x.Id == availability.Status37).MapToAvailabiltyStatusModel(),
+                Status38 = context.AvailabilityStatuses.First(x => x.Id == availability.Status38).MapToAvailabiltyStatusModel(),
+                Status39 = context.AvailabilityStatuses.First(x => x.Id == availability.Status39).MapToAvailabiltyStatusModel(),
+                Status40 = context.AvailabilityStatuses.First(x => x.Id == availability.Status40).MapToAvailabiltyStatusModel(),
+                Status41 = context.AvailabilityStatuses.First(x => x.Id == availability.Status41).MapToAvailabiltyStatusModel(),
+                Status42 = context.AvailabilityStatuses.First(x => x.Id == availability.Status42).MapToAvailabiltyStatusModel(),
+                Status43 = context.AvailabilityStatuses.First(x => x.Id == availability.Status43).MapToAvailabiltyStatusModel(),
+                Status44 = context.AvailabilityStatuses.First(x => x.Id == availability.Status44).MapToAvailabiltyStatusModel(),
+                Status45 = context.AvailabilityStatuses.First(x => x.Id == availability.Status45).MapToAvailabiltyStatusModel(),
+                Status46 = context.AvailabilityStatuses.First(x => x.Id == availability.Status46).MapToAvailabiltyStatusModel(),
+            };
+
+            return model;
+        }
+
+        /// <summary>
+        /// Приводит AvailabilityStatus к AvailabiltyStatusModel
+        /// </summary>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public static AvailabilityStatusModel MapToAvailabiltyStatusModel(this AvailabilityStatus status)
+        {
+            var model = new AvailabilityStatusModel()
+            {
+                Id = status.Id,
+                Name = status.Name
+            };
+
+            return model;
         }
 
         #endregion
