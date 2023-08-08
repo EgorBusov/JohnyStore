@@ -3,6 +3,9 @@ using JohnyStoreApi.Models;
 
 namespace JohnyStoreApi.Services.Interfaces.DataInterfaces
 {
+    /// <summary>
+    /// Работа с кроссовками
+    /// </summary>
     public interface ISneakerDataService
     {
         List<SneakerModel> GetSneakers(SearchModel? search);

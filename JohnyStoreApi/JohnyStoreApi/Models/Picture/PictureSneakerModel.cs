@@ -1,7 +1,7 @@
 ﻿namespace JohnyStoreApi.Models.Picture
 {
     /// <summary>
-    /// Модель кроссовок
+    /// Картинка модели кроссовок
     /// </summary>
     public class PictureSneakerModel
     {

@@ -1,12 +1,13 @@
 ﻿using JohnyStoreApi.Logging.Interfaces;
 using JohnyStoreApi.Models.Brand;
+using JohnyStoreApi.Services.Interfaces.DataInterfaces;
 using JohnyStoreData.EF;
 using JohnyStoreData.Models;
 using Microsoft.AspNetCore.Server.IIS.Core;
 
 namespace JohnyStoreApi.Services.DataServices
 {
-    public class BrandService
+    public class BrandService : IBrandDataService
     {
         private readonly JohnyStoreContext _context;
         private readonly IJohnyStoreLogger _logger;

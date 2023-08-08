@@ -1,6 +1,7 @@
 ﻿using JohnyStoreApi.Logging.Interfaces;
 using JohnyStoreApi.Models.Picture;
 using JohnyStoreApi.Services.Interfaces;
+using JohnyStoreApi.Services.Interfaces.DataInterfaces;
 using JohnyStoreData.EF;
 using JohnyStoreData.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace JohnyStoreApi.Services.Data
 {
-    public class PictureSneakerDataService
+    public class PictureSneakerDataService : IPictureDataService
     {
         private readonly JohnyStoreContext _context;
         private readonly IConfiguration _configuration;

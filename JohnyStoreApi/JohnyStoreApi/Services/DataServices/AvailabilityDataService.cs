@@ -10,13 +10,16 @@ namespace JohnyStoreApi.Services.DataServices
     {
         private readonly JohnyStoreContext _context;
         private readonly IJohnyStoreLogger _logger;
+        private readonly IConfiguration _configuration;
 
         public AvailabilityDataService(
             JohnyStoreContext context,
-            IJohnyStoreLogger logger)
+            IJohnyStoreLogger logger,
+            IConfiguration configuration)
         {
             _context = context;
             _logger = logger;
+            _configuration = configuration;
         }
 
         #region Availability CRUD
@@ -29,7 +32,7 @@ namespace JohnyStoreApi.Services.DataServices
         public AvailabilityModel GetAvailability(int idSneakerModel)
         {
             return _context.Availability.First(x => x.IdModel == idSneakerModel || x.Visible == true)
-                .MapToAvailabilityModel(_context) ?? new AvailabilityModel();
+                .MapToAvailabilityModel(_context, _configuration) ?? new AvailabilityModel();
         }
 
         /// <summary>

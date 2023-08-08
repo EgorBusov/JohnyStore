@@ -21,15 +21,18 @@ namespace JohnyStoreApi.Services.Data
         private readonly JohnyStoreContext _context;
         private readonly IJohnyStoreLogger _logger;
         private readonly IPictureDataService _pictureDataService;
+        private readonly IConfiguration _configuration;
 
         public SneakerDataSevice(
             JohnyStoreContext context,
             IJohnyStoreLogger logger,
-            IPictureDataService pictureDataService)
+            IPictureDataService pictureDataService,
+            IConfiguration configuration)
         {
             _context = context;
             _logger = logger;
             _pictureDataService = pictureDataService;
+            _configuration = configuration;
         }
 
 
@@ -40,7 +43,7 @@ namespace JohnyStoreApi.Services.Data
         /// <returns></returns>
         public List<SneakerModel> GetSneakers(SearchModel? search)
         {
-            var list = Search(search).ToList().MapToSneakerModels(_context) ?? new List<SneakerModel>();
+            var list = Search(search).ToList().MapToSneakerModels(_context, _configuration) ?? new List<SneakerModel>();
             return list;
         }
 
@@ -52,7 +55,7 @@ namespace JohnyStoreApi.Services.Data
         public SneakerModel GetSneakerByid(int id)
         {
             Sneaker modelSneaker = _context.ModelsSneakers.FirstOrDefault(x => x.Id == id && x.Visible == true) ?? new Sneaker();
-            return modelSneaker.MapToSneakerModel(_context);
+            return modelSneaker.MapToSneakerModel(_context, _configuration);
         }
 
         /// <summary>

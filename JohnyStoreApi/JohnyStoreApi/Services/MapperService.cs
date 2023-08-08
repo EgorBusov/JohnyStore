@@ -4,6 +4,7 @@ using JohnyStoreApi.Models.Brand;
 using JohnyStoreApi.Models.Picture;
 using JohnyStoreApi.Models.Sneaker;
 using JohnyStoreApi.Models.Style;
+using JohnyStoreApi.Services.Interfaces.DataInterfaces;
 using JohnyStoreData.EF;
 using JohnyStoreData.Models;
 using Microsoft.EntityFrameworkCore;
@@ -23,7 +24,9 @@ namespace JohnyStoreApi.Services
         /// <param name="modelSneakers"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        public static List<SneakerModel> MapToSneakerModels(this List<Sneaker> modelSneakers, JohnyStoreContext context)
+        public static List<SneakerModel> MapToSneakerModels(this List<Sneaker> modelSneakers, 
+                                                                JohnyStoreContext context, 
+                                                                IConfiguration configuration)
         {
             List<SneakerModel> sneakerModels = new List<SneakerModel>();
 
@@ -32,7 +35,7 @@ namespace JohnyStoreApi.Services
 
             foreach (var model in modelSneakers)
             {
-                SneakerModel sneakerModel = model.MapToSneakerModel(context);
+                SneakerModel sneakerModel = model.MapToSneakerModel(context, configuration);
 
                 sneakerModels.Add(sneakerModel);
             }
@@ -46,7 +49,7 @@ namespace JohnyStoreApi.Services
         /// <param name="modelSneaker"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        public static SneakerModel MapToSneakerModel(this Sneaker modelSneaker, JohnyStoreContext context)
+        public static SneakerModel MapToSneakerModel(this Sneaker modelSneaker, JohnyStoreContext context, IConfiguration configuration)
         {
             if (modelSneaker == null)
                 return new SneakerModel()
@@ -57,7 +60,7 @@ namespace JohnyStoreApi.Services
             Brand brand = context.Brands.First(x => x.Id == modelSneaker.IdBrand);
             List<PictureSneakerModel> pictures = context.PictureSneakers
                 .Where(x => x.IdModel == modelSneaker.Id && x.Visible == true)
-                .ToList().MapToPictureSneakerModels();
+                .ToList().MapToPictureSneakerModels(configuration);
             Style style = context.Styles.First(x => x.Id == modelSneaker.IdStyle);
 
             SneakerModel sneakerModel = new SneakerModel()
@@ -132,7 +135,7 @@ namespace JohnyStoreApi.Services
             {
                 Id = pictureSneaker.Id,
                 IdModel = pictureSneaker.IdModel,
-                Href = pictureSneaker.Href,
+                Href = Path.GetFileName(pictureSneaker.Href),
                 Main = pictureSneaker.Main,
                 Visible = true
             };
@@ -166,13 +169,16 @@ namespace JohnyStoreApi.Services
         /// </summary>
         /// <param name="picture"></param>
         /// <returns></returns>
-        public static PictureSneakerModel MapToPictureSneakerModel(this PictureSneaker picture)
+        public static PictureSneakerModel MapToPictureSneakerModel(this PictureSneaker picture, IConfiguration configuration)
         {
+            string url = configuration.GetValue<string>("BaseUrl:Url");
+            string fullUrl = $"{url}/Picture/GetPicture/{picture.Href}";
+
             return new PictureSneakerModel()
             {
                 Id = picture.Id,
                 IdModel = picture.IdModel,
-                Href = picture.Href,
+                Href = fullUrl,
                 Main = picture.Main
             };
         }
@@ -182,13 +188,13 @@ namespace JohnyStoreApi.Services
         /// </summary>
         /// <param name="pictures"></param>
         /// <returns></returns>
-        public static List<PictureSneakerModel> MapToPictureSneakerModels(this List<PictureSneaker> pictures)
+        public static List<PictureSneakerModel> MapToPictureSneakerModels(this List<PictureSneaker> pictures, IConfiguration configuration)
         {
             var models = new List<PictureSneakerModel>();
 
             foreach (var picture in pictures)
             {
-                var model = picture.MapToPictureSneakerModel();
+                var model = picture.MapToPictureSneakerModel(configuration);
                 models.Add(model);
             }
 
@@ -235,12 +241,14 @@ namespace JohnyStoreApi.Services
         /// <param name="availability"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        public static AvailabilityModel MapToAvailabilityModel(this Availability availability, JohnyStoreContext context)
+        public static AvailabilityModel MapToAvailabilityModel(this Availability availability, 
+                                                                    JohnyStoreContext context, 
+                                                                    IConfiguration configuration)
         {
             AvailabilityModel model = new AvailabilityModel()
             {
                 Id = availability.Id,
-                Model = context.ModelsSneakers.First(x => x.Id == availability.IdModel).MapToSneakerModel(context),
+                Model = context.ModelsSneakers.First(x => x.Id == availability.IdModel).MapToSneakerModel(context, configuration),
                 Status35 = context.AvailabilityStatuses.First(x => x.Id == availability.Status35).MapToAvailabiltyStatusModel(),
                 Status36 = context.AvailabilityStatuses.First(x => x.Id == availability.Status36).MapToAvailabiltyStatusModel(),
                 Status37 = context.AvailabilityStatuses.First(x => x.Id == availability.Status37).MapToAvailabiltyStatusModel(),

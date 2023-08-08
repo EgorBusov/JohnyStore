@@ -1,5 +1,8 @@
 ﻿namespace JohnyStoreApi.Services.Interfaces
 {
+    /// <summary>
+    /// Работа с файлами
+    /// </summary>
     public interface IFileManager
     {
         Stream GetFile(string path);
