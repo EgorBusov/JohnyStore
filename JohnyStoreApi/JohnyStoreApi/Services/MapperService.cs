@@ -1,6 +1,7 @@
 ﻿using JohnyStoreApi.Models;
 using JohnyStoreApi.Models.Availability;
 using JohnyStoreApi.Models.Brand;
+using JohnyStoreApi.Models.Order;
 using JohnyStoreApi.Models.Picture;
 using JohnyStoreApi.Models.Sneaker;
 using JohnyStoreApi.Models.Style;
@@ -363,6 +364,124 @@ namespace JohnyStoreApi.Services
             };
 
             return brand;
+        }
+
+        #endregion
+
+        #region Order
+
+        /// <summary>
+        /// Приводит коллекцию OrderStatus к коллекции OrderStatusModel
+        /// </summary>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public static List<OrderModel> MapToOrderModels(this List<Order> orders, JohnyStoreContext context, IConfiguration configuration)
+        {
+            var models = new List<OrderModel>();
+
+            foreach (Order order in orders)
+            {
+                OrderModel model = order.MapToOrderModel(context, configuration);
+                models.Add(model);
+            }
+
+            return models;
+        }
+
+        /// <summary>
+        /// Приводит Order к OrderModel
+        /// </summary>
+        /// <param name="order"></param>
+        /// <param name="context"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
+        public static OrderModel MapToOrderModel(this Order order, JohnyStoreContext context, IConfiguration configuration)
+        {
+            OrderModel orderModel = new OrderModel()
+            {
+                Id = order.Id,
+                Email = order.Email,
+                Phone = order.Phone,
+                SizeFoot = order.SizeFoot,
+                Model = context.ModelsSneakers.First(x => x.Id == order.IdModel).MapToSneakerModel(context, configuration),
+                Status = context.OrderStatuses.First(x => x.Id == order.IdStatus).MapToOrderStatusModel()
+            };
+
+            return orderModel;
+        }
+
+        /// <summary>
+        /// Приводит OrderModel к Order
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static Order MapToOrder(this OrderModel model)
+        {
+            Order order = new Order()
+            {
+                Id = model.Id,
+                Email = model.Email,
+                Phone = model.Phone,
+                SizeFoot = model.SizeFoot,
+                IdModel = model.Model.Id,
+                IdStatus = model.Status.Id,
+                Visible = true
+            };
+
+            return order;
+        }
+
+        /// <summary>
+        /// Приводит коллекцию OrderStatus к коллекции OrderStatusModel 
+        /// </summary>
+        /// <param name="statuses"></param>
+        /// <returns></returns>
+        public static List<OrderStatusModel> MapToOrderStatusModels(this List<OrderStatus> statuses) 
+        {
+            var models = new List<OrderStatusModel>();
+
+            foreach (var status in statuses)
+            {
+                var model = status.MapToOrderStatusModel();
+                models.Add(model);
+            }
+
+            return models;
+        }
+
+        /// <summary>
+        /// Приводит OrderStatus к OrderStatusModel
+        /// </summary>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public static OrderStatusModel MapToOrderStatusModel(this OrderStatus status)
+        {
+            OrderStatusModel model = new OrderStatusModel()
+            {
+                Id = status.Id,
+                Name = status.Name,
+                Position = status.Position
+            };
+
+            return model;
+        }
+
+        /// <summary>
+        /// Приводит OrderStatusModel к OrderStatus
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static OrderStatus MapToOrderStatus(this OrderStatusModel model)
+        {
+            OrderStatus status = new OrderStatus()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Position = model.Position,
+                Visible = true
+            };
+
+            return status;
         }
 
         #endregion
