@@ -15,15 +15,18 @@ namespace JohnyStoreApi.Services.Data
         private readonly JohnyStoreContext _context;
         private readonly IConfiguration _configuration;
         private readonly IFileManager _fileManager;
+        private readonly IJohnyStoreLogger _logger;
 
         public PictureSneakerDataService(
             JohnyStoreContext context,
             IConfiguration configuration,
-            IFileManager fileManager)
+            IFileManager fileManager,
+            IJohnyStoreLogger logger)
         {
             _context = context;
             _configuration = configuration;
             _fileManager = fileManager;
+            _logger = logger;
         }
 
         /// <summary>
@@ -47,6 +50,13 @@ namespace JohnyStoreApi.Services.Data
         /// <returns></returns>
         public bool AddPictures(List<AddPictureSneakerModel> modelPictures, int idModel)
         {
+            if (!CheckManyMain(modelPictures))
+            {
+                _logger.InfoLog("0 или несколько картинок были выбраны основными");
+                return false;
+            }
+                
+
             var pathDirectory = _configuration.GetValue<string>("Paths:PathDirectoryPictureForSneaker");
             var fullPathDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, pathDirectory);
 
@@ -90,6 +100,24 @@ namespace JohnyStoreApi.Services.Data
             _context.SaveChanges();
 
             return true;
+        }
+
+        /// <summary>
+        /// Проверка на наличие нескольких основных фото
+        /// </summary>
+        /// <param name="modelPictures"></param>
+        /// <returns></returns>
+        private bool CheckManyMain(List<AddPictureSneakerModel> modelPictures)
+        {
+            int check = 0;
+
+            foreach (var picture in modelPictures)
+            {
+                if(picture.Main == true)
+                    check++;
+            }
+
+            return check == 1;
         }
     }
 }

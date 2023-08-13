@@ -167,7 +167,7 @@ namespace JohnyStoreApi.Services.Data
         /// </summary>
         /// <param name="search"></param>
         /// <returns></returns>
-        private IQueryable<Sneaker> Search(SearchModel search)
+        private IQueryable<Sneaker> Search(SearchModel? search)
         {
 
             var query = _context.ModelsSneakers.AsQueryable().Where(x => x.Visible == true);

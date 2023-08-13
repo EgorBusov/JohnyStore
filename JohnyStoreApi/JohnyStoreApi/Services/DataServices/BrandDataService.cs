@@ -7,12 +7,12 @@ using Microsoft.AspNetCore.Server.IIS.Core;
 
 namespace JohnyStoreApi.Services.DataServices
 {
-    public class BrandService : IBrandDataService
+    public class BrandDataService : IBrandDataService
     {
         private readonly JohnyStoreContext _context;
         private readonly IJohnyStoreLogger _logger;
 
-        public BrandService(
+        public BrandDataService(
             JohnyStoreContext context,
             IJohnyStoreLogger logger)
         {
