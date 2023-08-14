@@ -48,7 +48,7 @@ namespace JohnyStoreApi.Services.Data
         /// <param name="modelPictures"></param>
         /// <param name="idModel"></param>
         /// <returns></returns>
-        public bool AddPictures(List<AddPictureSneakerModel> modelPictures, int idModel)
+        public bool AddPictures(List<AddPictureSneakerModel> modelPictures, Sneaker model)
         {
             if (!CheckManyMain(modelPictures))
             {
@@ -66,7 +66,7 @@ namespace JohnyStoreApi.Services.Data
             {
                 PictureSneaker pictureSneaker = new PictureSneaker()
                 {
-                    IdModel = idModel,
+                    Model = model,
                     Main = picture.Main,
                     Href = _fileManager.SaveFile(picture.File.OpenReadStream(), fullPathDirectory, Path.GetExtension(picture.File.FileName)),
                     Visible = true
@@ -89,7 +89,7 @@ namespace JohnyStoreApi.Services.Data
         public bool DeletePictures(int idModel)
         {
             var pathDirectory = _configuration.GetValue<string>("Paths:PathDirectoryPictureForSneaker");
-            var pictures = _context.PictureSneakers.Where(x => x.IdModel == idModel).ToList();
+            var pictures = _context.PictureSneakers.Where(x => x.Model.Id == idModel).ToList();
 
             foreach (var picture in pictures)
             {

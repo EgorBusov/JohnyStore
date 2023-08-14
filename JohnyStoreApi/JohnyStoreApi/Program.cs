@@ -15,8 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 string connection = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new Exception("Строка подключения не найдена");
 builder.Services.AddDbContext<JohnyStoreContext>(options => options.UseLazyLoadingProxies().UseSqlServer(connection));
 
-builder.Services.AddSingleton<IJohnyStoreLogger, JohnyStoreLogger>();
-builder.Services.AddSingleton<IFileManager, FileManager>();
+builder.Services.AddScoped<IJohnyStoreLogger, JohnyStoreLogger>();
+builder.Services.AddScoped<IFileManager, FileManager>();
 builder.Services.AddScoped<ISneakerDataService, SneakerDataSevice>();
 builder.Services.AddScoped<IPictureDataService, PictureSneakerDataService>();
 builder.Services.AddScoped<IOrderDataService, OrderDataService>();

@@ -51,7 +51,7 @@ namespace JohnyStoreApi.Services.DataServices
             try
             {
                 var order = _context.Orders.First(x => x.Id == idOrder) ?? throw new Exception("Заказ не найдет");
-                order.IdStatus = GetNextIdStatus(order.IdStatus);
+                order.Status = _context.OrderStatuses.First(x => x.Id == GetNextIdStatus(order.Status.Id));
                 _context.SaveChanges();
 
                 return true;
@@ -78,7 +78,7 @@ namespace JohnyStoreApi.Services.DataServices
                 .First()
                 .MapToOrderStatusModel();
 
-                Order order = model.MapToOrder();
+                Order order = model.MapToOrder(_context);
 
                 _context.Orders.Add(order);
                 _context.SaveChanges();

@@ -58,19 +58,17 @@ namespace JohnyStoreApi.Services
                     Pictures = new List<PictureSneakerModel>()
                 };
 
-            Brand brand = context.Brands.First(x => x.Id == modelSneaker.IdBrand);
             List<PictureSneakerModel> pictures = context.PictureSneakers
-                .Where(x => x.IdModel == modelSneaker.Id && x.Visible == true)
+                .Where(x => x.Model.Id == modelSneaker.Id && x.Visible == true)
                 .ToList().MapToPictureSneakerModels(configuration);
-            Style style = context.Styles.First(x => x.Id == modelSneaker.IdStyle);
 
             SneakerModel sneakerModel = new SneakerModel()
             {
                 Id = modelSneaker.Id,
                 Brand = new BrandModel()
                 {
-                    Id = brand.Id,
-                    Name = brand.Name
+                    Id = modelSneaker.Brand.Id,
+                    Name = modelSneaker.Brand.Name
                 },
                 Name = modelSneaker.Name,
                 Pictures = pictures,
@@ -80,8 +78,8 @@ namespace JohnyStoreApi.Services
                 WinterOrSummer = modelSneaker.WinterOrSummer,
                 Style = new StyleModel()
                 {
-                    Id = style.Id,
-                    Name = style.Name
+                    Id = modelSneaker.Style.Id,
+                    Name = modelSneaker.Style.Name
                 },
                 Article = modelSneaker.Article,
                 Sale = modelSneaker.Sale,
@@ -97,18 +95,21 @@ namespace JohnyStoreApi.Services
         /// </summary>
         /// <param name="addSneakerModel"></param>
         /// <returns></returns>
-        public static Sneaker MapToSneaker(this AddSneakerModel addSneakerModel)
+        public static Sneaker MapToSneaker(this AddSneakerModel addSneakerModel, JohnyStoreContext context)
         {
+            Brand brand = context.Brands.First(x => x.Id == addSneakerModel.Brand);
+            Style style = context.Styles.First(x => x.Id == addSneakerModel.Style);
+
             Sneaker sneaker = new Sneaker()
             {
                 Id = addSneakerModel.Id,
-                IdBrand = addSneakerModel.Brand,
+                Brand = brand,
                 Name = addSneakerModel.Name,
                 Price = addSneakerModel.Price,
                 Description = addSneakerModel.Description,
                 Gender = addSneakerModel.Gender,
                 WinterOrSummer = addSneakerModel.WinterOrSummer,
-                IdStyle = addSneakerModel.Style,
+                Style = style,
                 Article = addSneakerModel.Article,
                 Sale = addSneakerModel.Sale,
                 New = addSneakerModel.New,
@@ -118,52 +119,38 @@ namespace JohnyStoreApi.Services
 
             return sneaker;
         }
-        #endregion
-
-        #region Picture
 
         /// <summary>
-        /// Приводит PictureSneakerModel к PictureSneaker
+        /// Приводит SneakerModel к Sneaker
         /// </summary>
-        /// <param name="pictureSneaker"></param>
+        /// <param name="model"></param>
         /// <returns></returns>
-        public static PictureSneaker MapToPictureSneaker(this PictureSneakerModel pictureSneaker)
+        public static Sneaker MapToSneaker(this SneakerModel model, JohnyStoreContext context)
         {
-            if(pictureSneaker == null)
-                return new PictureSneaker();
+            Style style = context.Styles.First(x => x.Id == model.Style.Id);
 
-            PictureSneaker picture = new PictureSneaker()
+            Sneaker sneaker = new Sneaker()
             {
-                Id = pictureSneaker.Id,
-                IdModel = pictureSneaker.IdModel,
-                Href = Path.GetFileName(pictureSneaker.Href),
-                Main = pictureSneaker.Main,
+                Id=model.Id,
+                Brand = model.Brand.MapToBrand(),
+                Style = style,
+                WinterOrSummer=model.WinterOrSummer,
+                Name = model.Name,
+                Price = model.Price,
+                Description = model.Description,
+                Gender = model.Gender,
+                Article = model.Article,
+                Sale = model.Sale,
+                New = model.New,
+                Color = model.Color,
                 Visible = true
             };
 
-            return picture;
+            return sneaker;
         }
+        #endregion
 
-        /// <summary>
-        /// Приводит коллекцию PictureSneakerModel к коллекции PictureSneaker
-        /// </summary>
-        /// <param name="models"></param>
-        /// <returns></returns>
-        public static List<PictureSneaker> MapToPictureSneakers(this List<PictureSneakerModel> models)
-        {
-            List<PictureSneaker> pictures = new List<PictureSneaker>();
-
-            if (models.Count == 0 || models == null)
-                return pictures;
-
-            foreach (var model in models)
-            {
-                var picture = model.MapToPictureSneaker();
-                pictures.Add(picture);
-            }
-
-            return pictures;
-        }
+        #region Picture
 
         /// <summary>
         /// Приводит PictureSneaker к PictureSneakerModel
@@ -178,7 +165,7 @@ namespace JohnyStoreApi.Services
             return new PictureSneakerModel()
             {
                 Id = picture.Id,
-                IdModel = picture.IdModel,
+                IdModel = picture.Model.Id,
                 Href = fullUrl,
                 Main = picture.Main
             };
@@ -211,24 +198,24 @@ namespace JohnyStoreApi.Services
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public static Availability MapToAvailability(this AvailabilityModel model) 
+        public static Availability MapToAvailability(this AvailabilityModel model, JohnyStoreContext context)
         {
             Availability availability = new Availability()
             {
                 Id = model.Id,
-                IdModel = model.Model.Id,
-                Status35 = model.Status35.Id,
-                Status36 = model.Status36.Id,
-                Status37 = model.Status37.Id,
-                Status38 = model.Status38.Id,
-                Status39 = model.Status39.Id,
-                Status40 = model.Status40.Id,
-                Status41 = model.Status41.Id,
-                Status42 = model.Status42.Id,
-                Status43 = model.Status43.Id,
-                Status44 = model.Status44.Id,
-                Status45 = model.Status45.Id,
-                Status46 = model.Status46.Id,
+                Model = model.Model.MapToSneaker(context),
+                Status35 = model.Status35.MapToAvailabilityStatus(),
+                Status36 = model.Status36.MapToAvailabilityStatus(),
+                Status37 = model.Status37.MapToAvailabilityStatus(),
+                Status38 = model.Status38.MapToAvailabilityStatus(),
+                Status39 = model.Status39.MapToAvailabilityStatus(),
+                Status40 = model.Status40.MapToAvailabilityStatus(),
+                Status41 = model.Status41.MapToAvailabilityStatus(),
+                Status42 = model.Status42.MapToAvailabilityStatus(),
+                Status43 = model.Status43.MapToAvailabilityStatus(),
+                Status44 = model.Status44.MapToAvailabilityStatus(),
+                Status45 = model.Status45.MapToAvailabilityStatus(),
+                Status46 = model.Status46.MapToAvailabilityStatus(),
                 Visible = true
 
             };
@@ -249,19 +236,19 @@ namespace JohnyStoreApi.Services
             AvailabilityModel model = new AvailabilityModel()
             {
                 Id = availability.Id,
-                Model = context.ModelsSneakers.First(x => x.Id == availability.IdModel).MapToSneakerModel(context, configuration),
-                Status35 = context.AvailabilityStatuses.First(x => x.Id == availability.Status35).MapToAvailabiltyStatusModel(),
-                Status36 = context.AvailabilityStatuses.First(x => x.Id == availability.Status36).MapToAvailabiltyStatusModel(),
-                Status37 = context.AvailabilityStatuses.First(x => x.Id == availability.Status37).MapToAvailabiltyStatusModel(),
-                Status38 = context.AvailabilityStatuses.First(x => x.Id == availability.Status38).MapToAvailabiltyStatusModel(),
-                Status39 = context.AvailabilityStatuses.First(x => x.Id == availability.Status39).MapToAvailabiltyStatusModel(),
-                Status40 = context.AvailabilityStatuses.First(x => x.Id == availability.Status40).MapToAvailabiltyStatusModel(),
-                Status41 = context.AvailabilityStatuses.First(x => x.Id == availability.Status41).MapToAvailabiltyStatusModel(),
-                Status42 = context.AvailabilityStatuses.First(x => x.Id == availability.Status42).MapToAvailabiltyStatusModel(),
-                Status43 = context.AvailabilityStatuses.First(x => x.Id == availability.Status43).MapToAvailabiltyStatusModel(),
-                Status44 = context.AvailabilityStatuses.First(x => x.Id == availability.Status44).MapToAvailabiltyStatusModel(),
-                Status45 = context.AvailabilityStatuses.First(x => x.Id == availability.Status45).MapToAvailabiltyStatusModel(),
-                Status46 = context.AvailabilityStatuses.First(x => x.Id == availability.Status46).MapToAvailabiltyStatusModel(),
+                Model = context.ModelsSneakers.First(x => x.Id == availability.Model.Id).MapToSneakerModel(context, configuration),
+                Status35 = context.AvailabilityStatuses.First(x => x.Id == availability.Status35.Id).MapToAvailabiltyStatusModel(),
+                Status36 = context.AvailabilityStatuses.First(x => x.Id == availability.Status36.Id).MapToAvailabiltyStatusModel(),
+                Status37 = context.AvailabilityStatuses.First(x => x.Id == availability.Status37.Id).MapToAvailabiltyStatusModel(),
+                Status38 = context.AvailabilityStatuses.First(x => x.Id == availability.Status38.Id).MapToAvailabiltyStatusModel(),
+                Status39 = context.AvailabilityStatuses.First(x => x.Id == availability.Status39.Id).MapToAvailabiltyStatusModel(),
+                Status40 = context.AvailabilityStatuses.First(x => x.Id == availability.Status40.Id).MapToAvailabiltyStatusModel(),
+                Status41 = context.AvailabilityStatuses.First(x => x.Id == availability.Status41.Id).MapToAvailabiltyStatusModel(),
+                Status42 = context.AvailabilityStatuses.First(x => x.Id == availability.Status42.Id).MapToAvailabiltyStatusModel(),
+                Status43 = context.AvailabilityStatuses.First(x => x.Id == availability.Status43.Id).MapToAvailabiltyStatusModel(),
+                Status44 = context.AvailabilityStatuses.First(x => x.Id == availability.Status44.Id).MapToAvailabiltyStatusModel(),
+                Status45 = context.AvailabilityStatuses.First(x => x.Id == availability.Status45.Id).MapToAvailabiltyStatusModel(),
+                Status46 = context.AvailabilityStatuses.First(x => x.Id == availability.Status46.Id).MapToAvailabiltyStatusModel(),
             };
 
             return model;
@@ -403,8 +390,8 @@ namespace JohnyStoreApi.Services
                 Email = order.Email,
                 Phone = order.Phone,
                 SizeFoot = order.SizeFoot,
-                Model = context.ModelsSneakers.First(x => x.Id == order.IdModel).MapToSneakerModel(context, configuration),
-                Status = context.OrderStatuses.First(x => x.Id == order.IdStatus).MapToOrderStatusModel()
+                Model = context.ModelsSneakers.First(x => x.Id == order.Model.Id).MapToSneakerModel(context, configuration),
+                Status = context.OrderStatuses.First(x => x.Id == order.Status.Id).MapToOrderStatusModel()
             };
 
             return orderModel;
@@ -415,16 +402,18 @@ namespace JohnyStoreApi.Services
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public static Order MapToOrder(this OrderModel model)
+        public static Order MapToOrder(this OrderModel model, JohnyStoreContext context)
         {
+            OrderStatus status = context.OrderStatuses.First(x => x.Id == model.Status.Id); 
+
             Order order = new Order()
             {
                 Id = model.Id,
                 Email = model.Email,
                 Phone = model.Phone,
                 SizeFoot = model.SizeFoot,
-                IdModel = model.Model.Id,
-                IdStatus = model.Status.Id,
+                Model = model.Model.MapToSneaker(context),
+                Status = status,
                 Visible = true
             };
 

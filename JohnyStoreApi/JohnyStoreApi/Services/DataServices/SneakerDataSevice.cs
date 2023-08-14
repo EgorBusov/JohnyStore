@@ -69,9 +69,9 @@ namespace JohnyStoreApi.Services.Data
             {
                 try
                 {
-                    Sneaker sneaker = model.MapToSneaker();
+                    Sneaker sneaker = model.MapToSneaker(_context);
                     _context.ModelsSneakers.Add(sneaker);
-                    bool check = _pictureDataService.AddPictures(model.Pictures, sneaker.Id);
+                    bool check = _pictureDataService.AddPictures(model.Pictures, sneaker);
 
                     int changes = _context.SaveChanges();
                     transaction.Commit();
@@ -102,13 +102,16 @@ namespace JohnyStoreApi.Services.Data
                 {
                     Sneaker sneaker = _context.ModelsSneakers.First(x => x.Id == model.Id && x.Visible == true) 
                         ?? throw new Exception("Модель не найдена");
-                    sneaker.IdBrand = model.Brand;
+                    Brand brand = _context.Brands.First(x => x.Id == model.Brand) ?? throw new Exception("Брэнд не найден");
+                    Style style = _context.Styles.First(x => x.Id == model.Style) ?? throw new Exception("Стиль не найден");
+
+                    sneaker.Brand = brand;
                     sneaker.Name = model.Name;
                     sneaker.Price = model.Price;
                     sneaker.Description = model.Description;
                     sneaker.Gender = model.Gender;
                     sneaker.WinterOrSummer = model.WinterOrSummer;
-                    sneaker.IdStyle = model.Style;
+                    sneaker.Style = style;
                     sneaker.Article = model.Article;
                     sneaker.Sale = model.Sale;
                     sneaker.New = model.New;
@@ -116,7 +119,7 @@ namespace JohnyStoreApi.Services.Data
                     sneaker.Visible = true;
 
                     bool checkDel = _pictureDataService.DeletePictures(sneaker.Id);
-                    bool checkSave = _pictureDataService.AddPictures(model.Pictures, sneaker.Id);
+                    bool checkSave = _pictureDataService.AddPictures(model.Pictures, sneaker);
 
                     int changes = _context.SaveChanges();
                     transaction.Commit();
@@ -175,7 +178,7 @@ namespace JohnyStoreApi.Services.Data
             if (search == null) { return query; }
 
             if (search.ModelId > 0) { query = query.Where(x => x.Id == search.ModelId); }
-            if (search.BrandId > 0) { query = query.Where(x => x.IdBrand == search.BrandId); }
+            if (search.BrandId > 0) { query = query.Where(x => x.Brand.Id == search.BrandId); }
             if (search.Name != null) { query = query.Where(x => x.Name.ToLower().Contains(search.Name.ToLower())); }
             if (search.PriceMin > 0) { query = query.Where(x => x.Price >= search.PriceMin); }
             if (search.PriceMax > 0) { query = query.Where(x => x.Price <= search.PriceMax); }
@@ -191,7 +194,7 @@ namespace JohnyStoreApi.Services.Data
                 if (search.WinterOrSummer.ToLower() == "winter") { query = query.Where(x => x.WinterOrSummer == false); }
             }
 
-            if (search.StyleId > 0) { query = query.Where(x => x.IdStyle == search.StyleId); }
+            if (search.StyleId > 0) { query = query.Where(x => x.Style.Id == search.StyleId); }
             if (search.Article != null) { query = query.Where(x => x.Article == search.Article); }
             if (search.Sale == true) { query = query.Where(x => x.Sale == search.Sale); }
             if (search.New == true) { query = query.Where(x => x.New == search.New); }

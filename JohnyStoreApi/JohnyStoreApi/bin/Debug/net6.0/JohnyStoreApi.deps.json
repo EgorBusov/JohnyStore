@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "JohnyStoreApi/1.0.0": {
         "dependencies": {
+          "Microsoft.EntityFrameworkCore.Proxies": "7.0.10",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.9",
           "Microsoft.EntityFrameworkCore.Tools": "7.0.9",
           "Swashbuckle.AspNetCore": "6.2.3"
@@ -47,6 +48,17 @@
           "lib/netstandard2.0/Azure.Identity.dll": {
             "assemblyVersion": "1.6.0.0",
             "fileVersion": "1.600.22.20503"
+          }
+        }
+      },
+      "Castle.Core/5.1.0": {
+        "dependencies": {
+          "System.Diagnostics.EventLog": "6.0.0"
+        },
+        "runtime": {
+          "lib/net6.0/Castle.Core.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.1.0.0"
           }
         }
       },
@@ -132,30 +144,30 @@
           }
         }
       },
-      "Microsoft.EntityFrameworkCore/7.0.9": {
+      "Microsoft.EntityFrameworkCore/7.0.10": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Abstractions": "7.0.9",
-          "Microsoft.EntityFrameworkCore.Analyzers": "7.0.9",
+          "Microsoft.EntityFrameworkCore.Abstractions": "7.0.10",
+          "Microsoft.EntityFrameworkCore.Analyzers": "7.0.10",
           "Microsoft.Extensions.Caching.Memory": "7.0.0",
           "Microsoft.Extensions.DependencyInjection": "7.0.0",
           "Microsoft.Extensions.Logging": "7.0.0"
         },
         "runtime": {
           "lib/net6.0/Microsoft.EntityFrameworkCore.dll": {
-            "assemblyVersion": "7.0.9.0",
-            "fileVersion": "7.0.923.31909"
+            "assemblyVersion": "7.0.10.0",
+            "fileVersion": "7.0.1023.36204"
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.Abstractions/7.0.9": {
+      "Microsoft.EntityFrameworkCore.Abstractions/7.0.10": {
         "runtime": {
           "lib/net6.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {
-            "assemblyVersion": "7.0.9.0",
-            "fileVersion": "7.0.923.31909"
+            "assemblyVersion": "7.0.10.0",
+            "fileVersion": "7.0.1023.36204"
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.Analyzers/7.0.9": {},
+      "Microsoft.EntityFrameworkCore.Analyzers/7.0.10": {},
       "Microsoft.EntityFrameworkCore.Design/7.0.9": {
         "dependencies": {
           "Humanizer.Core": "2.14.1",
@@ -170,9 +182,21 @@
           }
         }
       },
+      "Microsoft.EntityFrameworkCore.Proxies/7.0.10": {
+        "dependencies": {
+          "Castle.Core": "5.1.0",
+          "Microsoft.EntityFrameworkCore": "7.0.10"
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.EntityFrameworkCore.Proxies.dll": {
+            "assemblyVersion": "7.0.10.0",
+            "fileVersion": "7.0.1023.36204"
+          }
+        }
+      },
       "Microsoft.EntityFrameworkCore.Relational/7.0.9": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore": "7.0.9",
+          "Microsoft.EntityFrameworkCore": "7.0.10",
           "Microsoft.Extensions.Configuration.Abstractions": "7.0.0"
         },
         "runtime": {
@@ -517,6 +541,7 @@
         }
       },
       "System.Diagnostics.DiagnosticSource/5.0.0": {},
+      "System.Diagnostics.EventLog/6.0.0": {},
       "System.Drawing.Common/5.0.0": {
         "dependencies": {
           "Microsoft.Win32.SystemEvents": "5.0.0"
@@ -768,6 +793,13 @@
       "path": "azure.identity/1.6.0",
       "hashPath": "azure.identity.1.6.0.nupkg.sha512"
     },
+    "Castle.Core/5.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-31UJpTHOiWq95CDOHazE3Ub/hE/PydNWsJMwnEVTqFFP4WhAugwpaVGxzOxKgNeSUUeqS2W6lxV+q7u1pAOfXg==",
+      "path": "castle.core/5.1.0",
+      "hashPath": "castle.core.5.1.0.nupkg.sha512"
+    },
     "Humanizer.Core/2.14.1": {
       "type": "package",
       "serviceable": true,
@@ -803,26 +835,26 @@
       "path": "microsoft.data.sqlclient.sni.runtime/5.0.1",
       "hashPath": "microsoft.data.sqlclient.sni.runtime.5.0.1.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore/7.0.9": {
+    "Microsoft.EntityFrameworkCore/7.0.10": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-9YuCdQWuRAmYYHqwW1h5ukKMC1fmNvcVHdp3gb8zdHxwSQz7hkGpYOBEjm6dRXRmGRkpUyHL8rwUz4kd53Ev0A==",
-      "path": "microsoft.entityframeworkcore/7.0.9",
-      "hashPath": "microsoft.entityframeworkcore.7.0.9.nupkg.sha512"
+      "sha512": "sha512-24NbXJqJ/x8u88/agqeb1pLdAF9+9StDLA36+P/3g5xsJPOaB2GxXn7epR8dWpZTgHsNZ7cvBMxBgfFmF+xZlg==",
+      "path": "microsoft.entityframeworkcore/7.0.10",
+      "hashPath": "microsoft.entityframeworkcore.7.0.10.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Abstractions/7.0.9": {
+    "Microsoft.EntityFrameworkCore.Abstractions/7.0.10": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-cfY6Fn7cnP/5pXndL8QYaey/B2nGn1fwze5aSaMJymmbqwqYzFiszHuWbsdVBCDYJc8ok7eB1m/nCc3/rltulQ==",
-      "path": "microsoft.entityframeworkcore.abstractions/7.0.9",
-      "hashPath": "microsoft.entityframeworkcore.abstractions.7.0.9.nupkg.sha512"
+      "sha512": "sha512-Z/lDWmGLiT9uNQrp6UXTKZxofSmAKQCiKOz98FDscTbfAGgBXE3DTTqRsPMc8HFIVVSNANSiFRz3JyLg07HN9Q==",
+      "path": "microsoft.entityframeworkcore.abstractions/7.0.10",
+      "hashPath": "microsoft.entityframeworkcore.abstractions.7.0.10.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Analyzers/7.0.9": {
+    "Microsoft.EntityFrameworkCore.Analyzers/7.0.10": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-VvqFD3DdML6LhPCAR/lG2xNX66juylC8v57yUAAYnUSdEUOMRi3lNoT4OrNdG0rere3UOQPhvVl5FH2QdyoF8Q==",
-      "path": "microsoft.entityframeworkcore.analyzers/7.0.9",
-      "hashPath": "microsoft.entityframeworkcore.analyzers.7.0.9.nupkg.sha512"
+      "sha512": "sha512-+8NVNpyJTzW6nNh/7RGfldf+mbeboVcn+X1tD8kMBCEJswuy3RqM/qecEEfOfTcWLliZExPMaHwOwtHO6RMpdA==",
+      "path": "microsoft.entityframeworkcore.analyzers/7.0.10",
+      "hashPath": "microsoft.entityframeworkcore.analyzers.7.0.10.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore.Design/7.0.9": {
       "type": "package",
@@ -830,6 +862,13 @@
       "sha512": "sha512-tWsa+spzKZAwHrUP6vYM1LLh0P89UMcldEjerFPPZb0LcI/ONQmh7ldK4Q8TeRuIiuXxYgRYPElSgxwLp14oug==",
       "path": "microsoft.entityframeworkcore.design/7.0.9",
       "hashPath": "microsoft.entityframeworkcore.design.7.0.9.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore.Proxies/7.0.10": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SKfHyqCyJGybK4BETyvs4JOr53hVPvPnV8No8Xm4DvfYEIaADutkpghPxVf5xnl7hxQgLi7A4RFb02cupg7dqQ==",
+      "path": "microsoft.entityframeworkcore.proxies/7.0.10",
+      "hashPath": "microsoft.entityframeworkcore.proxies.7.0.10.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore.Relational/7.0.9": {
       "type": "package",
@@ -1089,6 +1128,13 @@
       "sha512": "sha512-tCQTzPsGZh/A9LhhA6zrqCRV4hOHsK90/G7q3Khxmn6tnB1PuNU0cRaKANP2AWcF9bn0zsuOoZOSrHuJk6oNBA==",
       "path": "system.diagnostics.diagnosticsource/5.0.0",
       "hashPath": "system.diagnostics.diagnosticsource.5.0.0.nupkg.sha512"
+    },
+    "System.Diagnostics.EventLog/6.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lcyUiXTsETK2ALsZrX+nWuHSIQeazhqPphLfaRxzdGaG93+0kELqpgEHtwWOlQe7+jSFnKwaCAgL4kjeZCQJnw==",
+      "path": "system.diagnostics.eventlog/6.0.0",
+      "hashPath": "system.diagnostics.eventlog.6.0.0.nupkg.sha512"
     },
     "System.Drawing.Common/5.0.0": {
       "type": "package",

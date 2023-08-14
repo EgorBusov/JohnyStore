@@ -9,7 +9,7 @@ namespace JohnyStoreData.Models
     public class Sneaker
     {
         public int Id { get; set; }
-        public int IdBrand { get; set; }
+        public virtual Brand Brand { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
         public string Description { get; set; }
@@ -18,7 +18,7 @@ namespace JohnyStoreData.Models
         /// </summary>
         public bool Gender { get; set; }
         public bool WinterOrSummer { get; set; }
-        public int IdStyle { get; set; }
+        public virtual Style Style { get; set; }
         /// <summary>
         /// Артикул кроссовок
         /// </summary>

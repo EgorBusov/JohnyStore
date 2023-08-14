@@ -92,7 +92,7 @@ namespace JohnyStoreApi.Services.DataServices
         {
             try
             {
-                var sneakers = _context.ModelsSneakers.Where(x => x.IdBrand == idBrand).ToList();
+                var sneakers = _context.ModelsSneakers.Where(x => x.Brand.Id == idBrand).ToList();
                 if (sneakers.Count > 0)
                     throw new Exception("В коллекции еще присутсвуют кроссовки данного бренда");
 

@@ -12,7 +12,7 @@ namespace JohnyStoreData.Models
     public class PictureSneaker
     {
         public int Id { get; set; }
-        public int IdModel { get; set; }
+        public virtual Sneaker Model { get; set; }
         /// <summary>
         /// Является ли картинка основной
         /// </summary>

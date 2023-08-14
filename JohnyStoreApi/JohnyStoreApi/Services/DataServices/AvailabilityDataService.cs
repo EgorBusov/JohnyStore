@@ -31,7 +31,7 @@ namespace JohnyStoreApi.Services.DataServices
         /// <returns></returns>
         public AvailabilityModel GetAvailability(int idSneakerModel)
         {
-            return _context.Availability.First(x => x.IdModel == idSneakerModel || x.Visible == true)
+            return _context.Availability.First(x => x.Model.Id == idSneakerModel || x.Visible == true)
                 .MapToAvailabilityModel(_context, _configuration) ?? new AvailabilityModel();
         }
 
@@ -47,7 +47,7 @@ namespace JohnyStoreApi.Services.DataServices
                 if (model == null || model.Model == null || model.Model.Id == 0)
                     throw new Exception("При добавлении не указана модель");
 
-                Availability availability = model.MapToAvailability();
+                Availability availability = model.MapToAvailability(_context);
 
                 _context.Availability.Add(availability);
 
@@ -72,11 +72,11 @@ namespace JohnyStoreApi.Services.DataServices
                 if (model == null || model.Model == null || model.Model.Id == 0)
                     throw new Exception("При редактировании не указана модель");
 
-                Availability availability = model.MapToAvailability();
+                Availability availability = model.MapToAvailability(_context);
                 Availability editAvailability = _context.Availability.First(x => x.Id == availability.Id && x.Visible == true)
                     ?? throw new Exception("Запись о наличии не найдена");
 
-                editAvailability.IdModel = availability.Id;
+                editAvailability.Model = availability.Model;
                 editAvailability.Status35 = availability.Status35;
                 editAvailability.Status36 = availability.Status36;
                 editAvailability.Status37 = availability.Status37;
