@@ -14,7 +14,7 @@ namespace JohnyStoreData.EF
         public JohnyStoreContext(DbContextOptions<JohnyStoreContext> options)
         : base(options)
         {
-
+            
         }
 
         public DbSet<Availability> Availability { get; set; }
