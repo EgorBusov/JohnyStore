@@ -8,8 +8,8 @@ namespace JohnyStoreApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize("Admin")]
-    public class OrderStatusController : Controller
+    [Authorize(Roles = "Admin")]
+    public class OrderStatusController : ControllerBase
     {
         private readonly IOrderStatusDataService _orderStatusDataService;
 

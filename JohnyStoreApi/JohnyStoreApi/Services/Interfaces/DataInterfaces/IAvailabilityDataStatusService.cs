@@ -9,6 +9,6 @@ namespace JohnyStoreApi.Services.Interfaces.DataInterfaces
     {
         List<AvailabilityStatusModel> GetAvailabilityStatuses();
         bool AddAvailabilityStatus(AvailabilityStatusModel model);
-        bool RemoveAvailabilityStatus(int availabilityId);
+        bool DeleteAvailabilityStatus(int availabilityId);
     }
 }

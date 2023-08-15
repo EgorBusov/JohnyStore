@@ -27,7 +27,7 @@ namespace JohnyStoreApi.Services.DataServices
         /// <returns></returns>
         public BrandModel GetBrandById(int idBrand)
         {
-            return _context.Brands.First(x => x.Id == idBrand).MapToBrandModel();
+            return _context.Brands.First(x => x.Id == idBrand && x.Visible == true).MapToBrandModel();
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace JohnyStoreApi.Services.DataServices
         {
             try
             {
-                Brand brand = _context.Brands.First(x => x.Id == model.Id) ?? throw new Exception("Бренд не найден");
+                Brand brand = _context.Brands.First(x => x.Id == model.Id && x.Visible == true) ?? throw new Exception("Бренд не найден");
                 brand.Name = model.Name;
 
                 return _context.SaveChanges() > 0;

@@ -155,7 +155,7 @@ namespace JohnyStoreApi.Services.DataServices
         /// </summary>
         /// <param name="availabilityId"></param>
         /// <returns></returns>
-        public bool RemoveAvailabilityStatus(int availabilityId)
+        public bool DeleteAvailabilityStatus(int availabilityId)
         {
             try
             {

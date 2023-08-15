@@ -7,7 +7,7 @@ namespace JohnyStoreApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderController : Controller
+    public class OrderController : ControllerBase
     {
         private readonly IOrderDataService _orderDataService;
 
@@ -46,7 +46,7 @@ namespace JohnyStoreApi.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Authorize("Admin")]
+        [Authorize(Roles = "Admin")]
         [Route("NextStatus")]
         [HttpGet("{id}")]
         public IActionResult NextStatusOrder(int id)
@@ -84,7 +84,7 @@ namespace JohnyStoreApi.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Authorize("Admin")]
+        [Authorize(Roles = "Admin")]
         [Route("Delete/{id}")]
         [HttpDelete("{id}")]
         public IActionResult DeleteOrder(int id)
