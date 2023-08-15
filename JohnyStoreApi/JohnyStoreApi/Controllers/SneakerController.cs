@@ -26,8 +26,8 @@ namespace JohnyStoreApi.Controllers
             return _sneakerService.GetSneakers(search);
         }
 
-        [Route("GetSneakerById")]
-        [HttpGet]
+        [Route("GetSneakerById/{id}")]
+        [HttpGet("{id}")]
         [AllowAnonymous]
         public SneakerModel GetSneakerById(int id)
         {

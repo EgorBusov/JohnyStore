@@ -46,11 +46,11 @@ namespace JohnyStoreApi.Services.DataServices
         /// </summary>
         /// <param name="idOrder"></param>
         /// <returns></returns>
-        public bool NextStatusOrder(int idOrder)
+        public bool NextStatusOrder(int id)
         {
             try
             {
-                var order = _context.Orders.First(x => x.Id == idOrder) ?? throw new Exception("Заказ не найдет");
+                var order = _context.Orders.First(x => x.Id == id) ?? throw new Exception("Заказ не найдет");
                 order.Status = _context.OrderStatuses.First(x => x.Id == GetNextIdStatus(order.Status.Id));
                 _context.SaveChanges();
 
@@ -153,12 +153,25 @@ namespace JohnyStoreApi.Services.DataServices
                 ?? new List<OrderStatusModel>();
         }
 
+        /// <summary>
+        /// Добавление статуса
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public bool AddStatus(OrderStatusModel model)
         {
-            OrderStatus status = model.MapToOrderStatus();
-            _context.OrderStatuses.Add(status);
+            try
+            {
+                OrderStatus status = model.MapToOrderStatus();
+                _context.OrderStatuses.Add(status);
 
-            return true;
+                return true;
+            }
+            catch(Exception ex)
+            {
+                _logger.ErrorLog(ex.Message);
+                return false;
+            }
         }
 
         /// <summary>
@@ -166,7 +179,7 @@ namespace JohnyStoreApi.Services.DataServices
         /// </summary>
         /// <param name="idStatus"></param>
         /// <returns></returns>
-        public bool RemoveStatus(int idStatus)
+        public bool DeleteStatus(int idStatus)
         {
             try
             {

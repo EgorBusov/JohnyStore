@@ -9,6 +9,6 @@ namespace JohnyStoreApi.Services.Interfaces.DataInterfaces
     {
         List<OrderStatusModel> GetOrderStatuses();
         bool AddStatus(OrderStatusModel model);
-        bool RemoveStatus(int idStatus);
+        bool DeleteStatus(int idStatus);
     }
 }

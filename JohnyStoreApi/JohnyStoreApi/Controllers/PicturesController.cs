@@ -19,9 +19,9 @@ namespace JohnyStoreApi.Controllers
             _contentType = "image/jpeg";
         }
 
-        [HttpGet]
+        [HttpGet("{path}")]
         [AllowAnonymous]
-        [Route("Get")]
+        [Route("Get/{path}")]
         public IActionResult GetPicture(string path)
         {
             var stream = _pictureDataService.GetPicture(path);

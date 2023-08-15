@@ -22,6 +22,7 @@ builder.Services.AddScoped<IPictureDataService, PictureSneakerDataService>();
 builder.Services.AddScoped<IOrderDataService, OrderDataService>();
 builder.Services.AddScoped<IBrandDataService, BrandDataService>();
 builder.Services.AddScoped<IAvailabilityDataService, AvailabilityDataService>();
+builder.Services.AddScoped<IOrderStatusDataService,OrderDataService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
