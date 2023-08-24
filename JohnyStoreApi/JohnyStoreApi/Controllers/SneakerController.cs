@@ -50,7 +50,7 @@ namespace JohnyStoreApi.Controllers
         [Route("Edit")]
         [Authorize(Roles = "Admin")]
         [HttpPut]
-        public IActionResult EditSneaker([FromForm] AddSneakerModel model)
+        public IActionResult EditSneaker([FromBody] AddSneakerModel model)
         {
             bool res = _sneakerService.EditSneaker(model);
 

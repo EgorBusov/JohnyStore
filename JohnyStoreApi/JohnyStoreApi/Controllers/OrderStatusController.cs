@@ -32,7 +32,7 @@ namespace JohnyStoreApi.Controllers
         /// <returns></returns>
         [Route("Add")]
         [HttpPost]
-        public IActionResult AddStatus([FromForm] OrderStatusModel orderStatus)
+        public IActionResult AddStatus([FromBody] OrderStatusModel orderStatus)
         {
             bool check = _orderStatusDataService.AddStatus(orderStatus);
 

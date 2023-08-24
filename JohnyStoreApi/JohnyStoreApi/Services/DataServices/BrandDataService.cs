@@ -1,5 +1,7 @@
-﻿using JohnyStoreApi.Logging.Interfaces;
+﻿using Castle.Components.DictionaryAdapter.Xml;
+using JohnyStoreApi.Logging.Interfaces;
 using JohnyStoreApi.Models.Brand;
+using JohnyStoreApi.Services.AdditionalServices;
 using JohnyStoreApi.Services.Interfaces.DataInterfaces;
 using JohnyStoreData.EF;
 using JohnyStoreData.Models;
@@ -11,13 +13,19 @@ namespace JohnyStoreApi.Services.DataServices
     {
         private readonly JohnyStoreContext _context;
         private readonly IJohnyStoreLogger _logger;
+        private readonly IConfiguration _configuration;
+        private readonly IPictureBrandDataService _pictureBrandDataService;
 
         public BrandDataService(
             JohnyStoreContext context,
-            IJohnyStoreLogger logger)
+            IJohnyStoreLogger logger,
+            IConfiguration configuration,
+            IPictureBrandDataService pictureBrandDataService)
         {
             _context = context;
             _logger = logger;
+            _configuration = configuration;
+            _pictureBrandDataService = pictureBrandDataService;
         }
 
         /// <summary>
@@ -27,7 +35,7 @@ namespace JohnyStoreApi.Services.DataServices
         /// <returns></returns>
         public BrandModel GetBrandById(int idBrand)
         {
-            return _context.Brands.First(x => x.Id == idBrand && x.Visible == true).MapToBrandModel();
+            return _context.Brands.First(x => x.Id == idBrand && x.Visible == true).MapToBrandModel(_context, _configuration);
         }
 
         /// <summary>
@@ -36,7 +44,7 @@ namespace JohnyStoreApi.Services.DataServices
         /// <returns></returns>
         public List<BrandModel> GetBrands()
         {
-            return _context.Brands.Where(x => x.Visible == true).ToList().MapToBrandModels() 
+            return _context.Brands.Where(x => x.Visible == true).ToList().MapToBrandModels(_context, _configuration)
                 ?? new List<BrandModel>();
         }
 
@@ -45,20 +53,31 @@ namespace JohnyStoreApi.Services.DataServices
         /// </summary>
         /// <param name="brand"></param>
         /// <returns></returns>
-        public bool AddBrand(BrandModel model)
+        public bool AddBrand(AddBrandModel model)
         {
-            try
-            {
-                Brand brand = model.MapToBrand();
-
-                _context.Brands.Add(brand);
-
-                return _context.SaveChanges() > 0;
-            }
-            catch (Exception ex)
-            {
-                _logger.ErrorLog(ex.Message);
+            if(!(model.Validate()))
                 return false;
+
+            using(var transaction = _context.Database.BeginTransaction()) 
+            {
+                try
+                {
+                    Brand brand = model.MapToBrand();
+                    _context.Brands.Add(brand);
+
+                    _pictureBrandDataService.AddPicture(model.Picture, brand);
+
+                    _context.SaveChanges();
+                    transaction.Commit();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    _logger.ErrorLog(ex.Message);
+                    return false;
+                }
             }
         }
 
@@ -67,19 +86,32 @@ namespace JohnyStoreApi.Services.DataServices
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public bool EditBrand(BrandModel model)
+        public bool EditBrand(AddBrandModel model)
         {
-            try
-            {
-                Brand brand = _context.Brands.First(x => x.Id == model.Id && x.Visible == true) ?? throw new Exception("Бренд не найден");
-                brand.Name = model.Name;
-
-                return _context.SaveChanges() > 0;
-            }
-            catch(Exception ex)
-            {
-                _logger.ErrorLog(ex.Message);
+            if (!(model.Validate()) || model.Id == 0)
                 return false;
+
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    Brand brand = _context.Brands.First(x => x.Id == model.Id && x.Visible == true) ?? throw new Exception("Бренд не найден");
+                    brand.Name = model.Name;
+
+                    _pictureBrandDataService.DeletePicture(brand.Id);
+                    _pictureBrandDataService.AddPicture(model.Picture, brand);
+
+                    _context.SaveChanges();
+                    transaction.Commit();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    _logger.ErrorLog(ex.Message);
+                    return false;
+                }
             }
         }
 
@@ -98,6 +130,8 @@ namespace JohnyStoreApi.Services.DataServices
 
                 Brand brand = _context.Brands.First(x => x.Id == idBrand) ?? throw new Exception("Бренд не найден");
                 brand.Visible = false;
+
+                _pictureBrandDataService.DeletePicture(idBrand);
 
                 return _context.SaveChanges() > 0;
             }

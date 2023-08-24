@@ -2,6 +2,7 @@
 using JohnyStoreApi.Models;
 using JohnyStoreApi.Models.Picture;
 using JohnyStoreApi.Models.Sneaker;
+using JohnyStoreApi.Services.AdditionalServices;
 using JohnyStoreApi.Services.Interfaces;
 using JohnyStoreApi.Services.Interfaces.DataInterfaces;
 using JohnyStoreData.EF;
@@ -20,13 +21,13 @@ namespace JohnyStoreApi.Services.Data
     {
         private readonly JohnyStoreContext _context;
         private readonly IJohnyStoreLogger _logger;
-        private readonly IPictureDataService _pictureDataService;
+        private readonly IPictureSneakerDataService _pictureDataService;
         private readonly IConfiguration _configuration;
 
         public SneakerDataSevice(
             JohnyStoreContext context,
             IJohnyStoreLogger logger,
-            IPictureDataService pictureDataService,
+            IPictureSneakerDataService pictureDataService,
             IConfiguration configuration)
         {
             _context = context;
@@ -65,6 +66,9 @@ namespace JohnyStoreApi.Services.Data
         /// <returns></returns>
         public bool AddSneaker(AddSneakerModel model)
         {
+            if(!model.Validate(_context)) 
+                return false;
+
             using (var transaction = _context.Database.BeginTransaction())
             {
                 try
@@ -93,7 +97,7 @@ namespace JohnyStoreApi.Services.Data
         /// <returns></returns>
         public bool EditSneaker(AddSneakerModel model)
         {
-            if (model.Id == 0)
+            if (model.Id == 0 || !model.Validate(_context))
                 return false;
 
             using (var transaction = _context.Database.BeginTransaction())

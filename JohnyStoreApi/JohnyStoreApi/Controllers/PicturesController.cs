@@ -10,21 +10,31 @@ namespace JohnyStoreApi.Controllers
     [ApiController]
     public class PicturesController : ControllerBase
     {
-        private readonly IPictureDataService _pictureDataService;
+        private readonly IPictureSneakerDataService _pictureSneakerDataService;
+        private readonly IPictureBrandDataService _pictureBrandDataService;
         private readonly string _contentType;
 
-        public PicturesController(IPictureDataService pictureDataService) 
+        public PicturesController(IPictureSneakerDataService pictureDataService) 
         {
-            _pictureDataService = pictureDataService;
+            _pictureSneakerDataService = pictureDataService;
             _contentType = "image/jpeg";
         }
 
         [HttpGet("{path}")]
         [AllowAnonymous]
-        [Route("Get/{path}")]
-        public IActionResult GetPicture(string path)
+        [Route("GetSneakerPicture/{path}")]
+        public IActionResult GetSneakerPicture(string path)
         {
-            var stream = _pictureDataService.GetPicture(path);
+            var stream = _pictureSneakerDataService.GetPicture(path);
+            return File(stream, _contentType);
+        }
+
+        [HttpGet("{path}")]
+        [AllowAnonymous]
+        [Route("GetBrandPicture/{path}")]
+        public IActionResult GetBrandPicture(string path)
+        {
+            var stream = _pictureBrandDataService.GetPicture(path);
             return File(stream, _contentType);
         }
     }

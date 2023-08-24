@@ -1,5 +1,6 @@
 ﻿using JohnyStoreApi.Logging.Interfaces;
 using JohnyStoreApi.Models.Availability;
+using JohnyStoreApi.Services.AdditionalServices;
 using JohnyStoreApi.Services.Interfaces.DataInterfaces;
 using JohnyStoreData.EF;
 using JohnyStoreData.Models;
@@ -44,11 +45,13 @@ namespace JohnyStoreApi.Services.DataServices
         {
             try
             {
-                if (model == null || model.Model == null || model.Model.Id == 0)
-                    throw new Exception("При добавлении не указана модель");
+                if(!model.Validate(_context)) 
+                {
+                    throw new Exception("Данные введены некорректно");
+                }
 
                 Availability availability = model.MapToAvailability(_context);
-
+                
                 _context.Availability.Add(availability);
 
                 return _context.SaveChanges() > 0;
@@ -61,7 +64,7 @@ namespace JohnyStoreApi.Services.DataServices
         }
 
         /// <summary>
-        /// редактирование наличия
+        /// Редактирование наличия
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -69,7 +72,7 @@ namespace JohnyStoreApi.Services.DataServices
         {
             try
             {
-                if (model == null || model.Model == null || model.Model.Id == 0)
+                if (!(model.Validate(_context)) || model.Model.Id == 0)
                     throw new Exception("При редактировании не указана модель");
 
                 Availability availability = model.MapToAvailability(_context);
@@ -144,6 +147,9 @@ namespace JohnyStoreApi.Services.DataServices
         /// <returns></returns>
         public bool AddAvailabilityStatus(AvailabilityStatusModel model)
         {
+            if(!(model.Validate()))
+                return false;
+
             AvailabilityStatus status = model.MapToAvailabilityStatus();
 
             _context.AvailabilityStatuses.Add(status);

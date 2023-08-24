@@ -1,5 +1,6 @@
 ﻿using JohnyStoreApi.Logging.Interfaces;
 using JohnyStoreApi.Models.Picture;
+using JohnyStoreApi.Services.AdditionalServices;
 using JohnyStoreApi.Services.Interfaces;
 using JohnyStoreApi.Services.Interfaces.DataInterfaces;
 using JohnyStoreData.EF;
@@ -10,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace JohnyStoreApi.Services.Data
 {
-    public class PictureSneakerDataService : IPictureDataService
+    public class PictureSneakerDataService : IPictureSneakerDataService
     {
         private readonly JohnyStoreContext _context;
         private readonly IConfiguration _configuration;
@@ -50,9 +51,9 @@ namespace JohnyStoreApi.Services.Data
         /// <returns></returns>
         public bool AddPictures(List<AddPictureSneakerModel> modelPictures, Sneaker model)
         {
-            if (!CheckManyMain(modelPictures))
+            if (!modelPictures.Validate())
             {
-                _logger.InfoLog("0 или несколько картинок были выбраны основными");
+                _logger.ErrorLog("Список картинок невалиден");
                 return false;
             }
                 
@@ -93,31 +94,13 @@ namespace JohnyStoreApi.Services.Data
 
             foreach (var picture in pictures)
             {
-                _fileManager.DeleteFile(pathDirectory + picture.Href);
+                _fileManager.DeleteFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,pathDirectory, picture.Href));
             }
 
             _context.PictureSneakers.RemoveRange(pictures);
             _context.SaveChanges();
 
             return true;
-        }
-
-        /// <summary>
-        /// Проверка на наличие нескольких основных фото
-        /// </summary>
-        /// <param name="modelPictures"></param>
-        /// <returns></returns>
-        private bool CheckManyMain(List<AddPictureSneakerModel> modelPictures)
-        {
-            int check = 0;
-
-            foreach (var picture in modelPictures)
-            {
-                if(picture.Main == true)
-                    check++;
-            }
-
-            return check == 1;
         }
     }
 }

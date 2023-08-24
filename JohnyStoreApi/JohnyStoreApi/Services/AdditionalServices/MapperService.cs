@@ -1,4 +1,5 @@
-﻿using JohnyStoreApi.Models;
+﻿using JohnyStoreApi.Data.Models;
+using JohnyStoreApi.Models;
 using JohnyStoreApi.Models.Availability;
 using JohnyStoreApi.Models.Brand;
 using JohnyStoreApi.Models.Order;
@@ -10,7 +11,7 @@ using JohnyStoreData.EF;
 using JohnyStoreData.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace JohnyStoreApi.Services
+namespace JohnyStoreApi.Services.AdditionalServices
 {
     /// <summary>
     /// Мапинг
@@ -25,8 +26,8 @@ namespace JohnyStoreApi.Services
         /// <param name="modelSneakers"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        public static List<SneakerModel> MapToSneakerModels(this List<Sneaker> modelSneakers, 
-                                                                JohnyStoreContext context, 
+        public static List<SneakerModel> MapToSneakerModels(this List<Sneaker> modelSneakers,
+                                                                JohnyStoreContext context,
                                                                 IConfiguration configuration)
         {
             List<SneakerModel> sneakerModels = new List<SneakerModel>();
@@ -85,7 +86,7 @@ namespace JohnyStoreApi.Services
                 Sale = modelSneaker.Sale,
                 New = modelSneaker.New,
                 Color = modelSneaker.Color
-            };           
+            };
 
             return sneakerModel;
         }
@@ -131,10 +132,10 @@ namespace JohnyStoreApi.Services
 
             Sneaker sneaker = new Sneaker()
             {
-                Id=model.Id,
+                Id = model.Id,
                 Brand = model.Brand.MapToBrand(),
                 Style = style,
-                WinterOrSummer=model.WinterOrSummer,
+                WinterOrSummer = model.WinterOrSummer,
                 Name = model.Name,
                 Price = model.Price,
                 Description = model.Description,
@@ -160,7 +161,7 @@ namespace JohnyStoreApi.Services
         public static PictureSneakerModel MapToPictureSneakerModel(this PictureSneaker picture, IConfiguration configuration)
         {
             string url = configuration.GetValue<string>("BaseUrl:Url");
-            string fullUrl = $"{url}/Picture/GetPicture/{picture.Href}";
+            string fullUrl = $"{url}/Picture/GetSneakerPicture/{picture.Href}";
 
             return new PictureSneakerModel()
             {
@@ -229,8 +230,8 @@ namespace JohnyStoreApi.Services
         /// <param name="availability"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        public static AvailabilityModel MapToAvailabilityModel(this Availability availability, 
-                                                                    JohnyStoreContext context, 
+        public static AvailabilityModel MapToAvailabilityModel(this Availability availability,
+                                                                    JohnyStoreContext context,
                                                                     IConfiguration configuration)
         {
             AvailabilityModel model = new AvailabilityModel()
@@ -275,7 +276,7 @@ namespace JohnyStoreApi.Services
         /// </summary>
         /// <param name="status"></param>
         /// <returns></returns>
-        public static List<AvailabilityStatusModel> MapToAvailabilityStatusModel(this List<AvailabilityStatus> status) 
+        public static List<AvailabilityStatusModel> MapToAvailabilityStatusModel(this List<AvailabilityStatus> status)
         {
             var models = new List<AvailabilityStatusModel>();
             foreach (var item in status)
@@ -310,13 +311,13 @@ namespace JohnyStoreApi.Services
         /// </summary>
         /// <param name="brands"></param>
         /// <returns></returns>
-        public static List<BrandModel> MapToBrandModels(this List<Brand> brands)
+        public static List<BrandModel> MapToBrandModels(this List<Brand> brands, JohnyStoreContext context, IConfiguration configuration)
         {
             List<BrandModel> brandModels = new List<BrandModel>();
 
             foreach (Brand brand in brands)
             {
-                BrandModel brandModel = brand.MapToBrandModel();
+                BrandModel brandModel = brand.MapToBrandModel(context, configuration);
                 brandModels.Add(brandModel);
             }
             return brandModels;
@@ -327,12 +328,14 @@ namespace JohnyStoreApi.Services
         /// </summary>
         /// <param name="brand"></param>
         /// <returns></returns>
-        public static BrandModel MapToBrandModel(this Brand brand)
+        public static BrandModel MapToBrandModel(this Brand brand, JohnyStoreContext context, IConfiguration configuration)
         {
+            var picture = context.PictureBrands.FirstOrDefault(x => x.Brand.Id == brand.Id && x.Visible != false);
             return new BrandModel()
             {
                 Id = brand.Id,
-                Name = brand.Name
+                Name = brand.Name,
+                Picture = picture.MapToPictureBrandModel(configuration)
             };
         }
 
@@ -345,12 +348,27 @@ namespace JohnyStoreApi.Services
         {
             Brand brand = new Brand()
             {
-                Id= model.Id,
+                Id = model.Id,
                 Name = model.Name,
                 Visible = true
             };
 
             return brand;
+        }
+
+        public static PictureBrandModel MapToPictureBrandModel(this PictureBrand picture, IConfiguration configuration)
+        {
+            string url = configuration.GetValue<string>("BaseUrl:Url");
+            string fullUrl = $"{url}/Picture/GetBrandPicture/{picture.Href}";
+
+            PictureBrandModel model = new PictureBrandModel()
+            {
+                Id = picture.Id,
+                IdBrand = picture.Brand.Id,
+                Href = fullUrl
+            };
+
+            return model;
         }
 
         #endregion
@@ -404,7 +422,7 @@ namespace JohnyStoreApi.Services
         /// <returns></returns>
         public static Order MapToOrder(this OrderModel model, JohnyStoreContext context)
         {
-            OrderStatus status = context.OrderStatuses.First(x => x.Id == model.Status.Id); 
+            OrderStatus status = context.OrderStatuses.First(x => x.Id == model.Status.Id);
 
             Order order = new Order()
             {
@@ -425,7 +443,7 @@ namespace JohnyStoreApi.Services
         /// </summary>
         /// <param name="statuses"></param>
         /// <returns></returns>
-        public static List<OrderStatusModel> MapToOrderStatusModels(this List<OrderStatus> statuses) 
+        public static List<OrderStatusModel> MapToOrderStatusModels(this List<OrderStatus> statuses)
         {
             var models = new List<OrderStatusModel>();
 
@@ -471,6 +489,60 @@ namespace JohnyStoreApi.Services
             };
 
             return status;
+        }
+
+        #endregion
+
+        #region Style
+
+        /// <summary>
+        /// Приводит коллекцию Style к коллекции StyleModel
+        /// </summary>
+        /// <param name="styles"></param>
+        /// <returns></returns>
+        public static List<StyleModel> MapToStyleModels(this List<Style> styles)
+        {
+            var models = new List<StyleModel>();
+
+            foreach (var style in styles)
+            {
+                models.Add(style.MapToStyleModel());
+            }
+
+            return models;
+        }
+
+        /// <summary>
+        /// Приводит Style к StyleModel
+        /// </summary>
+        /// <param name="styles"></param>
+        /// <returns></returns>
+        public static StyleModel MapToStyleModel(this Style style)
+        {
+            StyleModel model = new StyleModel()
+            {
+                Id = style.Id,
+                Name = style.Name,
+            };
+
+            return model;
+        }
+
+        /// <summary>
+        /// Приводит StyleModel к Style
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static Style MapToStyle(this StyleModel model)
+        {
+            Style style = new Style()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Visible = true
+            };
+
+            return style;
         }
 
         #endregion

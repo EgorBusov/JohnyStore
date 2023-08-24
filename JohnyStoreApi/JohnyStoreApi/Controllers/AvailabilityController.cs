@@ -1,4 +1,5 @@
 ﻿using JohnyStoreApi.Models.Availability;
+using JohnyStoreApi.Services;
 using JohnyStoreApi.Services.Interfaces.DataInterfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -36,7 +37,7 @@ namespace JohnyStoreApi.Controllers
         [Route("Add")]
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult AddAvailability([FromForm] AvailabilityModel model)
+        public IActionResult AddAvailability([FromBody] AvailabilityModel model)
         {
             bool check = _availabilityDataService.AddAvailability(model);
 
@@ -54,7 +55,7 @@ namespace JohnyStoreApi.Controllers
         [Route("Edit")]
         [Authorize(Roles = "Admin")]
         [HttpPut]
-        public IActionResult EditAvailability([FromForm] AvailabilityModel model)
+        public IActionResult EditAvailability([FromBody] AvailabilityModel model)
         {
             bool check = _availabilityDataService.EditAvailability(model);
 

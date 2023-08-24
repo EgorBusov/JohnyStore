@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "jc5BanN0B8pdizASPBpxqoVhbLajoZjsHSPwS6zRV+dxvnwBD7KbqRDOjtXVhh5KQ4VUSIGqRsLxyVtGGxvYtQ==",
+  "dgSpecHash": "Qm8o3WKpZX21+yeze1Ozgu+/SZ0Jx50WGtMAzaYGYZzx6+0sh7fhHd2zGpvn1E+dTzV+zZ1EOn/wCLpbVk6EaQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\pilla\\Desktop\\JohnyStore\\JohnyStoreApi\\JohnyStoreApi\\JohnyStoreApi.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\pilla\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\pilla\\.nuget\\packages\\castle.core\\5.1.0\\castle.core.5.1.0.nupkg.sha512",
     "C:\\Users\\pilla\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\pilla\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.0\\microsoft.aspnetcore.authentication.jwtbearer.6.0.0.nupkg.sha512",
     "C:\\Users\\pilla\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\pilla\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\pilla\\.nuget\\packages\\microsoft.data.sqlclient\\5.0.2\\microsoft.data.sqlclient.5.0.2.nupkg.sha512",

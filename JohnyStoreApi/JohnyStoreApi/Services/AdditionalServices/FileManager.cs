@@ -1,6 +1,6 @@
 ﻿using JohnyStoreApi.Services.Interfaces;
 
-namespace JohnyStoreApi.Services
+namespace JohnyStoreApi.Services.AdditionalServices
 {
     /// <summary>
     /// Класс для работы с файлами
@@ -16,9 +16,9 @@ namespace JohnyStoreApi.Services
         {
             try
             {
-               return File.OpenRead(path);
+                return File.OpenRead(path);
             }
-            catch 
+            catch
             {
                 return Stream.Null;
             }
@@ -31,13 +31,13 @@ namespace JohnyStoreApi.Services
         /// <returns></returns>
         public string SaveFile(Stream streamFile, string fullPathDirectory, string extentionSavedFile)
         {
-            if(!ValidateFile(streamFile))
-                return String.Empty;
+            if (!ValidateFile(streamFile))
+                return string.Empty;
 
             try
             {
                 var newFileName = Guid.NewGuid().ToString() + extentionSavedFile;
-                using(var stream = File.OpenWrite(fullPathDirectory + newFileName))
+                using (var stream = File.OpenWrite(Path.Combine(fullPathDirectory, newFileName)))
                 {
                     stream.CopyTo(streamFile);
                 }
@@ -46,7 +46,7 @@ namespace JohnyStoreApi.Services
             }
             catch
             {
-                return String.Empty;
+                return string.Empty;
             }
         }
 
@@ -59,7 +59,7 @@ namespace JohnyStoreApi.Services
         public string UpdateFile(Stream streamFile, string pathOldFile, string extentionNewFile)
         {
             if (!ValidateFile(streamFile))
-                return String.Empty;
+                return string.Empty;
 
             try
             {
@@ -70,7 +70,7 @@ namespace JohnyStoreApi.Services
             }
             catch
             {
-                return String.Empty;
+                return string.Empty;
             }
         }
 

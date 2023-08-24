@@ -4,6 +4,7 @@ using JohnyStoreData.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JohnyStoreApi.Migrations
 {
     [DbContext(typeof(JohnyStoreContext))]
-    partial class JohnyStoreContextModelSnapshot : ModelSnapshot
+    [Migration("20230821112302_migration_2")]
+    partial class migration_2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -394,7 +397,7 @@ namespace JohnyStoreApi.Migrations
                     b.HasOne("JohnyStoreData.Models.Brand", "Brand")
                         .WithMany()
                         .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Brand");
@@ -405,79 +408,79 @@ namespace JohnyStoreApi.Migrations
                     b.HasOne("JohnyStoreData.Models.Sneaker", "Model")
                         .WithMany()
                         .HasForeignKey("ModelId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("JohnyStoreData.Models.AvailabilityStatus", "Status35")
                         .WithMany()
                         .HasForeignKey("Status35Id")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("JohnyStoreData.Models.AvailabilityStatus", "Status36")
                         .WithMany()
                         .HasForeignKey("Status36Id")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("JohnyStoreData.Models.AvailabilityStatus", "Status37")
                         .WithMany()
                         .HasForeignKey("Status37Id")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("JohnyStoreData.Models.AvailabilityStatus", "Status38")
                         .WithMany()
                         .HasForeignKey("Status38Id")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("JohnyStoreData.Models.AvailabilityStatus", "Status39")
                         .WithMany()
                         .HasForeignKey("Status39Id")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("JohnyStoreData.Models.AvailabilityStatus", "Status40")
                         .WithMany()
                         .HasForeignKey("Status40Id")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("JohnyStoreData.Models.AvailabilityStatus", "Status41")
                         .WithMany()
                         .HasForeignKey("Status41Id")
-                        .OnDelete(DeleteBehavior.   Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("JohnyStoreData.Models.AvailabilityStatus", "Status42")
                         .WithMany()
                         .HasForeignKey("Status42Id")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("JohnyStoreData.Models.AvailabilityStatus", "Status43")
                         .WithMany()
                         .HasForeignKey("Status43Id")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("JohnyStoreData.Models.AvailabilityStatus", "Status44")
                         .WithMany()
                         .HasForeignKey("Status44Id")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("JohnyStoreData.Models.AvailabilityStatus", "Status45")
                         .WithMany()
                         .HasForeignKey("Status45Id")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("JohnyStoreData.Models.AvailabilityStatus", "Status46")
                         .WithMany()
                         .HasForeignKey("Status46Id")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Model");
@@ -512,13 +515,13 @@ namespace JohnyStoreApi.Migrations
                     b.HasOne("JohnyStoreData.Models.Sneaker", "Model")
                         .WithMany()
                         .HasForeignKey("ModelId")
-                        .OnDelete(DeleteBehavior.   Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("JohnyStoreData.Models.OrderStatus", "Status")
                         .WithMany()
                         .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Model");
@@ -531,7 +534,7 @@ namespace JohnyStoreApi.Migrations
                     b.HasOne("JohnyStoreData.Models.Sneaker", "Model")
                         .WithMany()
                         .HasForeignKey("ModelId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Model");
@@ -542,13 +545,13 @@ namespace JohnyStoreApi.Migrations
                     b.HasOne("JohnyStoreData.Models.Brand", "Brand")
                         .WithMany()
                         .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("JohnyStoreData.Models.Style", "Style")
                         .WithMany()
                         .HasForeignKey("StyleId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Brand");

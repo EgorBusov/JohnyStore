@@ -1,5 +1,6 @@
 ﻿using JohnyStoreApi.Logging.Interfaces;
 using JohnyStoreApi.Models.Order;
+using JohnyStoreApi.Services.AdditionalServices;
 using JohnyStoreApi.Services.Interfaces.DataInterfaces;
 using JohnyStoreData.EF;
 using JohnyStoreData.Models;
@@ -72,6 +73,9 @@ namespace JohnyStoreApi.Services.DataServices
         {
             try
             {
+                if (!(model.Validate(_context)))
+                    throw new Exception("При добавлении заказа, данные не валидны");
+
                 model.Status = _context.OrderStatuses
                 .Where(x => x.Visible == true)
                 .OrderBy(x => x.Position)
@@ -162,6 +166,9 @@ namespace JohnyStoreApi.Services.DataServices
         {
             try
             {
+                if(!(model.Validate(_context)))
+                    throw new Exception("При добавлении статуса, данные не валидны");
+
                 OrderStatus status = model.MapToOrderStatus();
                 _context.OrderStatuses.Add(status);
 

@@ -24,7 +24,9 @@ namespace JohnyStoreData.EF
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderStatus> OrderStatuses { get; set; }
         public DbSet<PictureSneaker> PictureSneakers { get;set; }
+        public DbSet<PictureBrand> PictureBrands { get; set; }
         public DbSet<Style> Styles { get; set; }
         public DbSet<Log> Logs { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

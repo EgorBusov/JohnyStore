@@ -9,8 +9,8 @@ namespace JohnyStoreApi.Services.Interfaces.DataInterfaces
     {
         BrandModel GetBrandById(int idBrand);
         List<BrandModel> GetBrands();
-        bool AddBrand(BrandModel model);
+        bool AddBrand(AddBrandModel model);
         bool DeleteBrand(int idBrand);
-        bool EditBrand(BrandModel model);
+        bool EditBrand(AddBrandModel model);
     }
 }
