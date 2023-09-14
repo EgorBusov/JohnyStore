@@ -22,8 +22,7 @@ namespace JohnyStoreApi.Controllers
         /// Получение всех статусов наличия
         /// </summary>
         /// <returns></returns>
-        [Route("GetStatuses")]
-        [HttpGet]
+        [HttpGet("GetAvailabilityStatuses")]
         public List<AvailabilityStatusModel> GetAvailabilityStatuses()
         {
             return _availabilityDataStatusService.GetAvailabilityStatuses();
@@ -34,8 +33,7 @@ namespace JohnyStoreApi.Controllers
         /// </summary>
         /// <param name="availabilityStatus"></param>
         /// <returns></returns>
-        [Route("Add")]
-        [HttpPost]
+        [HttpPost("AddAvailabilityStatus")]
         public IActionResult AddAvailabilityStatus([FromBody] AvailabilityStatusModel availabilityStatus)
         {
             bool check = _availabilityDataStatusService.AddAvailabilityStatus(availabilityStatus);
@@ -51,8 +49,7 @@ namespace JohnyStoreApi.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Route("Delete/{id}")]
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteAvailabilityStatus/{id}")]
         public IActionResult DeleteAvailabilityStatus(int id)
         {
             bool check = _availabilityDataStatusService.DeleteAvailabilityStatus(id);

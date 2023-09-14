@@ -16,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 string connection = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new Exception("Строка подключения не найдена");
-builder.Services.AddDbContext<JohnyStoreContext>(options => options.UseLazyLoadingProxies().UseSqlServer(connection));
+builder.Services.AddDbContext<JohnyStoreContext>(options => options.UseSqlServer(connection));
 
 builder.Services.AddScoped<IJohnyStoreLogger, JohnyStoreLogger>();
 builder.Services.AddScoped<IFileManager, FileManager>();

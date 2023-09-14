@@ -18,25 +18,22 @@ namespace JohnyStoreApi.Controllers
             _sneakerService = sneakerService;
         }
 
-        [Route("GetSneakers")]
-        [HttpGet]
+        [HttpGet("GetSneakerModels")]
         [AllowAnonymous]
         public List<SneakerModel> GetSneakerModels(SearchModel? search)
         {
             return _sneakerService.GetSneakers(search);
         }
 
-        [Route("GetSneakerById/{id}")]
-        [HttpGet("{id}")]
+        [HttpGet("GetSneakerById/{id}")]
         [AllowAnonymous]
         public SneakerModel GetSneakerById(int id)
         {
             return _sneakerService.GetSneakerByid(id);
         }
 
-        [Route("Add")]
         [Authorize(Roles = "Admin")]
-        [HttpPost]
+        [HttpPost("AddSneaker")]
         public IActionResult AddSneaker(AddSneakerModel model)
         {
             bool res = _sneakerService.AddSneaker(model);
@@ -47,9 +44,8 @@ namespace JohnyStoreApi.Controllers
             return Ok();
         }
 
-        [Route("Edit")]
         [Authorize(Roles = "Admin")]
-        [HttpPut]
+        [HttpPut("EditSneaker")]
         public IActionResult EditSneaker([FromBody] AddSneakerModel model)
         {
             bool res = _sneakerService.EditSneaker(model);
@@ -60,9 +56,8 @@ namespace JohnyStoreApi.Controllers
             return Ok();
         }
 
-        [Route("Delete/{id}")]
         [Authorize(Roles = "Admin")]
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteSneaker/{id}")]
         public IActionResult DeleteSneaker(int id)
         {
             bool res = _sneakerService.DeleteSneaker(id);

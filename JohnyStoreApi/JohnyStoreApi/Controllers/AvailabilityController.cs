@@ -21,9 +21,8 @@ namespace JohnyStoreApi.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Route("Get/{id}")]
         [AllowAnonymous]
-        [HttpGet("{id}")]
+        [HttpGet("GetAvailability/{id}")]
         public AvailabilityModel GetAvailability(int id)
         {
             return _availabilityDataService.GetAvailability(id);
@@ -34,9 +33,8 @@ namespace JohnyStoreApi.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [Route("Add")]
         [Authorize(Roles = "Admin")]
-        [HttpPost]
+        [HttpPost("AddAvailability")]
         public IActionResult AddAvailability([FromBody] AvailabilityModel model)
         {
             bool check = _availabilityDataService.AddAvailability(model);
@@ -52,9 +50,8 @@ namespace JohnyStoreApi.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [Route("Edit")]
         [Authorize(Roles = "Admin")]
-        [HttpPut]
+        [HttpPut("EditAvailability")]
         public IActionResult EditAvailability([FromBody] AvailabilityModel model)
         {
             bool check = _availabilityDataService.EditAvailability(model);
@@ -70,9 +67,8 @@ namespace JohnyStoreApi.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Route("Delete/{id}")]
         [Authorize(Roles = "Admin")]
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteAvailability/{id}")]
         public IActionResult DeleteAvailability(int id)
         {
             bool check = _availabilityDataService.DeleteAvailability(id);

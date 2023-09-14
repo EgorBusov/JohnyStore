@@ -18,8 +18,7 @@ namespace JohnyStoreApi.Controllers
             _orderStatusDataService = orderStatusDataService;
         }
 
-        [Route("GetStatuses")]
-        [HttpGet]
+        [HttpGet("GetOrderStatuses")]
         public List<OrderStatusModel> GetOrderStatuses()
         {
             return _orderStatusDataService.GetOrderStatuses();
@@ -30,8 +29,7 @@ namespace JohnyStoreApi.Controllers
         /// </summary>
         /// <param name="orderStatus"></param>
         /// <returns></returns>
-        [Route("Add")]
-        [HttpPost]
+        [HttpPost("AddStatus")]
         public IActionResult AddStatus([FromBody] OrderStatusModel orderStatus)
         {
             bool check = _orderStatusDataService.AddStatus(orderStatus);
@@ -47,8 +45,7 @@ namespace JohnyStoreApi.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Route("Delete/{id}")]
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteStatus/{id}")]
         public IActionResult DeleteStatus(int id)
         {
             bool check = _orderStatusDataService.DeleteStatus(id);

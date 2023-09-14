@@ -1,5 +1,6 @@
 ﻿using JohnyStoreApi.Data.Models;
 using JohnyStoreApi.Logging;
+using JohnyStoreApi.Logging.Interfaces;
 using JohnyStoreApi.Models.User;
 using JohnyStoreApi.Services.Interfaces;
 using JohnyStoreData.EF;
@@ -9,11 +10,11 @@ namespace JohnyStoreApi.Services.AdditionalServices
     public class UserService : IUserService
     {
         private readonly JohnyStoreContext _context;
-        private readonly JohnyStoreLogger _logger;
+        private readonly IJohnyStoreLogger _logger;
         private readonly IJWT _jwt;
         private readonly IPasswordManager _passwordManager;
 
-        public UserService(JohnyStoreContext context, JohnyStoreLogger logger, IJWT jwt, IPasswordManager passwordManager)
+        public UserService(JohnyStoreContext context, IJohnyStoreLogger logger, IJWT jwt, IPasswordManager passwordManager)
         {
             _context = context;
             _logger = logger;

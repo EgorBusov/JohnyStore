@@ -20,9 +20,8 @@ namespace JohnyStoreApi.Controllers
         /// Получение списка всех брендов
         /// </summary>
         /// <returns></returns>
-        [Route("GetBrands")]
         [AllowAnonymous]
-        [HttpGet]
+        [HttpGet("GetBrands")]
         public List<BrandModel> GetBrands()
         {
             return _brandDataService.GetBrands();
@@ -33,17 +32,15 @@ namespace JohnyStoreApi.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Route("GetBrandByid/{id}")]
         [AllowAnonymous]
-        [HttpGet("{id}")]
+        [HttpGet("GetBrandByid/{id}")]
         public BrandModel GetBrandByid(int id) 
         {
             return _brandDataService.GetBrandById(id);
         }
 
-        [Route("Add")]
         [Authorize(Roles = "Admin")]
-        [HttpPost]
+        [HttpPost("AddBrand")]
         public IActionResult AddBrand([FromBody] AddBrandModel model)
         {
             bool check = _brandDataService.AddBrand(model);
@@ -59,9 +56,8 @@ namespace JohnyStoreApi.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [Route("Edit")]
         [Authorize(Roles = "Admin")]
-        [HttpPut]
+        [HttpPut("EditBrand")]
         public IActionResult EditBrand([FromBody] AddBrandModel model)
         {
             bool check = _brandDataService.EditBrand(model);
@@ -78,8 +74,7 @@ namespace JohnyStoreApi.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [Authorize(Roles = "Admin")]
-        [Route("Delete/{id}")]
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteBrand/{id}")]
         public IActionResult DeleteBrand(int id)
         {
             bool check = _brandDataService.DeleteBrand(id);

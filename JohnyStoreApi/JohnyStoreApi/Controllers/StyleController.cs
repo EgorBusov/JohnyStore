@@ -17,24 +17,21 @@ namespace JohnyStoreApi.Controllers
             _styleDataService = styleDataService;
         }
 
-        [Route("GetStyles")]
-        [HttpGet]
+        [HttpGet("GetStyles")]
         [AllowAnonymous]
         public List<StyleModel> GetStyles()
         {
             return _styleDataService.GetStyles();
         }
 
-        [Route("GetStyleById")]
-        [HttpGet]
+        [HttpGet("GetStyleById")]
         [AllowAnonymous]
         public StyleModel GetStyleById(int id) 
         {
             return _styleDataService.GetStyleById(id);
         }
 
-        [Route("AddStyle")]
-        [HttpPost]
+        [HttpPost("AddStyle")]
         [Authorize(Roles = "Admin")]
         public IActionResult AddStyle([FromBody] StyleModel model)
         {
@@ -46,8 +43,7 @@ namespace JohnyStoreApi.Controllers
             return Ok();
         }
 
-        [Route("EditStyle")]
-        [HttpPut]
+        [HttpPut("EditStyle")]
         [Authorize(Roles = "Admin")]
         public IActionResult EditStyle([FromBody] StyleModel model)
         {
@@ -59,8 +55,7 @@ namespace JohnyStoreApi.Controllers
             return Ok();
         }
 
-        [Route("Delete/{id}")]
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteStyle/{id}")]
         [Authorize(Roles = "Admin")]
         public IActionResult DeleteStyle(int id)
         {

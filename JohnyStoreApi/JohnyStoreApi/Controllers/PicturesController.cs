@@ -20,18 +20,16 @@ namespace JohnyStoreApi.Controllers
             _contentType = "image/jpeg";
         }
 
-        [HttpGet("{path}")]
+        [HttpGet("GetSneakerPicture/{path}")]
         [AllowAnonymous]
-        [Route("GetSneakerPicture/{path}")]
         public IActionResult GetSneakerPicture(string path)
         {
             var stream = _pictureSneakerDataService.GetPicture(path);
             return File(stream, _contentType);
         }
 
-        [HttpGet("{path}")]
+        [HttpGet("GetBrandPicture/{path}")]
         [AllowAnonymous]
-        [Route("GetBrandPicture/{path}")]
         public IActionResult GetBrandPicture(string path)
         {
             var stream = _pictureBrandDataService.GetPicture(path);

@@ -21,9 +21,8 @@ namespace JohnyStoreApi.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Route("GetOrderById/{id}")]
         [AllowAnonymous]
-        [HttpGet("{id}")]
+        [HttpGet("GetOrderById/{id}")]
         public OrderModel GetOrderById(int id)
         {
             return _orderDataService.GetOrderById(id);
@@ -33,9 +32,8 @@ namespace JohnyStoreApi.Controllers
         /// Получение всех заказов
         /// </summary>
         /// <returns></returns>
-        [Route("GetOrders")]
         [AllowAnonymous]
-        [HttpGet]
+        [HttpGet("GetOrders")]
         public List<OrderModel> GetOrders()
         {
             return _orderDataService.GetOrders();
@@ -47,8 +45,7 @@ namespace JohnyStoreApi.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [Authorize(Roles = "Admin")]
-        [Route("NextStatus")]
-        [HttpGet("{id}")]
+        [HttpGet("NextStatusOrder/{id}")]
         public IActionResult NextStatusOrder(int id)
         {
             bool check = _orderDataService.NextStatusOrder(id);
@@ -60,9 +57,8 @@ namespace JohnyStoreApi.Controllers
 
         }
 
-        [HttpPost]
+        [HttpPost("AddOrder")]
         [AllowAnonymous]
-        [Route("Add")]
         /// <summary>
         /// Добавление заказа
         /// </summary>
@@ -85,8 +81,7 @@ namespace JohnyStoreApi.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [Authorize(Roles = "Admin")]
-        [Route("Delete/{id}")]
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteOrder/{id}")]
         public IActionResult DeleteOrder(int id)
         {
             bool check = _orderDataService.DeleteOrder(id);
