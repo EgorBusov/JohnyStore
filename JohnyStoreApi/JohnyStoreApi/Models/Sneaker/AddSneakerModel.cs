@@ -8,7 +8,7 @@ namespace JohnyStoreApi.Models.Sneaker
     public class AddSneakerModel : SneakerModel
     {
         public new int Brand { get; set; }
-        public new List<AddPictureSneakerModel> Pictures { get; set; }
+        public new List<IFormFile> Pictures { get; set; }
         public new int Style { get; set; }
     }
 }

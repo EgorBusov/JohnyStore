@@ -8,8 +8,8 @@ namespace JohnyStoreApi.Services.Interfaces.DataInterfaces
     public interface IAvailabilityDataService : IAvailabilityDataStatusService
     {
         AvailabilityModel GetAvailability(int idSneakerModel);
-        bool AddAvailability(AvailabilityModel model);
-        bool EditAvailability(AvailabilityModel model);
+        bool AddAvailability(AddAvailabilityModel model);
+        bool EditAvailability(AddAvailabilityModel model);
         bool DeleteAvailability(int availabilityId);
     }
 }

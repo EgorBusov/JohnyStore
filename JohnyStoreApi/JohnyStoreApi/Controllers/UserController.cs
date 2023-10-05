@@ -24,7 +24,7 @@ namespace JohnyStoreApi.Controllers
         /// <returns></returns>
         [HttpPost("Login")]
         [AllowAnonymous]
-        public IActionResult Login([FromBody] LogPassModel model)
+        public IActionResult Login([FromForm] LogPassModel model)
         {
             string token = _userService.Login(model);
 
@@ -42,7 +42,7 @@ namespace JohnyStoreApi.Controllers
         /// <returns></returns>
         [Authorize(Roles = "Admin")]
         [HttpPost("Register")]
-        public IActionResult Register([FromBody] LogPassModel model)
+        public IActionResult Register([FromForm] LogPassModel model)
         {
             var token = _userService.AddUser(model);
             if(string.IsNullOrEmpty(token)) 
@@ -57,7 +57,7 @@ namespace JohnyStoreApi.Controllers
         /// <returns></returns>
         [Authorize(Roles = "Admin")]
         [HttpPut("EditPassword")]
-        public IActionResult EditPassword([FromBody] EditPasswordModel edit)
+        public IActionResult EditPassword([FromForm] EditPasswordModel edit)
         {
             var token = _userService.EditPassword(edit);
             if (string.IsNullOrEmpty(token))

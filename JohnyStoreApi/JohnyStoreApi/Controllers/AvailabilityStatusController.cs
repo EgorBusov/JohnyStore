@@ -34,7 +34,7 @@ namespace JohnyStoreApi.Controllers
         /// <param name="availabilityStatus"></param>
         /// <returns></returns>
         [HttpPost("AddAvailabilityStatus")]
-        public IActionResult AddAvailabilityStatus([FromBody] AvailabilityStatusModel availabilityStatus)
+        public IActionResult AddAvailabilityStatus([FromForm] AvailabilityStatusModel availabilityStatus)
         {
             bool check = _availabilityDataStatusService.AddAvailabilityStatus(availabilityStatus);
 

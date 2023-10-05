@@ -17,11 +17,11 @@ namespace JohnyStoreApi.Services.AdditionalServices
         private static string _PatternPhone = @"^(\+7|8)\d{10}$";
 
         //Пароль должен содержать хотя бы 8 символов, включая хотя бы одну заглавную букву, одну строчную букву и одну цифру.
-        private static string _PatternPassword = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$";
+        private static string _PatternPassword = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$";
 
         //Логин может содержать только буквы (как заглавные, так и строчные), цифры и символы подчеркивания.
         //Длина логина ограничивается, например, от 3 до 20 символов.
-        private static string _PatternLogin = @"^[a-zA-Z0-9_]{3,20}$";
+        private static string _PatternLogin = @"^[a-z0-9]{3,20}$";
 
         #region Availability
 
@@ -31,7 +31,7 @@ namespace JohnyStoreApi.Services.AdditionalServices
         /// <param name="model"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        public static bool Validate(this AvailabilityModel model, JohnyStoreContext context)
+        public static bool Validate(this AddAvailabilityModel model, JohnyStoreContext context)
         {
             if (model == null)
                 return false;
@@ -41,23 +41,23 @@ namespace JohnyStoreApi.Services.AdditionalServices
                 .Select(x => x.Id)
                 .ToList();
 
-            if (!statuses.Any(x => x == model.Status35.Id) ||
-                !statuses.Any(x => x == model.Status36.Id) ||
-                !statuses.Any(x => x == model.Status37.Id) ||
-                !statuses.Any(x => x == model.Status38.Id) ||
-                !statuses.Any(x => x == model.Status39.Id) ||
-                !statuses.Any(x => x == model.Status40.Id) ||
-                !statuses.Any(x => x == model.Status41.Id) ||
-                !statuses.Any(x => x == model.Status42.Id) ||
-                !statuses.Any(x => x == model.Status43.Id) ||
-                !statuses.Any(x => x == model.Status44.Id) ||
-                !statuses.Any(x => x == model.Status45.Id) ||
-                !statuses.Any(x => x == model.Status46.Id))
+            if (!statuses.Any(x => x == model.Status35) ||
+                !statuses.Any(x => x == model.Status36) ||
+                !statuses.Any(x => x == model.Status37) ||
+                !statuses.Any(x => x == model.Status38) ||
+                !statuses.Any(x => x == model.Status39) ||
+                !statuses.Any(x => x == model.Status40) ||
+                !statuses.Any(x => x == model.Status41) ||
+                !statuses.Any(x => x == model.Status42) ||
+                !statuses.Any(x => x == model.Status43) ||
+                !statuses.Any(x => x == model.Status44) ||
+                !statuses.Any(x => x == model.Status45) ||
+                !statuses.Any(x => x == model.Status46))
             {
                 return false;
             }
 
-            var sneaker = context.ModelsSneakers.FirstOrDefault(x => x.Id == model.Model.Id);
+            var sneaker = context.ModelsSneakers.FirstOrDefault(x => x.Id == model.ModelId);
 
             if (sneaker == null)
                 return false;
@@ -103,7 +103,6 @@ namespace JohnyStoreApi.Services.AdditionalServices
         public static bool Validate(this AddPictureBrandModel model)
         {
             if (model == null ||
-                model.IdBrand == 0 ||
                 model.File == null ||
                 model.File.Length == 0)
                 return false;
@@ -185,20 +184,18 @@ namespace JohnyStoreApi.Services.AdditionalServices
         }
 
         /// <summary>
-        /// Валидация коллекции картинок для кроссовок
+        /// Валидация коллекции файлов для кроссовок
         /// </summary>
         /// <param name="models"></param>
         /// <returns></returns>
-        public static bool Validate(this List<AddPictureSneakerModel> models)
+        public static bool Validate(this List<IFormFile> models)
         {
-            if (models == null ||
-                models.Count == 0 ||
-                models.Where(x => x.Main == true).Count() != 1)
+            if (models == null || models.Count == 0)
                 return false;
 
             foreach (var model in models)
             {
-                if (model == null || model.File == null || model.File.Length == 0)
+                if (model == null || model.Length == 0)
                     return false;
             }
 

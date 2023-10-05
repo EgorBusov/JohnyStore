@@ -30,7 +30,7 @@ namespace JohnyStoreApi.Controllers
         /// <param name="orderStatus"></param>
         /// <returns></returns>
         [HttpPost("AddStatus")]
-        public IActionResult AddStatus([FromBody] OrderStatusModel orderStatus)
+        public IActionResult AddStatus([FromForm] OrderStatusModel orderStatus)
         {
             bool check = _orderStatusDataService.AddStatus(orderStatus);
 

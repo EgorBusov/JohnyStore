@@ -41,7 +41,7 @@ namespace JohnyStoreApi.Services.DataServices
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public bool AddAvailability(AvailabilityModel model)
+        public bool AddAvailability(AddAvailabilityModel model)
         {
             try
             {
@@ -68,11 +68,11 @@ namespace JohnyStoreApi.Services.DataServices
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public bool EditAvailability(AvailabilityModel model)
+        public bool EditAvailability(AddAvailabilityModel model)
         {
             try
             {
-                if (!(model.Validate(_context)) || model.Model.Id == 0)
+                if (!(model.Validate(_context)) || model.ModelId == 0)
                     throw new Exception("При редактировании не указана модель");
 
                 Availability availability = model.MapToAvailability(_context);

@@ -49,7 +49,7 @@ namespace JohnyStoreApi.Services.Data
         /// <param name="modelPictures"></param>
         /// <param name="idModel"></param>
         /// <returns></returns>
-        public bool AddPictures(List<AddPictureSneakerModel> modelPictures, Sneaker model)
+        public bool AddPictures(List<IFormFile> modelPictures, Sneaker model)
         {
             if (!modelPictures.Validate())
             {
@@ -62,18 +62,20 @@ namespace JohnyStoreApi.Services.Data
             var fullPathDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, pathDirectory);
 
             List<PictureSneaker> pictures = new List<PictureSneaker>();
+            bool main = true;
 
             foreach (var picture in modelPictures)
             {
                 PictureSneaker pictureSneaker = new PictureSneaker()
                 {
                     Model = model,
-                    Main = picture.Main,
-                    Href = _fileManager.SaveFile(picture.File.OpenReadStream(), fullPathDirectory, Path.GetExtension(picture.File.FileName)),
+                    Main = main,
+                    Href = _fileManager.SaveFile(picture.OpenReadStream(), fullPathDirectory, Path.GetExtension(picture.FileName)),
                     Visible = true
                 };
 
                 pictures.Add(pictureSneaker);
+                main = false;
             }
 
             _context.PictureSneakers.AddRange(pictures);

@@ -40,8 +40,9 @@ namespace JohnyStoreApi.Controllers
         }
 
         [Authorize(Roles = "Admin")]
+        //[AllowAnonymous]
         [HttpPost("AddBrand")]
-        public IActionResult AddBrand([FromBody] AddBrandModel model)
+        public IActionResult AddBrand([FromForm] AddBrandModel model)
         {
             bool check = _brandDataService.AddBrand(model);
 
@@ -58,7 +59,7 @@ namespace JohnyStoreApi.Controllers
         /// <returns></returns>
         [Authorize(Roles = "Admin")]
         [HttpPut("EditBrand")]
-        public IActionResult EditBrand([FromBody] AddBrandModel model)
+        public IActionResult EditBrand([FromForm] AddBrandModel model)
         {
             bool check = _brandDataService.EditBrand(model);
 

@@ -78,7 +78,7 @@ namespace JohnyStoreApi.Services.DataServices
 
             _fileManager.DeleteFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, pathDirectory, picture.Href));
 
-            _context.PictureBrands.RemoveRange(picture);
+            _context.PictureBrands.Remove(picture);
             _context.SaveChanges();
 
             return true;

@@ -9,7 +9,7 @@ namespace JohnyStoreApi.Services.Interfaces.DataInterfaces
     public interface IPictureSneakerDataService
     {
         Stream GetPicture(string path);
-        bool AddPictures(List<AddPictureSneakerModel> modelPictures, Sneaker model);
+        bool AddPictures(List<IFormFile> modelPictures, Sneaker model);
         bool DeletePictures(int idModel);
     }
 }

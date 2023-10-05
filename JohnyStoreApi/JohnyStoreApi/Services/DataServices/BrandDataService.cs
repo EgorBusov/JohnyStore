@@ -132,8 +132,9 @@ namespace JohnyStoreApi.Services.DataServices
                 brand.Visible = false;
 
                 _pictureBrandDataService.DeletePicture(idBrand);
+                _context.SaveChanges();
 
-                return _context.SaveChanges() > 0;
+                return true;
             }
             catch (Exception ex)
             {

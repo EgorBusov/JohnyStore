@@ -8,15 +8,16 @@ namespace JohnyStoreApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PicturesController : ControllerBase
+    public class PictureController : ControllerBase
     {
         private readonly IPictureSneakerDataService _pictureSneakerDataService;
         private readonly IPictureBrandDataService _pictureBrandDataService;
         private readonly string _contentType;
 
-        public PicturesController(IPictureSneakerDataService pictureDataService) 
+        public PictureController(IPictureSneakerDataService pictureDataService, IPictureBrandDataService pictureBrandDataService) 
         {
             _pictureSneakerDataService = pictureDataService;
+            _pictureBrandDataService = pictureBrandDataService;
             _contentType = "image/jpeg";
         }
 

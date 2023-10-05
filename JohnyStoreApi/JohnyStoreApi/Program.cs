@@ -16,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 string connection = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new Exception("Строка подключения не найдена");
-builder.Services.AddDbContext<JohnyStoreContext>(options => options.UseSqlServer(connection));
+builder.Services.AddDbContext<JohnyStoreContext>(options => options.UseLazyLoadingProxies().UseSqlServer(connection));
 
 builder.Services.AddScoped<IJohnyStoreLogger, JohnyStoreLogger>();
 builder.Services.AddScoped<IFileManager, FileManager>();
@@ -28,6 +28,7 @@ builder.Services.AddScoped<IAvailabilityDataService, AvailabilityDataService>();
 builder.Services.AddScoped<IOrderStatusDataService,OrderDataService>();
 builder.Services.AddScoped<IAvailabilityDataStatusService, AvailabilityDataService>();
 builder.Services.AddScoped<IPictureBrandDataService, PictureBrandDataService>();
+builder.Services.AddScoped<IStyleDataService, StyleDataService>();
 builder.Services.AddScoped<IPasswordManager, JWT>();
 builder.Services.AddScoped<IJWT, JWT>();
 builder.Services.AddScoped<IUserService, UserService>();
@@ -82,6 +83,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

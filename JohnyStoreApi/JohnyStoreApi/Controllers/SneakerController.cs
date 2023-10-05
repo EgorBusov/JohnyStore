@@ -20,7 +20,7 @@ namespace JohnyStoreApi.Controllers
 
         [HttpGet("GetSneakerModels")]
         [AllowAnonymous]
-        public List<SneakerModel> GetSneakerModels(SearchModel? search)
+        public List<SneakerModel> GetSneakerModels([FromForm] SearchModel? search)
         {
             return _sneakerService.GetSneakers(search);
         }
@@ -32,9 +32,10 @@ namespace JohnyStoreApi.Controllers
             return _sneakerService.GetSneakerByid(id);
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpPost("AddSneaker")]
-        public IActionResult AddSneaker(AddSneakerModel model)
+        [Authorize(Roles = "Admin")]
+        //[Consumes("multipart/form-data")]
+        public IActionResult AddSneaker([FromForm]AddSneakerModel model)
         {
             bool res = _sneakerService.AddSneaker(model);
 
@@ -44,9 +45,9 @@ namespace JohnyStoreApi.Controllers
             return Ok();
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpPut("EditSneaker")]
-        public IActionResult EditSneaker([FromBody] AddSneakerModel model)
+        [Authorize(Roles = "Admin")]
+        public IActionResult EditSneaker([FromForm]AddSneakerModel model)
         {
             bool res = _sneakerService.EditSneaker(model);
 

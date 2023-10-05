@@ -64,7 +64,7 @@ namespace JohnyStoreApi.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public IActionResult AddOrder([FromBody] OrderModel model)
+        public IActionResult AddOrder([FromForm] OrderModel model)
         {
             bool check = _orderDataService.AddOrder(model);
 

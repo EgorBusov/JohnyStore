@@ -77,9 +77,9 @@ namespace JohnyStoreApi.Services.Data
                     _context.ModelsSneakers.Add(sneaker);
                     bool check = _pictureDataService.AddPictures(model.Pictures, sneaker);
 
-                    int changes = _context.SaveChanges();
+                    _context.SaveChanges();
                     transaction.Commit();
-                    return changes > 0;
+                    return true;
                 }
                 catch (Exception ex)
                 {
@@ -125,9 +125,9 @@ namespace JohnyStoreApi.Services.Data
                     bool checkDel = _pictureDataService.DeletePictures(sneaker.Id);
                     bool checkSave = _pictureDataService.AddPictures(model.Pictures, sneaker);
 
-                    int changes = _context.SaveChanges();
+                    _context.SaveChanges();
                     transaction.Commit();
-                    return changes > 0;
+                    return true;
                 }
                 catch (Exception ex)
                 {

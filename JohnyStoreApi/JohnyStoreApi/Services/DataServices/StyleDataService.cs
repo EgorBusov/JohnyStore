@@ -1,11 +1,12 @@
 ﻿using JohnyStoreApi.Logging.Interfaces;
 using JohnyStoreApi.Models.Style;
 using JohnyStoreApi.Services.AdditionalServices;
+using JohnyStoreApi.Services.Interfaces.DataInterfaces;
 using JohnyStoreData.EF;
 
 namespace JohnyStoreApi.Services.DataServices
 {
-    public class StyleDataService
+    public class StyleDataService : IStyleDataService
     {
         private readonly JohnyStoreContext _context;
         private readonly IJohnyStoreLogger _logger;

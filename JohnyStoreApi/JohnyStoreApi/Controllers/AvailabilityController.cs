@@ -35,7 +35,7 @@ namespace JohnyStoreApi.Controllers
         /// <returns></returns>
         [Authorize(Roles = "Admin")]
         [HttpPost("AddAvailability")]
-        public IActionResult AddAvailability([FromBody] AvailabilityModel model)
+        public IActionResult AddAvailability([FromForm] AddAvailabilityModel model)
         {
             bool check = _availabilityDataService.AddAvailability(model);
 
@@ -52,7 +52,7 @@ namespace JohnyStoreApi.Controllers
         /// <returns></returns>
         [Authorize(Roles = "Admin")]
         [HttpPut("EditAvailability")]
-        public IActionResult EditAvailability([FromBody] AvailabilityModel model)
+        public IActionResult EditAvailability([FromForm] AddAvailabilityModel model)
         {
             bool check = _availabilityDataService.EditAvailability(model);
 

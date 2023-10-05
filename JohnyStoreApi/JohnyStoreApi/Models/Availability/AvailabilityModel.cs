@@ -5,7 +5,7 @@ namespace JohnyStoreApi.Models.Availability
     public class AvailabilityModel
     {
         public int Id { get; set; }
-        public SneakerModel Model { get; set; }
+        public int ModelId { get; set; }
         public AvailabilityStatusModel Status35 { get; set; }
         public AvailabilityStatusModel Status36 { get; set; }
         public AvailabilityStatusModel Status37 { get; set; }

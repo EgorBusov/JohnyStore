@@ -39,7 +39,7 @@ namespace JohnyStoreApi.Services.AdditionalServices
                 var newFileName = Guid.NewGuid().ToString() + extentionSavedFile;
                 using (var stream = File.OpenWrite(Path.Combine(fullPathDirectory, newFileName)))
                 {
-                    stream.CopyTo(streamFile);
+                    streamFile.CopyTo(stream);
                 }
 
                 return newFileName;

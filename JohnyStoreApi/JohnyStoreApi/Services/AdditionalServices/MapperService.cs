@@ -66,11 +66,7 @@ namespace JohnyStoreApi.Services.AdditionalServices
             SneakerModel sneakerModel = new SneakerModel()
             {
                 Id = modelSneaker.Id,
-                Brand = new BrandModel()
-                {
-                    Id = modelSneaker.Brand.Id,
-                    Name = modelSneaker.Brand.Name
-                },
+                Brand = modelSneaker.Brand.MapToBrandModel(context, configuration),
                 Name = modelSneaker.Name,
                 Pictures = pictures,
                 Price = modelSneaker.Price,
@@ -199,24 +195,39 @@ namespace JohnyStoreApi.Services.AdditionalServices
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public static Availability MapToAvailability(this AvailabilityModel model, JohnyStoreContext context)
+        public static Availability MapToAvailability(this AddAvailabilityModel model, JohnyStoreContext context)
         {
+            var statuses = context.AvailabilityStatuses.Where(x => x.Visible == true).ToList();
+
             Availability availability = new Availability()
             {
                 Id = model.Id,
-                Model = model.Model.MapToSneaker(context),
-                Status35 = model.Status35.MapToAvailabilityStatus(),
-                Status36 = model.Status36.MapToAvailabilityStatus(),
-                Status37 = model.Status37.MapToAvailabilityStatus(),
-                Status38 = model.Status38.MapToAvailabilityStatus(),
-                Status39 = model.Status39.MapToAvailabilityStatus(),
-                Status40 = model.Status40.MapToAvailabilityStatus(),
-                Status41 = model.Status41.MapToAvailabilityStatus(),
-                Status42 = model.Status42.MapToAvailabilityStatus(),
-                Status43 = model.Status43.MapToAvailabilityStatus(),
-                Status44 = model.Status44.MapToAvailabilityStatus(),
-                Status45 = model.Status45.MapToAvailabilityStatus(),
-                Status46 = model.Status46.MapToAvailabilityStatus(),
+                Model = context.ModelsSneakers.FirstOrDefault(x => x.Id == model.ModelId) 
+                ?? throw new Exception("Модель не найдена"),
+                Status35 = statuses.FirstOrDefault(x => x.Id == model.Status35) 
+                ?? throw new Exception("Статус не найден"),
+                Status36 = statuses.FirstOrDefault(x => x.Id == model.Status36)
+                ?? throw new Exception("Статус не найден"),
+                Status37 = statuses.FirstOrDefault(x => x.Id == model.Status37)
+                ?? throw new Exception("Статус не найден"),
+                Status38 = statuses.FirstOrDefault(x => x.Id == model.Status38)
+                ?? throw new Exception("Статус не найден"),     
+                Status39 = statuses.FirstOrDefault(x => x.Id == model.Status39)
+                ?? throw new Exception("Статус не найден"),
+                Status40 = statuses.FirstOrDefault(x => x.Id == model.Status40)
+                ?? throw new Exception("Статус не найден"),
+                Status41 = statuses.FirstOrDefault(x => x.Id == model.Status41)
+                ?? throw new Exception("Статус не найден"),
+                Status42 = statuses.FirstOrDefault(x => x.Id == model.Status42)
+                ?? throw new Exception("Статус не найден"),
+                Status43 = statuses.FirstOrDefault(x => x.Id == model.Status43)
+                ?? throw new Exception("Статус не найден"),
+                Status44 = statuses.FirstOrDefault(x => x.Id == model.Status44)
+                ?? throw new Exception("Статус не найден"),
+                Status45 = statuses.FirstOrDefault(x => x.Id == model.Status45)
+                ?? throw new Exception("Статус не найден"),
+                Status46 = statuses.FirstOrDefault(x => x.Id == model.Status46)
+                ?? throw new Exception("Статус не найден"),
                 Visible = true
 
             };
@@ -237,7 +248,7 @@ namespace JohnyStoreApi.Services.AdditionalServices
             AvailabilityModel model = new AvailabilityModel()
             {
                 Id = availability.Id,
-                Model = context.ModelsSneakers.First(x => x.Id == availability.Model.Id).MapToSneakerModel(context, configuration),
+                ModelId = availability.Model.Id,
                 Status35 = context.AvailabilityStatuses.First(x => x.Id == availability.Status35.Id).MapToAvailabiltyStatusModel(),
                 Status36 = context.AvailabilityStatuses.First(x => x.Id == availability.Status36.Id).MapToAvailabiltyStatusModel(),
                 Status37 = context.AvailabilityStatuses.First(x => x.Id == availability.Status37.Id).MapToAvailabiltyStatusModel(),
@@ -356,6 +367,12 @@ namespace JohnyStoreApi.Services.AdditionalServices
             return brand;
         }
 
+        /// <summary>
+        /// Приводит PictureBrand к PictureBrandModel
+        /// </summary>
+        /// <param name="picture"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
         public static PictureBrandModel MapToPictureBrandModel(this PictureBrand picture, IConfiguration configuration)
         {
             string url = configuration.GetValue<string>("BaseUrl:Url");
