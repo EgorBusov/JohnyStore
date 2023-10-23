@@ -2,8 +2,10 @@
 
 namespace JohnyStoreApi.Models.Brand
 {
-    public class AddBrandModel : BrandModel
+    public class AddBrandModel
     {
-        public new AddPictureBrandModel Picture { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public AddPictureBrandModel Picture { get; set; }
     }
 }

@@ -104,10 +104,10 @@ namespace JohnyStoreApi.Services.Data
             {
                 try
                 {
-                    Sneaker sneaker = _context.ModelsSneakers.First(x => x.Id == model.Id && x.Visible == true) 
+                    Sneaker sneaker = _context.ModelsSneakers.FirstOrDefault(x => x.Id == model.Id && x.Visible == true) 
                         ?? throw new Exception("Модель не найдена");
-                    Brand brand = _context.Brands.First(x => x.Id == model.Brand) ?? throw new Exception("Брэнд не найден");
-                    Style style = _context.Styles.First(x => x.Id == model.Style) ?? throw new Exception("Стиль не найден");
+                    Brand brand = _context.Brands.FirstOrDefault(x => x.Id == model.Brand) ?? throw new Exception("Брэнд не найден");
+                    Style style = _context.Styles.FirstOrDefault(x => x.Id == model.Style) ?? throw new Exception("Стиль не найден");
 
                     sneaker.Brand = brand;
                     sneaker.Name = model.Name;
@@ -150,7 +150,7 @@ namespace JohnyStoreApi.Services.Data
             {
                 try
                 {
-                    Sneaker sneaker = _context.ModelsSneakers.First(x => x.Id == idModel) ?? throw new Exception("Модель не найдена");
+                    Sneaker sneaker = _context.ModelsSneakers.FirstOrDefault(x => x.Id == idModel) ?? throw new Exception("Модель не найдена");
 
                     sneaker.Visible = false;
                     _pictureDataService.DeletePictures(sneaker.Id);

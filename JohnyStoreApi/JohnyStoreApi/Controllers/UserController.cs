@@ -24,7 +24,7 @@ namespace JohnyStoreApi.Controllers
         /// <returns></returns>
         [HttpPost("Login")]
         [AllowAnonymous]
-        public IActionResult Login([FromForm] LogPassModel model)
+        public IActionResult Login([FromBody] LogPassModel model)
         {
             string token = _userService.Login(model);
 

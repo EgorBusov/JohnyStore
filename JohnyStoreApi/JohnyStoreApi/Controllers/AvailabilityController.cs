@@ -19,13 +19,13 @@ namespace JohnyStoreApi.Controllers
         /// <summary>
         /// Получение информации о наличии определенной модели кроссовок
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="idSneaker"></param>
         /// <returns></returns>
         [AllowAnonymous]
         [HttpGet("GetAvailability/{id}")]
-        public AvailabilityModel GetAvailability(int id)
+        public AvailabilityModel GetAvailability(int idSneaker)
         {
-            return _availabilityDataService.GetAvailability(id);
+            return _availabilityDataService.GetAvailability(idSneaker);
         }
 
         /// <summary>
@@ -68,10 +68,10 @@ namespace JohnyStoreApi.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [Authorize(Roles = "Admin")]
-        [HttpDelete("DeleteAvailability/{id}")]
-        public IActionResult DeleteAvailability(int id)
+        [HttpDelete("DeleteAvailability/{sneakerId}")]
+        public IActionResult DeleteAvailability(int sneakerId)
         {
-            bool check = _availabilityDataService.DeleteAvailability(id);
+            bool check = _availabilityDataService.DeleteAvailability(sneakerId);
 
             if (check)
                 return Ok();

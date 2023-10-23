@@ -28,7 +28,7 @@ namespace JohnyStoreApi.Services.DataServices
         /// <returns></returns>
         public OrderModel GetOrderById(int id)
         {
-            return _context.Orders.First(x => x.Id == id && x.Visible != false).MapToOrderModel(_context, _configuration) 
+            return _context.Orders.FirstOrDefault(x => x.Id == id && x.Visible != false)?.MapToOrderModel(_context, _configuration) 
                 ?? new OrderModel();
         }
 
@@ -51,8 +51,10 @@ namespace JohnyStoreApi.Services.DataServices
         {
             try
             {
-                var order = _context.Orders.First(x => x.Id == id) ?? throw new Exception("Заказ не найдет");
-                order.Status = _context.OrderStatuses.First(x => x.Id == GetNextIdStatus(order.Status.Id));
+                var order = _context.Orders.FirstOrDefault(x => x.Id == id) ?? throw new Exception("Заказ не найдет");
+                order.Status = _context.OrderStatuses.FirstOrDefault(x => x.Id == GetNextIdStatus(order.Status.Id)) 
+                    ?? throw new Exception("Статус не найдет");
+
                 _context.SaveChanges();
 
                 return true;
@@ -69,25 +71,24 @@ namespace JohnyStoreApi.Services.DataServices
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public bool AddOrder(OrderModel model)
+        public bool AddOrder(AddOrderModel model)
         {
             try
             {
-                if (!(model.Validate(_context)))
+                if (!model.Validate(_context))
                     throw new Exception("При добавлении заказа, данные не валидны");
 
                 model.Status = _context.OrderStatuses
                 .Where(x => x.Visible == true)
                 .OrderBy(x => x.Position)
-                .First()
-                .MapToOrderStatusModel();
+                .First().Id;
 
                 Order order = model.MapToOrder(_context);
 
                 _context.Orders.Add(order);
                 _context.SaveChanges();
 
-                return _context.SaveChanges() > 0;
+                return true;
             }
             catch (Exception ex)
             {
@@ -105,7 +106,7 @@ namespace JohnyStoreApi.Services.DataServices
         {
             try
             {
-                var order = _context.Orders.First(x => x.Id == idOrder) ?? throw new Exception("Заказ не найден");
+                var order = _context.Orders.FirstOrDefault(x => x.Id == idOrder) ?? throw new Exception("Заказ не найден");
                 order.Visible = false;
                 _context.SaveChanges();
 
@@ -130,14 +131,14 @@ namespace JohnyStoreApi.Services.DataServices
                 .OrderBy(x => x.Position)
                 .ToList();
 
-            int idNewStatus = orderStatuses.FindIndex(x => x.Id == idStatus) + 1;
-            if (idNewStatus < orderStatuses.Count && idNewStatus != 0)
+            int indexNewStatus = orderStatuses.FindIndex(x => x.Id == idStatus) + 1;
+            if (indexNewStatus < orderStatuses.Count && indexNewStatus != 0)
             {
-                return idNewStatus;
+                return orderStatuses[indexNewStatus].Id;
             }
             else
             {
-                return idNewStatus;
+                return idStatus;
             }
         }
 
@@ -171,6 +172,7 @@ namespace JohnyStoreApi.Services.DataServices
 
                 OrderStatus status = model.MapToOrderStatus();
                 _context.OrderStatuses.Add(status);
+                _context.SaveChanges();
 
                 return true;
             }
@@ -190,11 +192,12 @@ namespace JohnyStoreApi.Services.DataServices
         {
             try
             {
-                var status = _context.OrderStatuses.First(x => x.Id == idStatus) ?? throw new Exception("Статус не найден");
+                var status = _context.OrderStatuses.FirstOrDefault(x => x.Id == idStatus && x.Visible == true) 
+                    ?? throw new Exception("Статус не найден");
                 status.Visible = false;
                 _context.SaveChanges();
 
-                return _context.SaveChanges() > 0;
+                return true;
             }
             catch (Exception ex)
             {

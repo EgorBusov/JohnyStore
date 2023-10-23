@@ -10,7 +10,7 @@ namespace JohnyStoreApi.Services.Interfaces.DataInterfaces
         OrderModel GetOrderById(int id);
         List<OrderModel> GetOrders();
         bool NextStatusOrder(int idOrder);
-        bool AddOrder(OrderModel model);
+        bool AddOrder(AddOrderModel model);
         bool DeleteOrder(int idOrder);
     }
 }

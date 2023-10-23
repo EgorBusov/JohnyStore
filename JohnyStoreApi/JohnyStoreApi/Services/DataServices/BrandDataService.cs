@@ -35,7 +35,8 @@ namespace JohnyStoreApi.Services.DataServices
         /// <returns></returns>
         public BrandModel GetBrandById(int idBrand)
         {
-            return _context.Brands.First(x => x.Id == idBrand && x.Visible == true).MapToBrandModel(_context, _configuration);
+            return _context.Brands.FirstOrDefault(x => x.Id == idBrand && x.Visible == true)?.MapToBrandModel(_context, _configuration) 
+                ?? new BrandModel();
         }
 
         /// <summary>
@@ -95,7 +96,7 @@ namespace JohnyStoreApi.Services.DataServices
             {
                 try
                 {
-                    Brand brand = _context.Brands.First(x => x.Id == model.Id && x.Visible == true) ?? throw new Exception("Бренд не найден");
+                    Brand brand = _context.Brands.FirstOrDefault(x => x.Id == model.Id && x.Visible == true) ?? throw new Exception("Бренд не найден");
                     brand.Name = model.Name;
 
                     _pictureBrandDataService.DeletePicture(brand.Id);
@@ -128,7 +129,7 @@ namespace JohnyStoreApi.Services.DataServices
                 if (sneakers.Count > 0)
                     throw new Exception("В коллекции еще присутсвуют кроссовки данного бренда");
 
-                Brand brand = _context.Brands.First(x => x.Id == idBrand) ?? throw new Exception("Бренд не найден");
+                Brand brand = _context.Brands.FirstOrDefault(x => x.Id == idBrand) ?? throw new Exception("Бренд не найден");
                 brand.Visible = false;
 
                 _pictureBrandDataService.DeletePicture(idBrand);

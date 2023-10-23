@@ -94,8 +94,8 @@ namespace JohnyStoreApi.Services.AdditionalServices
         /// <returns></returns>
         public static Sneaker MapToSneaker(this AddSneakerModel addSneakerModel, JohnyStoreContext context)
         {
-            Brand brand = context.Brands.First(x => x.Id == addSneakerModel.Brand);
-            Style style = context.Styles.First(x => x.Id == addSneakerModel.Style);
+            Brand brand = context.Brands.FirstOrDefault(x => x.Id == addSneakerModel.Brand) ?? new Brand();
+            Style style = context.Styles.FirstOrDefault(x => x.Id == addSneakerModel.Style) ?? new Style();
 
             Sneaker sneaker = new Sneaker()
             {
@@ -124,7 +124,7 @@ namespace JohnyStoreApi.Services.AdditionalServices
         /// <returns></returns>
         public static Sneaker MapToSneaker(this SneakerModel model, JohnyStoreContext context)
         {
-            Style style = context.Styles.First(x => x.Id == model.Style.Id);
+            Style style = context.Styles.FirstOrDefault(x => x.Id == model.Style.Id) ?? new Style();
 
             Sneaker sneaker = new Sneaker()
             {
@@ -242,25 +242,36 @@ namespace JohnyStoreApi.Services.AdditionalServices
         /// <param name="context"></param>
         /// <returns></returns>
         public static AvailabilityModel MapToAvailabilityModel(this Availability availability,
-                                                                    JohnyStoreContext context,
-                                                                    IConfiguration configuration)
+                                                                    JohnyStoreContext context)
         {
             AvailabilityModel model = new AvailabilityModel()
             {
                 Id = availability.Id,
                 ModelId = availability.Model.Id,
-                Status35 = context.AvailabilityStatuses.First(x => x.Id == availability.Status35.Id).MapToAvailabiltyStatusModel(),
-                Status36 = context.AvailabilityStatuses.First(x => x.Id == availability.Status36.Id).MapToAvailabiltyStatusModel(),
-                Status37 = context.AvailabilityStatuses.First(x => x.Id == availability.Status37.Id).MapToAvailabiltyStatusModel(),
-                Status38 = context.AvailabilityStatuses.First(x => x.Id == availability.Status38.Id).MapToAvailabiltyStatusModel(),
-                Status39 = context.AvailabilityStatuses.First(x => x.Id == availability.Status39.Id).MapToAvailabiltyStatusModel(),
-                Status40 = context.AvailabilityStatuses.First(x => x.Id == availability.Status40.Id).MapToAvailabiltyStatusModel(),
-                Status41 = context.AvailabilityStatuses.First(x => x.Id == availability.Status41.Id).MapToAvailabiltyStatusModel(),
-                Status42 = context.AvailabilityStatuses.First(x => x.Id == availability.Status42.Id).MapToAvailabiltyStatusModel(),
-                Status43 = context.AvailabilityStatuses.First(x => x.Id == availability.Status43.Id).MapToAvailabiltyStatusModel(),
-                Status44 = context.AvailabilityStatuses.First(x => x.Id == availability.Status44.Id).MapToAvailabiltyStatusModel(),
-                Status45 = context.AvailabilityStatuses.First(x => x.Id == availability.Status45.Id).MapToAvailabiltyStatusModel(),
-                Status46 = context.AvailabilityStatuses.First(x => x.Id == availability.Status46.Id).MapToAvailabiltyStatusModel(),
+                Status35 = context.AvailabilityStatuses.FirstOrDefault(x => x.Id == availability.Status35.Id)?.MapToAvailabiltyStatusModel() 
+                ?? new AvailabilityStatusModel(),
+                Status36 = context.AvailabilityStatuses.FirstOrDefault(x => x.Id == availability.Status36.Id)?.MapToAvailabiltyStatusModel()
+                ?? new AvailabilityStatusModel(),
+                Status37 = context.AvailabilityStatuses.FirstOrDefault(x => x.Id == availability.Status37.Id)?.MapToAvailabiltyStatusModel()
+                ?? new AvailabilityStatusModel(),
+                Status38 = context.AvailabilityStatuses.FirstOrDefault(x => x.Id == availability.Status38.Id)?.MapToAvailabiltyStatusModel() 
+                ?? new AvailabilityStatusModel(),
+                Status39 = context.AvailabilityStatuses.FirstOrDefault(x => x.Id == availability.Status39.Id)?.MapToAvailabiltyStatusModel() 
+                ?? new AvailabilityStatusModel(),
+                Status40 = context.AvailabilityStatuses.FirstOrDefault(x => x.Id == availability.Status40.Id)?.MapToAvailabiltyStatusModel() 
+                ?? new AvailabilityStatusModel(),
+                Status41 = context.AvailabilityStatuses.FirstOrDefault(x => x.Id == availability.Status41.Id)?.MapToAvailabiltyStatusModel()
+                ?? new AvailabilityStatusModel(),
+                Status42 = context.AvailabilityStatuses.FirstOrDefault(x => x.Id == availability.Status42.Id)?.MapToAvailabiltyStatusModel() 
+                ?? new AvailabilityStatusModel(),
+                Status43 = context.AvailabilityStatuses.FirstOrDefault(x => x.Id == availability.Status43.Id)?.MapToAvailabiltyStatusModel() 
+                ?? new AvailabilityStatusModel(),
+                Status44 = context.AvailabilityStatuses.FirstOrDefault(x => x.Id == availability.Status44.Id)?.MapToAvailabiltyStatusModel()
+                ?? new AvailabilityStatusModel(),
+                Status45 = context.AvailabilityStatuses.FirstOrDefault(x => x.Id == availability.Status45.Id)?.MapToAvailabiltyStatusModel() 
+                ?? new AvailabilityStatusModel(),
+                Status46 = context.AvailabilityStatuses.FirstOrDefault(x => x.Id == availability.Status46.Id)?.MapToAvailabiltyStatusModel() 
+                ?? new AvailabilityStatusModel(),
             };
 
             return model;
@@ -341,7 +352,9 @@ namespace JohnyStoreApi.Services.AdditionalServices
         /// <returns></returns>
         public static BrandModel MapToBrandModel(this Brand brand, JohnyStoreContext context, IConfiguration configuration)
         {
-            var picture = context.PictureBrands.FirstOrDefault(x => x.Brand.Id == brand.Id && x.Visible != false);
+            var picture = context.PictureBrands.FirstOrDefault(x => x.Brand.Id == brand.Id && x.Visible != false) 
+                ?? new PictureBrand();
+
             return new BrandModel()
             {
                 Id = brand.Id,
@@ -356,6 +369,23 @@ namespace JohnyStoreApi.Services.AdditionalServices
         /// <param name="model"></param>
         /// <returns></returns>
         public static Brand MapToBrand(this BrandModel model)
+        {
+            Brand brand = new Brand()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Visible = true
+            };
+
+            return brand;
+        }
+
+        /// <summary>
+        /// Приводит AddBrandModel к Brand
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static Brand MapToBrand(this AddBrandModel model)
         {
             Brand brand = new Brand()
             {
@@ -425,8 +455,10 @@ namespace JohnyStoreApi.Services.AdditionalServices
                 Email = order.Email,
                 Phone = order.Phone,
                 SizeFoot = order.SizeFoot,
-                Model = context.ModelsSneakers.First(x => x.Id == order.Model.Id).MapToSneakerModel(context, configuration),
-                Status = context.OrderStatuses.First(x => x.Id == order.Status.Id).MapToOrderStatusModel()
+                Model = context.ModelsSneakers.FirstOrDefault(x => x.Id == order.Model.Id)?.MapToSneakerModel(context, configuration) 
+                ?? new SneakerModel(),
+                Status = context.OrderStatuses.FirstOrDefault(x => x.Id == order.Status.Id)?.MapToOrderStatusModel() 
+                ?? new OrderStatusModel(),
             };
 
             return orderModel;
@@ -439,7 +471,7 @@ namespace JohnyStoreApi.Services.AdditionalServices
         /// <returns></returns>
         public static Order MapToOrder(this OrderModel model, JohnyStoreContext context)
         {
-            OrderStatus status = context.OrderStatuses.First(x => x.Id == model.Status.Id);
+            OrderStatus status = context.OrderStatuses.FirstOrDefault(x => x.Id == model.Status.Id) ?? new OrderStatus();
 
             Order order = new Order()
             {
@@ -448,6 +480,29 @@ namespace JohnyStoreApi.Services.AdditionalServices
                 Phone = model.Phone,
                 SizeFoot = model.SizeFoot,
                 Model = model.Model.MapToSneaker(context),
+                Status = status,
+                Visible = true
+            };
+
+            return order;
+        }
+
+        /// <summary>
+        /// Приводит AddOrderModel к Order
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static Order MapToOrder(this AddOrderModel model, JohnyStoreContext context)
+        {
+            OrderStatus status = context.OrderStatuses.FirstOrDefault(x => x.Id == model.Status) ?? new OrderStatus();
+
+            Order order = new Order()
+            {
+                Id = model.Id,
+                Email = model.Email,
+                Phone = model.Phone,
+                SizeFoot = model.SizeFoot,
+                Model = context.ModelsSneakers.FirstOrDefault(x => x.Id == model.ModelId) ?? new Sneaker(),
                 Status = status,
                 Visible = true
             };

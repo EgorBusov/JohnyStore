@@ -58,8 +58,9 @@ namespace JohnyStoreApi.Services.AdditionalServices
             }
 
             var sneaker = context.ModelsSneakers.FirstOrDefault(x => x.Id == model.ModelId);
+            var availability = context.Availability.FirstOrDefault(x => x.Model.Id == model.ModelId);
 
-            if (sneaker == null)
+            if (sneaker == null || availability != null)
                 return false;
 
             return true;
@@ -144,12 +145,32 @@ namespace JohnyStoreApi.Services.AdditionalServices
         /// <returns></returns>
         public static bool Validate(this OrderStatusModel model, JohnyStoreContext context)
         {
-            var positions = context.OrderStatuses.Where(x => x.Visible == true).Select(x => x.Position);
+            var positions = context.OrderStatuses.Where(x => x.Visible == true).ToList();
 
             if (model == null ||
                 string.IsNullOrEmpty(model.Name) ||
-                model.Position == 0 ||
-                !positions.Any(x => x == model.Position))
+                model.Position <= 0 ||
+                positions.Any(x => x.Position == model.Position) ||
+                positions.Any(x => x.Name == model.Name))
+                return false;
+
+            return true;
+        }
+
+        /// <summary>
+        /// Валидация статуса заказа
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static bool Validate(this AddOrderModel model, JohnyStoreContext context)
+        {
+            var sneaker = context.ModelsSneakers.FirstOrDefault(x => x.Id == model.ModelId);
+
+            if (sneaker == null || 
+                model.SizeFoot <= 0 || 
+                string.IsNullOrEmpty(model.Email) ||
+                string.IsNullOrEmpty(model.Phone))
                 return false;
 
             return true;

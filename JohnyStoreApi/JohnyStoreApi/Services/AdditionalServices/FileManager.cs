@@ -7,6 +7,14 @@ namespace JohnyStoreApi.Services.AdditionalServices
     /// </summary>
     public class FileManager : IFileManager
     {
+
+        private readonly IConfiguration _configuration;
+
+        public FileManager(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         /// <summary>
         /// Получение потока файла по пути
         /// </summary>
@@ -89,6 +97,30 @@ namespace JohnyStoreApi.Services.AdditionalServices
             catch
             {
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// Проверка на наличие и создание файлов в приложении
+        /// </summary>
+        public void CheckAndCreateDirectoryOrFilesForApp()
+        {
+            var pathDomain = AppDomain.CurrentDomain.BaseDirectory;
+
+            var pathDirectoryPictureForSneaker =
+                Path.Combine(pathDomain, _configuration.GetValue<string>("Paths:PathDirectoryPictureForSneaker"));
+            var pathDirectoryPictureForBrand =
+                Path.Combine(pathDomain, _configuration.GetValue<string>("Paths:PathDirectoryPictureForBrand"));
+
+            List<string> directories = new List<string>() 
+            { pathDirectoryPictureForSneaker, pathDirectoryPictureForBrand};
+
+            foreach (var directory in directories)
+            {
+                if (!Directory.Exists(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                }
             }
         }
 

@@ -18,8 +18,8 @@ var builder = WebApplication.CreateBuilder(args);
 string connection = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new Exception("Строка подключения не найдена");
 builder.Services.AddDbContext<JohnyStoreContext>(options => options.UseLazyLoadingProxies().UseSqlServer(connection));
 
+builder.Services.AddSingleton<IFileManager, FileManager>();
 builder.Services.AddScoped<IJohnyStoreLogger, JohnyStoreLogger>();
-builder.Services.AddScoped<IFileManager, FileManager>();
 builder.Services.AddScoped<ISneakerDataService, SneakerDataSevice>();
 builder.Services.AddScoped<IPictureSneakerDataService, PictureSneakerDataService>();
 builder.Services.AddScoped<IOrderDataService, OrderDataService>();
@@ -50,22 +50,6 @@ builder.Services.AddAuthentication(options => //добаление аутентификации в DI
     };
 });
 
-//List<string> domains = new List<string>
-//{
-//    builder.Configuration.GetValue<string>("Domains:ClientDomain")
-//};
-
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy("AllowSpecificDomain",
-//        builder =>
-//        {
-//            builder.WithOrigins(domains.ToArray())
-//                   .AllowAnyMethod()
-//                   .AllowAnyHeader();
-//        });
-//});
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -73,6 +57,9 @@ builder.Services.AddSwaggerGen();
 
 
 var app = builder.Build();
+
+var fileManager = app.Services.GetRequiredService<IFileManager>();
+fileManager.CheckAndCreateDirectoryOrFilesForApp();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

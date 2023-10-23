@@ -11,7 +11,7 @@ namespace JohnyStoreApi.Controllers
     {
         private readonly IOrderDataService _orderDataService;
 
-        public OrderController(IOrderDataService orderDataService) 
+        public OrderController(IOrderDataService orderDataService)
         {
             _orderDataService = orderDataService;
         }
@@ -32,7 +32,7 @@ namespace JohnyStoreApi.Controllers
         /// Получение всех заказов
         /// </summary>
         /// <returns></returns>
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetOrders")]
         public List<OrderModel> GetOrders()
         {
@@ -57,14 +57,14 @@ namespace JohnyStoreApi.Controllers
 
         }
 
-        [HttpPost("AddOrder")]
-        [AllowAnonymous]
         /// <summary>
         /// Добавление заказа
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public IActionResult AddOrder([FromForm] OrderModel model)
+        [AllowAnonymous]
+        [HttpPost("AddOrder")]
+        public IActionResult AddOrder([FromForm] AddOrderModel model)
         {
             bool check = _orderDataService.AddOrder(model);
 
@@ -73,7 +73,6 @@ namespace JohnyStoreApi.Controllers
 
             return BadRequest();
         }
-
 
         /// <summary>
         /// Удаление заказа

@@ -32,8 +32,8 @@ namespace JohnyStoreApi.Services.DataServices
         /// <returns></returns>
         public AvailabilityModel GetAvailability(int idSneakerModel)
         {
-            return _context.Availability.First(x => x.Model.Id == idSneakerModel || x.Visible == true)
-                .MapToAvailabilityModel(_context, _configuration) ?? new AvailabilityModel();
+            return _context.Availability.FirstOrDefault(x => x.Model.Id == idSneakerModel || x.Visible == true)
+                ?.MapToAvailabilityModel(_context) ?? new AvailabilityModel();
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace JohnyStoreApi.Services.DataServices
                     throw new Exception("При редактировании не указана модель");
 
                 Availability availability = model.MapToAvailability(_context);
-                Availability editAvailability = _context.Availability.First(x => x.Id == availability.Id && x.Visible == true)
+                Availability editAvailability = _context.Availability.FirstOrDefault(x => x.Model.Id == availability.Model.Id && x.Visible == true)
                     ?? throw new Exception("Запись о наличии не найдена");
 
                 editAvailability.Model = availability.Model;
@@ -105,15 +105,15 @@ namespace JohnyStoreApi.Services.DataServices
         }
 
         /// <summary>
-        /// Удаляет запись о наличии
+        /// Удаляет запись о наличии, по модели кроссовок
         /// </summary>
         /// <param name="availabilityId"></param>
         /// <returns></returns>
-        public bool DeleteAvailability(int availabilityId)
+        public bool DeleteAvailability(int sneakerId)
         {
             try
             {
-                Availability availability = _context.Availability.First(x => x.Id == availabilityId)
+                Availability availability = _context.Availability.FirstOrDefault(x => x.Model.Id == sneakerId)
                     ?? throw new Exception("запись о наличии не найдена");
                 availability.Visible = false;
 
@@ -165,7 +165,7 @@ namespace JohnyStoreApi.Services.DataServices
         {
             try
             {
-                AvailabilityStatus status = _context.AvailabilityStatuses.First(x => x.Id == availabilityId)
+                AvailabilityStatus status = _context.AvailabilityStatuses.FirstOrDefault(x => x.Id == availabilityId)
                     ?? throw new Exception("запись о статусе не найдена");
                 status.Visible = false;
 
