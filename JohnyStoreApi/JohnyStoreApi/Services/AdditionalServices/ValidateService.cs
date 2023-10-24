@@ -31,7 +31,7 @@ namespace JohnyStoreApi.Services.AdditionalServices
         /// <param name="model"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        public static bool Validate(this AddAvailabilityModel model, JohnyStoreContext context)
+        public static bool ValidateForAdd(this AddAvailabilityModel model, JohnyStoreContext context)
         {
             if (model == null)
                 return false;
@@ -61,6 +61,47 @@ namespace JohnyStoreApi.Services.AdditionalServices
             var availability = context.Availability.FirstOrDefault(x => x.Model.Id == model.ModelId);
 
             if (sneaker == null || availability != null)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>
+        /// Валидация модели наличия
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static bool ValidateForEdit(this AddAvailabilityModel model, JohnyStoreContext context)
+        {
+            if (model == null)
+                return false;
+
+            var statuses = context.AvailabilityStatuses
+                .Where(x => x.Visible == true)
+                .Select(x => x.Id)
+                .ToList();
+
+            if (!statuses.Any(x => x == model.Status35) ||
+                !statuses.Any(x => x == model.Status36) ||
+                !statuses.Any(x => x == model.Status37) ||
+                !statuses.Any(x => x == model.Status38) ||
+                !statuses.Any(x => x == model.Status39) ||
+                !statuses.Any(x => x == model.Status40) ||
+                !statuses.Any(x => x == model.Status41) ||
+                !statuses.Any(x => x == model.Status42) ||
+                !statuses.Any(x => x == model.Status43) ||
+                !statuses.Any(x => x == model.Status44) ||
+                !statuses.Any(x => x == model.Status45) ||
+                !statuses.Any(x => x == model.Status46))
+            {
+                return false;
+            }
+
+            var sneaker = context.ModelsSneakers.FirstOrDefault(x => x.Id == model.ModelId);
+            var availability = context.Availability.FirstOrDefault(x => x.Model.Id == model.ModelId);
+
+            if (sneaker == null || availability == null)
                 return false;
 
             return true;

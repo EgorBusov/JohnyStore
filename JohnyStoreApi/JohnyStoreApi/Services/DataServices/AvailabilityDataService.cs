@@ -45,7 +45,7 @@ namespace JohnyStoreApi.Services.DataServices
         {
             try
             {
-                if(!model.Validate(_context)) 
+                if(!model.ValidateForAdd(_context)) 
                 {
                     throw new Exception("Данные введены некорректно");
                 }
@@ -72,8 +72,9 @@ namespace JohnyStoreApi.Services.DataServices
         {
             try
             {
-                if (!(model.Validate(_context)) || model.ModelId == 0)
+                if (!(model.ValidateForEdit(_context)) || model.ModelId == 0)
                     throw new Exception("При редактировании не указана модель");
+
 
                 Availability availability = model.MapToAvailability(_context);
                 Availability editAvailability = _context.Availability.FirstOrDefault(x => x.Model.Id == availability.Model.Id && x.Visible == true)
