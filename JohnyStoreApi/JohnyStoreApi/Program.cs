@@ -54,6 +54,16 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        builderPolicy =>
+        {
+            builderPolicy.WithOrigins(builder.Configuration.GetValue<string>("Domains:ClientDomain"))
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
 
 
 var app = builder.Build();
@@ -62,6 +72,8 @@ var fileManager = app.Services.GetRequiredService<IFileManager>();
 fileManager.CheckAndCreateDirectoryOrFilesForApp();
 
 // Configure the HTTP request pipeline.
+app.UseCors("AllowSpecificOrigin");
+
 app.UseSwagger();
 app.UseSwaggerUI();
 

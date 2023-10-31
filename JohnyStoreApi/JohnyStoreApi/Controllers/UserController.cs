@@ -45,7 +45,7 @@ namespace JohnyStoreApi.Controllers
         public IActionResult Register([FromForm] LogPassModel model)
         {
             var token = _userService.AddUser(model);
-            if(string.IsNullOrEmpty(token)) 
+            if(string.IsNullOrEmpty(token))
                 return BadRequest();
 
             return Ok(new { token = token });

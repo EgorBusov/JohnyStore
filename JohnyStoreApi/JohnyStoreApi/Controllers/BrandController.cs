@@ -1,6 +1,7 @@
 ﻿using JohnyStoreApi.Models.Brand;
 using JohnyStoreApi.Services.Interfaces.DataInterfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JohnyStoreApi.Controllers
